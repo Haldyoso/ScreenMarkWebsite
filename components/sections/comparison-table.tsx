@@ -1,0 +1,122 @@
+import { Check, Minus } from "lucide-react";
+
+import { Reveal } from "@/components/motion/reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { compareRows } from "@/lib/content";
+import { cn } from "@/lib/utils";
+import type { CompareCell } from "@/types";
+
+/** Status is never conveyed by color alone — every mark carries a text label. */
+function Cell({ value }: { value: CompareCell }) {
+  if (value === true) {
+    return (
+      <>
+        <Check
+          aria-hidden="true"
+          strokeWidth={3}
+          className="mx-auto size-[18px] text-success"
+        />
+        <span className="sr-only">Yes</span>
+      </>
+    );
+  }
+
+  if (value === false) {
+    return (
+      <>
+        <Minus aria-hidden="true" className="mx-auto size-[18px] text-fg-subtle" />
+        <span className="sr-only">No</span>
+      </>
+    );
+  }
+
+  return <span className="text-[13px] text-fg-muted">{value}</span>;
+}
+
+const columns = [
+  { key: "snippingTool", label: "Snipping Tool" },
+  { key: "greenshot", label: "Greenshot" },
+  { key: "shareX", label: "ShareX" },
+] as const;
+
+export function ComparisonTable() {
+  return (
+    <section id="compare" className="scroll-mt-16 border-t border-divider bg-code-bg">
+      <div className="mx-auto max-w-[1200px] px-4 py-24 md:px-6">
+        <SectionHeading
+          overline="How it compares"
+          title="Illustrator-grade editing at Snipping-Tool speed"
+          className="mb-12"
+        />
+
+        <Reveal>
+          {/* Focusable so the scrollable table is reachable by keyboard (WCAG 2.2). */}
+          <div
+            role="region"
+            aria-label="Feature comparison against other Windows capture tools"
+            tabIndex={0}
+            className="overflow-x-auto rounded-lg border border-border"
+          >
+            <table className="w-full min-w-[640px] border-collapse text-sm">
+              <caption className="sr-only">
+                How ScreenMarkPro compares with Snipping Tool, Greenshot and ShareX
+              </caption>
+              <thead>
+                <tr className="bg-surface">
+                  <th
+                    scope="col"
+                    className="border-b border-border px-[18px] py-4 text-left font-semibold text-fg-muted"
+                  >
+                    Capability
+                  </th>
+                  <th
+                    scope="col"
+                    className="border-b border-border bg-accent/10 px-3.5 py-4 text-center font-bold text-fg"
+                  >
+                    ScreenMarkPro
+                  </th>
+                  {columns.map((column) => (
+                    <th
+                      key={column.key}
+                      scope="col"
+                      className="border-b border-border px-3.5 py-4 text-center font-semibold whitespace-nowrap text-fg-muted"
+                    >
+                      {column.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {compareRows.map((row) => (
+                  <tr key={row.label}>
+                    <th
+                      scope="row"
+                      className="border-b border-divider px-[18px] py-3.5 text-left font-normal text-fg"
+                    >
+                      {row.label}
+                    </th>
+                    <td
+                      className={cn(
+                        "border-b border-divider bg-accent/6 px-3.5 py-3.5 text-center",
+                      )}
+                    >
+                      <Cell value={row.screenMarkPro} />
+                    </td>
+                    {columns.map((column) => (
+                      <td
+                        key={column.key}
+                        className="border-b border-divider px-3.5 py-3.5 text-center"
+                      >
+                        <Cell value={row[column.key]} />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}

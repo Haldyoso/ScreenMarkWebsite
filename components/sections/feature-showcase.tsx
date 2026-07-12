@@ -1,0 +1,108 @@
+"use client";
+
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+
+import { SectionHeading } from "@/components/ui/section-heading";
+import { Screenshot } from "@/components/ui/screenshot";
+import { WindowFrame } from "@/components/ui/window-frame";
+import { showcase } from "@/lib/content";
+import { cn } from "@/lib/utils";
+
+export function FeatureShowcase() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const active = showcase[activeIndex];
+  const ActiveIcon = active.icon;
+
+  return (
+    <section id="features" className="mx-auto max-w-[1200px] scroll-mt-20 px-4 py-16 md:px-6">
+      <SectionHeading
+        overline="Interactive editing"
+        title="A vector editor that opens as fast as a screenshot"
+        subtitle="Hover a capability to see it in the workspace."
+        className="mb-12"
+      />
+
+      <div className="grid items-stretch gap-8 min-[900px]:grid-cols-[0.9fr_1.1fr]">
+        <ul className="flex flex-col gap-2">
+          {showcase.map((feature, index) => {
+            const Icon = feature.icon;
+            const isActive = index === activeIndex;
+
+            return (
+              <li key={feature.id}>
+                <button
+                  type="button"
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onFocus={() => setActiveIndex(index)}
+                  onClick={() => setActiveIndex(index)}
+                  aria-pressed={isActive}
+                  className={cn(
+                    "flex w-full items-start gap-3.5 rounded-lg border p-[18px_20px] text-left transition-[border-color,background-color] duration-150 ease-standard",
+                    isActive
+                      ? "border-accent/55 bg-accent-subtle"
+                      : "border-border bg-card",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "flex size-[38px] shrink-0 items-center justify-center rounded-[9px] transition-colors duration-150",
+                      isActive ? "bg-accent/18 text-accent-hover" : "bg-[#22242a] text-[#7f858e]",
+                    )}
+                  >
+                    <Icon aria-hidden="true" strokeWidth={1.75} className="size-[22px]" />
+                  </span>
+                  <span>
+                    <span className="mb-[3px] block text-base font-semibold">
+                      {feature.name}
+                    </span>
+                    <span className="block text-sm leading-normal text-fg-muted">
+                      {feature.short}
+                    </span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+
+        <WindowFrame className="flex min-h-[360px] flex-col">
+          <div className="screenshot-hatch flex flex-1 items-center justify-center p-7 text-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active.id}
+                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
+                className="max-w-[420px]"
+              >
+                <span className="mx-auto mb-4 flex size-11 items-center justify-center rounded-[11px] bg-accent-subtle text-accent">
+                  <ActiveIcon
+                    aria-hidden="true"
+                    strokeWidth={1.75}
+                    className="size-[22px]"
+                  />
+                </span>
+                <h3 className="mb-2 text-xl font-semibold">{active.name}</h3>
+                <p className="text-[15px] leading-relaxed text-fg-muted">
+                  {active.description}
+                </p>
+                <div className="mt-4">
+                  <Screenshot
+                    screenshot={active.screenshot}
+                    ratio="aspect-[16/10]"
+                    sizes="(max-width: 900px) 100vw, 620px"
+                    className="overflow-hidden rounded-md"
+                    bare
+                  />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </WindowFrame>
+      </div>
+    </section>
+  );
+}
