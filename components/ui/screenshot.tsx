@@ -19,6 +19,12 @@ interface ScreenshotProps {
    * a caption line instead of drawing a second hatch on top of the first.
    */
   bare?: boolean;
+  /**
+   * Hides the image from assistive tech. Use where the surrounding control or
+   * live region already announces the same description (gallery card buttons,
+   * the lightbox) — otherwise screen readers read the caption twice.
+   */
+  decorative?: boolean;
 }
 
 /**
@@ -34,6 +40,7 @@ export function Screenshot({
   className,
   showGlyph = false,
   bare = false,
+  decorative = false,
 }: ScreenshotProps) {
   const { src, alt } = screenshot;
 
@@ -42,7 +49,8 @@ export function Screenshot({
       <div className={cn("relative", ratio, className)}>
         <Image
           src={src}
-          alt={alt}
+          // An empty alt is the correct way to mark an image decorative.
+          alt={decorative ? "" : alt}
           fill
           sizes={sizes}
           priority={priority}
@@ -54,7 +62,10 @@ export function Screenshot({
 
   if (bare) {
     return (
-      <p className={cn("text-[13px] leading-normal text-fg-subtle", className)}>
+      <p
+        aria-hidden={decorative || undefined}
+        className={cn("text-[13px] leading-normal text-fg-subtle", className)}
+      >
         [ SCREENSHOT ] {alt}
       </p>
     );
@@ -62,8 +73,9 @@ export function Screenshot({
 
   return (
     <div
-      role="img"
-      aria-label={alt}
+      {...(decorative
+        ? { "aria-hidden": true }
+        : { role: "img", "aria-label": alt })}
       className={cn(
         "screenshot-hatch flex items-center justify-center p-6 text-center",
         ratio,

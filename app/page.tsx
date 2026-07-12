@@ -1,5 +1,6 @@
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { SkipLink } from "@/components/layout/skip-link";
 import { Benefits } from "@/components/sections/benefits";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { DownloadCta } from "@/components/sections/download-cta";
@@ -24,9 +25,11 @@ export default function Home() {
         className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(rgb(255_255_255/0.035)_1px,transparent_1px)] bg-size-[26px_26px] opacity-40"
       />
 
+      <SkipLink />
       <Navbar />
 
-      <main id="top" className="relative z-1">
+      {/* tabIndex -1 so the skip link actually moves focus here, not just scroll. */}
+      <main id="top" tabIndex={-1} className="relative z-1 focus:outline-none">
         <Hero />
         <Benefits />
         <FeatureShowcase />

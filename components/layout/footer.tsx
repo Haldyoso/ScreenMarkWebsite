@@ -17,8 +17,15 @@ export function Footer() {
           </div>
 
           {footerColumns.map((column) => (
-            <nav key={column.title} aria-label={column.title}>
-              <h2 className="mb-3.5 text-xs font-semibold uppercase tracking-[0.8px] text-fg-subtle">
+            /* Named by the visible heading rather than a duplicate aria-label. */
+            <nav
+              key={column.title}
+              aria-labelledby={`footer-${column.title.toLowerCase()}`}
+            >
+              <h2
+                id={`footer-${column.title.toLowerCase()}`}
+                className="mb-3.5 text-xs font-semibold uppercase tracking-[0.8px] text-fg-subtle"
+              >
                 {column.title}
               </h2>
               <ul className="flex flex-col gap-2.5 text-sm">

@@ -15,10 +15,16 @@
   --color-divider: #202226;
   --color-code-bg: #131417;
 
+  /* Hover/inactive shades the prototype uses but the token table never named. */
+  --color-border-strong: #3a3e45; /* secondary button hover edge */
+  --color-surface-hover: #26282e; /* elevated button hover fill */
+  --color-tile: #22242a; /* inactive icon tile in the showcase */
+
   /* --- text: fg = text.primary · fg-muted = text.secondary · fg-subtle = text.disabled --- */
   --color-fg: #f2f3f5;
   --color-fg-muted: #9ba1aa;
   --color-fg-subtle: #5a5f68;
+  --color-fg-icon: #7f858e; /* inactive showcase icon */
 
   /* --- accent --- */
   --color-accent: #4c8dd6;

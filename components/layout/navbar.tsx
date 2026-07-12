@@ -1,6 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  domAnimation,
+  LazyMotion,
+  m,
+  useReducedMotion,
+} from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -111,38 +117,41 @@ export function Navbar() {
         </nav>
       </div>
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            id="mobile-menu"
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
-            className="border-b border-border bg-code-bg min-[900px]:hidden"
-          >
-            <div className="flex flex-col gap-0.5 px-4 py-3 md:px-6">
-              {site.nav.map((item) => (
+      {/* LazyMotion + `m` loads only the DOM animation features, not all of Framer. */}
+      <LazyMotion features={domAnimation} strict>
+        <AnimatePresence>
+          {menuOpen && (
+            <m.div
+              id="mobile-menu"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
+              className="border-b border-border bg-code-bg min-[900px]:hidden"
+            >
+              <div className="flex flex-col gap-0.5 px-4 py-3 md:px-6">
+                {site.nav.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="rounded-md px-2 py-3.5 text-base font-medium text-fg"
+                  >
+                    {item.label}
+                  </a>
+                ))}
                 <a
-                  key={item.href}
-                  href={item.href}
+                  href="#download"
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-md px-2 py-3.5 text-base font-medium text-fg"
+                  className="mt-2 rounded-md bg-accent px-2 py-3.5 text-center font-semibold text-white"
                 >
-                  {item.label}
+                  Download for Windows
                 </a>
-              ))}
-              <a
-                href="#download"
-                onClick={() => setMenuOpen(false)}
-                className="mt-2 rounded-md bg-accent px-2 py-3.5 text-center font-semibold text-white"
-              >
-                Download for Windows
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+            </m.div>
+          )}
+        </AnimatePresence>
+      </LazyMotion>
     </header>
   );
 }

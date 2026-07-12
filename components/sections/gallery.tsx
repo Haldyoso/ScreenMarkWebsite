@@ -57,11 +57,13 @@ export function Gallery() {
               aria-label={`Enlarge: ${item.caption}`}
               className="h-full w-full overflow-hidden rounded-lg border border-border bg-card text-left transition-[border-color,transform] duration-[120ms] ease-standard hover:-translate-y-0.5 hover:border-accent/50"
             >
+              {/* The button's aria-label already carries this caption. */}
               <Screenshot
                 screenshot={item.screenshot}
                 ratio="aspect-[16/10]"
                 sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 384px"
                 className="p-5 text-[13px]"
+                decorative
               />
               <span className="flex items-center justify-between gap-2 px-4 py-3.5">
                 <span className="text-sm font-medium text-fg">{item.title}</span>

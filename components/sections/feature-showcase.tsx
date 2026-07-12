@@ -1,6 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  domAnimation,
+  LazyMotion,
+  m,
+  useReducedMotion,
+} from "framer-motion";
 import { useState } from "react";
 
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -48,7 +54,7 @@ export function FeatureShowcase() {
                   <span
                     className={cn(
                       "flex size-[38px] shrink-0 items-center justify-center rounded-[9px] transition-colors duration-150",
-                      isActive ? "bg-accent/18 text-accent-hover" : "bg-[#22242a] text-[#7f858e]",
+                      isActive ? "bg-accent/18 text-accent-hover" : "bg-tile text-fg-icon",
                     )}
                   >
                     <Icon aria-hidden="true" strokeWidth={1.75} className="size-[22px]" />
@@ -69,37 +75,40 @@ export function FeatureShowcase() {
 
         <WindowFrame className="flex min-h-[360px] flex-col">
           <div className="screenshot-hatch flex flex-1 items-center justify-center p-7 text-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active.id}
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
-                animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
-                className="max-w-[420px]"
-              >
-                <span className="mx-auto mb-4 flex size-11 items-center justify-center rounded-[11px] bg-accent-subtle text-accent">
-                  <ActiveIcon
-                    aria-hidden="true"
-                    strokeWidth={1.75}
-                    className="size-[22px]"
-                  />
-                </span>
-                <h3 className="mb-2 text-xl font-semibold">{active.name}</h3>
-                <p className="text-[15px] leading-relaxed text-fg-muted">
-                  {active.description}
-                </p>
-                <div className="mt-4">
-                  <Screenshot
-                    screenshot={active.screenshot}
-                    ratio="aspect-[16/10]"
-                    sizes="(max-width: 900px) 100vw, 620px"
-                    className="overflow-hidden rounded-md"
-                    bare
-                  />
-                </div>
-              </motion.div>
-            </AnimatePresence>
+            {/* LazyMotion + `m` loads only DOM animation features, not all of Framer. */}
+            <LazyMotion features={domAnimation} strict>
+              <AnimatePresence mode="wait">
+                <m.div
+                  key={active.id}
+                  initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                  animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
+                  className="max-w-[420px]"
+                >
+                  <span className="mx-auto mb-4 flex size-11 items-center justify-center rounded-[11px] bg-accent-subtle text-accent">
+                    <ActiveIcon
+                      aria-hidden="true"
+                      strokeWidth={1.75}
+                      className="size-[22px]"
+                    />
+                  </span>
+                  <h3 className="mb-2 text-xl font-semibold">{active.name}</h3>
+                  <p className="text-[15px] leading-relaxed text-fg-muted">
+                    {active.description}
+                  </p>
+                  <div className="mt-4">
+                    <Screenshot
+                      screenshot={active.screenshot}
+                      ratio="aspect-[16/10]"
+                      sizes="(max-width: 900px) 100vw, 620px"
+                      className="overflow-hidden rounded-md"
+                      bare
+                    />
+                  </div>
+                </m.div>
+              </AnimatePresence>
+            </LazyMotion>
           </div>
         </WindowFrame>
       </div>

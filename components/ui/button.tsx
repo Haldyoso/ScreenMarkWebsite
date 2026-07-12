@@ -12,9 +12,9 @@ const buttonVariants = cva(
         primary:
           "bg-accent text-white shadow-glow-sm hover:bg-accent-hover active:bg-accent-pressed",
         secondary:
-          "border border-border bg-surface text-fg hover:border-[#3a3e45] hover:bg-surface-elevated",
+          "border border-border bg-surface text-fg hover:border-border-strong hover:bg-surface-elevated",
         elevated:
-          "border border-border bg-surface-elevated text-fg hover:bg-[#26282e]",
+          "border border-border bg-surface-elevated text-fg hover:bg-surface-hover",
         ghost: "text-fg-muted hover:bg-white/6 hover:text-fg",
       },
       size: {

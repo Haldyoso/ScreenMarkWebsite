@@ -46,6 +46,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // downloadUrl is still a "#" placeholder; emitting it would feed Google a link
+  // to nowhere, so it is omitted until lib/site.ts points at the real asset.
+  const hasRealDownload = site.release.downloadUrl.startsWith("http");
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -54,9 +58,9 @@ export default function RootLayout({
     operatingSystem: "Windows 10, Windows 11",
     applicationCategory: "DesignApplication",
     softwareVersion: site.release.version,
-    fileSize: site.release.size,
+    fileSize: site.release.size.replace("~", "").trim(),
     url: site.url,
-    downloadUrl: new URL(site.release.downloadUrl, site.url).toString(),
+    ...(hasRealDownload ? { downloadUrl: site.release.downloadUrl } : {}),
     license: "https://opensource.org/licenses/MIT",
     offers: {
       "@type": "Offer",

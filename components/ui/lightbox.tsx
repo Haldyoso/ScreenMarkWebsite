@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { domAnimation, LazyMotion, m, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -23,6 +23,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
 
   const item = items[index];
   const total = items.length;
+  const position = `${index + 1} / ${total}`;
 
   useLockBodyScroll(true);
 
@@ -75,72 +76,77 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
   }, [onClose, step]);
 
   return (
-    <motion.div
-      ref={dialogRef}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Screenshot viewer"
-      onClick={onClose}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.18, ease: [0.2, 0, 0, 1] }}
-      className="fixed inset-0 z-400 flex items-center justify-center bg-black/78 p-6 backdrop-blur-[6px]"
-    >
-      <button
-        ref={closeButtonRef}
-        type="button"
+    <LazyMotion features={domAnimation} strict>
+      <m.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Screenshot viewer, ${position}`}
         onClick={onClose}
-        aria-label="Close"
-        className="absolute top-5 right-5 flex size-11 items-center justify-center rounded-md border border-border bg-surface text-fg hover:bg-surface-elevated"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.18, ease: [0.2, 0, 0, 1] }}
+        className="fixed inset-0 z-400 flex items-center justify-center bg-black/78 p-6 backdrop-blur-[6px]"
       >
-        <X aria-hidden="true" className="size-[22px]" />
-      </button>
-
-      <button
-        type="button"
-        onClick={(event) => {
-          event.stopPropagation();
-          step(-1);
-        }}
-        aria-label="Previous screenshot"
-        className="absolute left-5 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-fg hover:bg-surface-elevated"
-      >
-        <ChevronLeft aria-hidden="true" className="size-6" />
-      </button>
-
-      <button
-        type="button"
-        onClick={(event) => {
-          event.stopPropagation();
-          step(1);
-        }}
-        aria-label="Next screenshot"
-        className="absolute right-5 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-fg hover:bg-surface-elevated"
-      >
-        <ChevronRight aria-hidden="true" className="size-6" />
-      </button>
-
-      {/* Clicks inside the panel must not reach the backdrop's close handler. */}
-      <div
-        className="w-full max-w-[1000px]"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <WindowFrame className="shadow-[0_16px_48px_rgb(0_0_0/0.6)]">
-          <Screenshot
-            screenshot={item.screenshot}
-            ratio="aspect-[16/9]"
-            sizes="(max-width: 1000px) 100vw, 1000px"
-            className="p-8"
-          />
-        </WindowFrame>
-        <p className="mt-4 text-center text-sm text-fg-muted">
-          {item.title} ·{" "}
-          <span className="text-fg-subtle">
-            {index + 1} / {total}
-          </span>
+        {/*
+         * Arrowing through the set swaps the image silently otherwise — this
+         * announces each one to screen readers as it becomes current.
+         */}
+        <p aria-live="polite" className="sr-only">
+          {item.title}, image {position}. {item.screenshot.alt}
         </p>
-      </div>
-    </motion.div>
+
+        <button
+          ref={closeButtonRef}
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute top-5 right-5 flex size-11 items-center justify-center rounded-md border border-border bg-surface text-fg hover:bg-surface-elevated"
+        >
+          <X aria-hidden="true" className="size-[22px]" />
+        </button>
+
+        <button
+          type="button"
+          onClick={(event) => {
+            event.stopPropagation();
+            step(-1);
+          }}
+          aria-label="Previous screenshot"
+          className="absolute left-5 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-fg hover:bg-surface-elevated"
+        >
+          <ChevronLeft aria-hidden="true" className="size-6" />
+        </button>
+
+        <button
+          type="button"
+          onClick={(event) => {
+            event.stopPropagation();
+            step(1);
+          }}
+          aria-label="Next screenshot"
+          className="absolute right-5 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-fg hover:bg-surface-elevated"
+        >
+          <ChevronRight aria-hidden="true" className="size-6" />
+        </button>
+
+        {/* Clicks inside the panel must not reach the backdrop's close handler. */}
+        <div className="w-full max-w-[1000px]" onClick={(event) => event.stopPropagation()}>
+          <WindowFrame className="shadow-[0_16px_48px_rgb(0_0_0/0.6)]">
+            <Screenshot
+              screenshot={item.screenshot}
+              ratio="aspect-[16/9]"
+              sizes="(max-width: 1000px) 100vw, 1000px"
+              className="p-8"
+              decorative
+            />
+          </WindowFrame>
+          <p className="mt-4 text-center text-sm text-fg-muted">
+            {item.title} · <span className="text-fg-subtle">{position}</span>
+          </p>
+        </div>
+      </m.div>
+    </LazyMotion>
   );
 }
