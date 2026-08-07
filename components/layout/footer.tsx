@@ -48,7 +48,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-divider pt-6 text-[13px] text-fg-subtle">
-          <span>© 2026 ScreenMarkPro. Released under the MIT License.</span>
+          <span>© 2026 ScreenMark. Released under the MIT License.</span>
           <span>Portable · Offline · No telemetry</span>
         </div>
       </div>

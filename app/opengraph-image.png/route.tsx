@@ -1,13 +1,20 @@
 import { ImageResponse } from "next/og";
 
-import { site } from "@/lib/site";
+/**
+ * Deliberately a route handler at /opengraph-image.png rather than Next's
+ * `app/opengraph-image.tsx` file convention. The convention exports to an
+ * extensionless out/opengraph-image, and GitHub Pages types files purely by
+ * extension — scrapers then get application/octet-stream and drop the card.
+ * It also wins over `openGraph.images` in layout.tsx, so it can't just be
+ * pointed elsewhere. Naming the segment .png puts the extension in the
+ * exported filename; layout.tsx references this URL explicitly.
+ */
+export const dynamic = "force-static";
 
-export const alt = `${site.name} — ${site.tagline}`;
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+const size = { width: 1200, height: 630 };
 
 /** Social card: the same dark canvas, accent glow and gradient wordmark as the hero. */
-export default function OpengraphImage() {
+export function GET() {
   return new ImageResponse(
     (
       <div
@@ -52,8 +59,8 @@ export default function OpengraphImage() {
           </div>
           {/* Satori requires an explicit display on any node with 2+ children. */}
           <div style={{ display: "flex", fontSize: 34, fontWeight: 700 }}>
-            <span>ScreenMark</span>
-            <span style={{ color: "#4C8DD6" }}>Pro</span>
+            <span>Screen</span>
+            <span style={{ color: "#4C8DD6" }}>Mark</span>
           </div>
         </div>
 

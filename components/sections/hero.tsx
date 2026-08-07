@@ -67,7 +67,7 @@ export function Hero() {
             className="absolute -inset-px rounded-xl bg-linear-[120deg] from-accent/50 to-secondary/35 opacity-50 blur-[22px]"
           />
           <WindowFrame
-            title="ScreenMarkPro — Freeze mode · Monitor 1"
+            title="ScreenMark — Freeze mode · Monitor 1"
             className="relative shadow-e3"
           >
             <Screenshot

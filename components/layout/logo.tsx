@@ -40,7 +40,7 @@ export function Logo({
         </svg>
       </span>
       <span>
-        ScreenMark<span className="text-accent">Pro</span>
+        Screen<span className="text-accent">Mark</span>
       </span>
     </span>
   );

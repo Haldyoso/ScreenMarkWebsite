@@ -65,7 +65,7 @@ export function Navbar() {
         >
           <a href="#top" className="rounded-md">
             <Logo glow />
-            <span className="sr-only">ScreenMarkPro — back to top</span>
+            <span className="sr-only">ScreenMark — back to top</span>
           </a>
 
           <div className="flex-1" />

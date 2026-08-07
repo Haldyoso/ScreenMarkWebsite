@@ -28,7 +28,7 @@ export function DownloadCta() {
             </Badge>
 
             <h2 className="mx-auto max-w-[640px] text-[clamp(28px,4.5vw,38px)] font-bold tracking-[-0.5px]">
-              Download ScreenMarkPro
+              Download ScreenMark
             </h2>
             <p className="mx-auto mt-4 max-w-[560px] text-lg leading-[1.55] text-fg-muted">
               Portable ZIP — unzip and run. No installation, no admin rights, no internet.

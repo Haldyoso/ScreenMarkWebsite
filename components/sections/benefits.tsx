@@ -5,7 +5,7 @@ import { benefits } from "@/lib/content";
 export function Benefits() {
   return (
     <section
-      aria-label="Why ScreenMarkPro"
+      aria-label="Why ScreenMark"
       className="mx-auto max-w-[1200px] px-4 pt-8 pb-24 md:px-6"
     >
       <ul className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">

@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import "./globals.css";
 
+const ogAlt = `${site.name} — ${site.tagline}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -30,11 +32,14 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
     locale: "en_US",
+    /** Served by the route handler in app/opengraph-image.png/ — see why there. */
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: ogAlt }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: ogAlt }],
   },
   robots: { index: true, follow: true },
 };

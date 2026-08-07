@@ -308,7 +308,7 @@ export const faqs: Faq[] = [
   {
     question: "Do I need to install anything?",
     answer:
-      "No. ScreenMarkPro is a portable application — unzip the folder and run the executable. It needs no installer, no administrator rights and no registry changes, so it works fine on locked-down corporate machines and from a USB stick.",
+      "No. ScreenMark is a portable application — unzip the folder and run the executable. It needs no installer, no administrator rights and no registry changes, so it works fine on locked-down corporate machines and from a USB stick.",
   },
   {
     question: "What does “everything stays editable” actually mean?",

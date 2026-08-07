@@ -59,7 +59,7 @@ export function ComparisonTable() {
           >
             <table className="w-full min-w-[640px] border-collapse text-sm">
               <caption className="sr-only">
-                How ScreenMarkPro compares with Snipping Tool, Greenshot and ShareX
+                How ScreenMark compares with Snipping Tool, Greenshot and ShareX
               </caption>
               <thead>
                 <tr className="bg-surface">
@@ -73,7 +73,7 @@ export function ComparisonTable() {
                     scope="col"
                     className="border-b border-border bg-accent/10 px-3.5 py-4 text-center font-bold text-fg"
                   >
-                    ScreenMarkPro
+                    ScreenMark
                   </th>
                   {columns.map((column) => (
                     <th

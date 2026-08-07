@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* =============================================================================
-   ScreenMarkPro design tokens.
+   ScreenMark design tokens.
    Dark is the primary theme. The light token set is applied only when :root
    carries data-theme="light" — the prototype and every screenshot are dark.
    ========================================================================== */
