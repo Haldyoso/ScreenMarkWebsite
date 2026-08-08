@@ -64,7 +64,7 @@ export function Hero() {
         <div className="relative mt-14">
           <div
             aria-hidden="true"
-            className="absolute -inset-px rounded-xl bg-linear-[120deg] from-accent/50 to-secondary/35 opacity-50 blur-[22px]"
+            className="absolute -inset-px rounded-xl bg-linear-[120deg] from-accent/50 to-accent-soft/35 opacity-50 blur-[22px]"
           />
           <WindowFrame
             title="ScreenMark — Freeze mode · Monitor 1"

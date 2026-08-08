@@ -1,13 +1,54 @@
 import { cn } from "@/lib/utils";
 
-/** Gradient tile + pen-mark glyph. The tile is decorative; the wordmark is the text. */
+/**
+ * The ScreenMark mark: a capture bracket, a measurement crosshair and one
+ * orange node — the product's real icon, transcribed from the brand icon set.
+ *
+ * This is that set's `small` level of detail. The full mark also carries
+ * dash-dot guides and a dimension chain, which the icon spec says turn to mush
+ * below ~40px — and the only places this site draws it are a 26–28px lockup.
+ *
+ * Both hues are token-driven rather than hard-coded so the mark inverts with
+ * the theme: the crosshair rides on `fg`, which is the brand's
+ * crosshair-on-dark / crosshair-on-light pair already expressed as one token.
+ */
+function Mark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 256 256" aria-hidden="true" className={className}>
+      <g transform="translate(-2.906 -1.891) scale(1.01477)">
+        <path
+          d="M118 44 H58 A26 26 0 0 0 32 70 V186 A26 26 0 0 0 58 212 H178"
+          fill="none"
+          strokeWidth="28"
+          strokeLinejoin="round"
+          className="stroke-accent"
+        />
+        <g className="fill-fg">
+          <rect x="64" y="118" width="38" height="18" />
+          <rect x="134" y="118" width="38" height="18" />
+          <rect x="109" y="73" width="18" height="38" />
+          <rect x="109" y="143" width="18" height="38" />
+        </g>
+        {/*
+         * The one place the site is allowed to spend Mark Orange: in the logo
+         * it *is* the selected, still-editable handle, which is the single
+         * meaning the brand reserves that hue for.
+         */}
+        <circle cx="214" cy="44" r="26" className="fill-mark" />
+        <circle cx="214" cy="212" r="26" className="fill-accent" />
+      </g>
+    </svg>
+  );
+}
+
+/** Mark + wordmark. The mark is decorative; the wordmark is the accessible text. */
 export function Logo({
   className,
-  tileClassName,
+  markClassName,
   glow = false,
 }: {
   className?: string;
-  tileClassName?: string;
+  markClassName?: string;
   glow?: boolean;
 }) {
   return (
@@ -17,28 +58,13 @@ export function Logo({
         className,
       )}
     >
-      <span
-        aria-hidden="true"
+      <Mark
         className={cn(
-          "inline-flex size-7 items-center justify-center rounded-[7px] bg-linear-[145deg] from-accent to-accent-pressed",
-          glow && "shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_4px_14px_rgb(76_141_214/0.35)]",
-          tileClassName,
+          "size-7 shrink-0",
+          glow && "drop-shadow-[0_4px_14px_rgb(45_125_246/0.35)]",
+          markClassName,
         )}
-      >
-        <svg
-          width="17"
-          height="17"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M4 20 L14 6 l4 4 L8 20 Z" />
-          <path d="M14 6 l2-2 4 4 -2 2" />
-        </svg>
-      </span>
+      />
       <span>
         Screen<span className="text-accent">Mark</span>
       </span>

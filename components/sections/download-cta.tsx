@@ -18,7 +18,7 @@ export function DownloadCta() {
         <div className="relative overflow-hidden rounded-xl border border-border bg-surface px-8 py-14 text-center">
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(600px_300px_at_50%_-20%,rgb(76_141_214/0.22),transparent_60%)]"
+            className="absolute inset-0 bg-[radial-gradient(600px_300px_at_50%_-20%,rgb(45_125_246/0.22),transparent_60%)]"
           />
 
           <div className="relative">
@@ -35,7 +35,7 @@ export function DownloadCta() {
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3.5">
-              <Button asChild size="lg" className="shadow-[0_8px_24px_rgb(76_141_214/0.35)]">
+              <Button asChild size="lg" className="shadow-[0_8px_24px_rgb(45_125_246/0.35)]">
                 <a href={downloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
                   Download ZIP (v{version})

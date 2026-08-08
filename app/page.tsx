@@ -15,10 +15,14 @@ import { Shortcuts } from "@/components/sections/shortcuts";
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-      {/* Two fixed radial glows plus a faint dotted grid, both behind all content. */}
+      {/*
+        Two fixed radial glows plus a faint dotted grid, both behind all
+        content. Both glows are Signal Blue — the second is simply the darker
+        700 step, since the brand has no third hue to reach for here.
+      */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(900px_500px_at_78%_-8%,rgb(76_141_214/0.14),transparent_60%),radial-gradient(700px_480px_at_8%_12%,rgb(63_182_168/0.06),transparent_55%)]"
+        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(900px_500px_at_78%_-8%,rgb(45_125_246/0.14),transparent_60%),radial-gradient(700px_480px_at_8%_12%,rgb(26_80_174/0.10),transparent_55%)]"
       />
       <div
         aria-hidden="true"

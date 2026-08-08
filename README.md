@@ -52,26 +52,31 @@ primary theme; the light token set is defined and applies when `<html data-theme
 The one mapping worth memorizing: the spec's `text.primary` / `text.secondary` /
 `text.disabled` are the utilities `text-fg` / `text-fg-muted` / `text-fg-subtle`.
 
-## Adding the real screenshots
+## Screenshots
 
-Every screenshot is currently a **labeled placeholder** describing exactly what belongs
-there. That description doubles as the `alt` text, so it lives in exactly one place.
+`public/screenshots/` holds twelve real captures of ScreenMark annotating an engineering
+drawing — not mock-ups. Each is cropped from a full 1920×1080 capture of the app running
+over the drawing held open behind it, so what the site shows is what the product draws.
 
-To swap in a real capture:
-
-1. Drop the image in `public/screenshots/`.
-2. Set `src` on the matching entry in [`lib/content.ts`](lib/content.ts):
+Every entry in [`lib/content.ts`](lib/content.ts) pairs the file with its `alt`, and the
+`alt` describes **that specific image**, not the feature in the abstract. If you re-shoot a
+capture and the contents change — a different angle reading, a different stamp — change the
+`alt` in the same commit or it quietly starts lying to screen readers.
 
 ```ts
 screenshot: {
-  src: "/screenshots/freeze-mode.png",
-  alt: "Frozen CAD viewport with an editable arrow selected …", // keep this accurate
+  src: "/screenshots/measurement.png",   // root-relative; basePath is added at render
+  alt: "An angle measured across two bolt holes reading 35.2° …",
 }
 ```
 
-`<Screenshot>` then renders it through `next/image` instead of the placeholder. Note that
-image **optimization is off** (see Deployment) — export screenshots at the size they
-render, roughly 1200 px wide, because the browser downloads exactly what you commit.
+Two things to keep in mind when replacing one:
+
+- **Size.** Image optimization is off (see Deployment), so the browser downloads exactly
+  what you commit. The hero renders ~1200 px wide at 16:9; showcase and gallery slots are
+  16:10. Match those ratios or `object-cover` will crop the sides off.
+- **`basePath` is applied in [`components/ui/screenshot.tsx`](components/ui/screenshot.tsx),
+  not in the data.** See Deployment for why it has to be.
 
 ## Deployment
 
@@ -86,8 +91,14 @@ Pages is a static file host with no Node process, which forces four things:
   "force-static"` or the build fails on it — one at a time, so expect to hit them in turn.
 - **`basePath`** — project sites are served from `/<repo>`, not the root. It lives in
   [`lib/site.ts`](lib/site.ts) so the config and the app share one value. Next rewrites
-  `<Link>`, `next/image` and the build output automatically; it does *not* touch strings
-  inside the manifest JSON body, which are prefixed by hand.
+  `<Link>` and the build output automatically. Two places it does **not** reach, both
+  prefixed by hand:
+  - strings inside the manifest JSON body ([`app/manifest.ts`](app/manifest.ts)) — plain
+    data as far as Next is concerned;
+  - `next/image` **when `images.unoptimized` is set**. The prefix is normally applied by
+    the loader, and turning optimization off short-circuits exactly that loader, so the
+    tag ships the bare `src` and every capture 404s on a project site. Handled once in
+    [`components/ui/screenshot.tsx`](components/ui/screenshot.tsx).
 - **`images.unoptimized: true`** — the default loader resizes on request and there is no
   server to do it.
 - **No security headers.** The `headers()` block was removed rather than left to be
@@ -108,9 +119,12 @@ domain.
 - `lib/site.ts` — `repo` and `release.olderVersionsUrl` still point at bare
   `https://github.com`, and `release.downloadUrl` is `#`, so **the download button goes
   nowhere**. `sha256` is a placeholder too. The app repo has no published release yet.
-- No `LICENSE` file, though the footer and the JSON-LD both claim MIT.
+- `lib/site.ts` — `release.version` says `1.0.0` and `release.size` `~8.4 MB`; the app repo
+  is on `0.9.9.58` and its portable ZIP is ~66 MB.
+- **No `LICENSE` file in the app repo, though the footer and the JSON-LD both claim MIT.**
+  That is a licence claim about someone else's software, so it needs deciding rather than
+  copying — the marketing plan in that repo assumes a paid commercial licence.
 - Replace the remaining `#` hrefs in the footer (Documentation, Changelog, License).
-- Real screenshots — all twelve slots are still placeholders.
 
 ## Accessibility & motion
 

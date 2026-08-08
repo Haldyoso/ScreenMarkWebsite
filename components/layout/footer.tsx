@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 min-[720px]:grid-cols-[1.2fr_1fr_1fr] min-[900px]:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="col-span-2 min-[720px]:col-span-1">
             <a href="#top" className="mb-3.5 inline-flex rounded-md">
-              <Logo tileClassName="size-[26px]" />
+              <Logo markClassName="size-[26px]" />
             </a>
             <p className="max-w-[280px] text-sm leading-relaxed text-fg-muted">
               Draw directly on your screen. Edit everything later. Portable annotation for

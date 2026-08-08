@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 
+import { basePath } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import type { Screenshot as ScreenshotData } from "@/types";
 
@@ -48,7 +49,15 @@ export function Screenshot({
     return (
       <div className={cn("relative", ratio, className)}>
         <Image
-          src={src}
+          /*
+           * basePath by hand. Next rewrites <Link> and the optimizer's own URLs,
+           * but `images.unoptimized` short-circuits the loader that would have
+           * applied it — the tag ships the bare src and every capture 404s on a
+           * project site. Same class of gap as the manifest's JSON body.
+           * Entries in lib/content.ts stay root-relative so this is the one
+           * place that knows where the site is mounted.
+           */
+          src={`${basePath}${src}`}
           // An empty alt is the correct way to mark an image decorative.
           alt={decorative ? "" : alt}
           fill

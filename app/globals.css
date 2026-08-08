@@ -2,41 +2,55 @@
 
 /* =============================================================================
    ScreenMark design tokens.
+
+   Values are transcribed from the product's own brand definition — the
+   ScreenMark repo's `brand/tokens.json`, which declares itself the single
+   source of truth for "the app, the marketing site, and the docs". Change a
+   colour there first, then mirror it here.
+
    Dark is the primary theme. The light token set is applied only when :root
    carries data-theme="light" — the prototype and every screenshot are dark.
    ========================================================================== */
 @theme {
-  /* --- surfaces --- */
-  --color-bg: #0e0f11;
-  --color-surface: #17181b;
-  --color-surface-elevated: #1f2126;
-  --color-card: #1a1c20;
-  --color-border: #2a2d33;
-  --color-divider: #202226;
-  --color-code-bg: #131417;
+  /* --- surfaces: Graphite, a blue-biased grey ramp (never pure grey) --- */
+  --color-bg: #0b0d14;
+  --color-surface: #161a22;
+  --color-surface-elevated: #1e222c;
+  --color-card: #12151d;
+  --color-border: #2a3040;
+  --color-divider: #1e222c;
+  --color-code-bg: #0f1219;
 
   /* Hover/inactive shades the prototype uses but the token table never named. */
-  --color-border-strong: #3a3e45; /* secondary button hover edge */
-  --color-surface-hover: #26282e; /* elevated button hover fill */
-  --color-tile: #22242a; /* inactive icon tile in the showcase */
+  --color-border-strong: #3a4152; /* secondary button hover edge */
+  --color-surface-hover: #2c3242; /* elevated button hover fill */
+  --color-tile: #1e222c; /* inactive icon tile in the showcase */
 
   /* --- text: fg = text.primary · fg-muted = text.secondary · fg-subtle = text.disabled --- */
-  --color-fg: #f2f3f5;
-  --color-fg-muted: #9ba1aa;
-  --color-fg-subtle: #5a5f68;
-  --color-fg-icon: #7f858e; /* inactive showcase icon */
+  --color-fg: #e8eaf0;
+  --color-fg-muted: #9aa1b2;
+  --color-fg-subtle: #6b7387;
+  --color-fg-icon: #7e8698; /* inactive showcase icon */
 
-  /* --- accent --- */
-  --color-accent: #4c8dd6;
-  --color-accent-hover: #5f9be0;
-  --color-accent-pressed: #3e79be;
-  --color-accent-subtle: #16283d;
-  --color-secondary: #3fb6a8;
+  /* --- accent: Signal Blue — identity, primary action, links, focus --- */
+  --color-accent: #2d7df6;
+  --color-accent-hover: #4a93ff;
+  --color-accent-pressed: #1e63d6;
+  --color-accent-subtle: #122142;
+  --color-accent-soft: #7fa8f9; /* blue-300 — far end of the headline gradient */
+
+  /*
+   * Mark Orange. The brand spends this hue on exactly one meaning: "this
+   * object is selected and editable, right now". That is a product state, not
+   * a decoration — so it is deliberately absent from the site's chrome and
+   * appears only inside screenshots, on real annotation handles.
+   */
+  --color-mark: #f5842b;
 
   /* --- status --- */
-  --color-success: #4fb477;
-  --color-warning: #d9a441;
-  --color-danger: #e15c5c;
+  --color-success: #23a55a;
+  --color-warning: #f5a524;
+  --color-danger: #e53335;
 
   /* --- typography --- */
   --font-sans: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -48,15 +62,15 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  /* --- elevation --- */
-  --shadow-e1: 0 2px 8px rgb(0 0 0 / 0.35);
-  --shadow-e2: 0 8px 24px rgb(0 0 0 / 0.45);
-  --shadow-e3: 0 16px 48px rgb(0 0 0 / 0.55);
-  --shadow-glow: 0 8px 24px rgb(76 141 214 / 0.32);
-  --shadow-glow-sm: 0 4px 14px rgb(76 141 214 / 0.28);
+  /* --- elevation: shadows are blue-black and restrained, never neutral --- */
+  --shadow-e1: 0 2px 6px rgb(3 6 15 / 0.45);
+  --shadow-e2: 0 8px 24px rgb(3 6 15 / 0.5);
+  --shadow-e3: 0 16px 48px rgb(3 6 15 / 0.55);
+  --shadow-glow: 0 8px 24px rgb(45 125 246 / 0.32);
+  --shadow-glow-sm: 0 4px 14px rgb(45 125 246 / 0.28);
 
   /* --- motion: nothing over 400ms for UI transitions, no bounce --- */
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
 
   --animate-accordion-down: accordion-down 200ms var(--ease-standard);
@@ -86,20 +100,26 @@
 
 /* Light token set — secondary theme, opt-in via <html data-theme="light">. */
 :root[data-theme="light"] {
-  --color-bg: #ffffff;
-  --color-surface: #f5f6f8;
+  --color-bg: #f4f6fa;
+  --color-surface: #ffffff;
   --color-surface-elevated: #ffffff;
   --color-card: #ffffff;
-  --color-border: #e2e4e8;
-  --color-divider: #e9ebee;
-  --color-code-bg: #f5f6f8;
-  --color-fg: #14161a;
-  --color-fg-muted: #5a6069;
-  --color-fg-subtle: #8a9099;
-  --color-accent: #2f6fb5;
-  --color-accent-hover: #3e79be;
-  --color-accent-pressed: #255a95;
-  --color-accent-subtle: #e8f0f9;
+  --color-border: #dde2ec;
+  --color-divider: #eef1f6;
+  --color-code-bg: #eef1f6;
+  --color-border-strong: #c4cbd8;
+  --color-surface-hover: #eef1f6;
+  --color-tile: #eef1f6;
+  --color-fg: #14181f;
+  --color-fg-muted: #5c6473;
+  --color-fg-subtle: #8a90a0;
+  --color-fg-icon: #5c6473;
+  /* Blue holds at 500 in both themes; only its hover/pressed steps darken. */
+  --color-accent: #2d7df6;
+  --color-accent-hover: #1e63d6;
+  --color-accent-pressed: #1a50ae;
+  --color-accent-subtle: #eef4fe;
+  --color-accent-soft: #1a50ae;
   color-scheme: light;
 }
 
@@ -120,7 +140,7 @@
   }
 
   ::selection {
-    background-color: rgb(76 141 214 / 0.32);
+    background-color: rgb(45 125 246 / 0.32);
   }
 
   /* 2px accent ring at 2px offset — never removed without a replacement. */
@@ -151,15 +171,19 @@
   .screenshot-hatch {
     background-image: repeating-linear-gradient(
       45deg,
-      #141518,
-      #141518 14px,
-      #16171b 14px,
-      #16171b 28px
+      #0f1219,
+      #0f1219 14px,
+      #12151d 14px,
+      #12151d 28px
     );
   }
 
   .text-gradient-accent {
-    background-image: linear-gradient(120deg, var(--color-accent), var(--color-secondary));
+    background-image: linear-gradient(
+      120deg,
+      var(--color-accent),
+      var(--color-accent-soft)
+    );
     background-clip: text;
     color: transparent;
   }

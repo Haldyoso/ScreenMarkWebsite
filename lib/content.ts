@@ -64,9 +64,10 @@ export const showcase: ShowcaseFeature[] = [
     name: "Editable objects",
     short: "Select, move, rotate and restyle anything, anytime.",
     description:
-      "Nothing is baked in. Click any arrow, shape or label to get eight resize handles, a rotation handle and a live properties card — hours after you drew it.",
+      "Nothing is baked in. Click any arrow, shape or label to get eight resize handles, a rotation handle and a right-click menu of colour, width and opacity — hours after you drew it.",
     screenshot: {
-      alt: "An arrow selected with 8 handles + rotation handle and the floating properties card open.",
+      src: "/screenshots/editable-objects.png",
+      alt: "A red rectangle drawn over a bore on an engineering drawing, reselected and showing eight resize handles plus a rotation handle above it.",
     },
   },
   {
@@ -77,7 +78,8 @@ export const showcase: ShowcaseFeature[] = [
     description:
       "Angle and 3-point arc tools follow CATIA/NX muscle memory: click start, end, then vertex, with a live degree/radius readout that trails the cursor. Measurements stay editable objects.",
     screenshot: {
-      alt: "Angle measurement between two edges showing a live 47.5° readout.",
+      src: "/screenshots/measurement.png",
+      alt: "An angle measured across two bolt holes reading 35.2°, beside a 58 mm dimension placed on the same drawing.",
     },
   },
   {
@@ -88,7 +90,8 @@ export const showcase: ShowcaseFeature[] = [
     description:
       "Drop auto-incrementing ①②③ markers, letter markers, check/cross and one-click OK / NOK stamps at a uniform size — built for inspection reports.",
     screenshot: {
-      alt: "A frozen part photo with number markers and a green OK stamp.",
+      src: "/screenshots/qa-stamps.png",
+      alt: "An engineering drawing marked with numbered badges ①②③ and a green OK stamp beside a red NOK stamp.",
     },
   },
   {
@@ -99,7 +102,8 @@ export const showcase: ShowcaseFeature[] = [
     description:
       "Blur serial numbers and operator names, or drop a focus rectangle that dims everything except the region under discussion. Both remain adjustable objects.",
     screenshot: {
-      alt: "A dialog with a blurred serial field and a focus rectangle around one control.",
+      src: "/screenshots/blur-focus.png",
+      alt: "A drawing dimmed by a focus rectangle so only the title block stays lit, with the serial number and both operator names blurred out.",
     },
   },
   {
@@ -110,7 +114,8 @@ export const showcase: ShowcaseFeature[] = [
     description:
       "Freeze all monitors so live gauges can’t change mid-markup, or switch to whiteboard / blackboard for training sessions — annotations persist per mode.",
     screenshot: {
-      alt: "Freeze mode active with the FROZEN chip on the floating toolbar.",
+      src: "/screenshots/freeze-mode.png",
+      alt: "The screen held as a frozen still while annotations are drawn on top, with the freeze toggle lit in the tool panel.",
     },
   },
 ];
@@ -239,69 +244,88 @@ export const compareRows: CompareRow[] = [
   },
 ];
 
+/**
+ * Real captures, not mock-ups: ScreenMark annotating an engineering drawing
+ * held open on a second screen. Caption and alt say the same thing because the
+ * gallery card's aria-label already carries the caption — see Gallery/Lightbox.
+ */
 export const gallery: GalleryItem[] = [
   {
-    title: "Freeze mode",
+    title: "Markup on a frozen screen",
     caption:
-      "Frozen CAD viewport with an editable arrow selected and the floating toolbar in FROZEN state.",
+      "Numbered badges and an arrow over a frozen engineering drawing, the arrow still selected and editable.",
     screenshot: {
-      alt: "Frozen CAD viewport with an editable arrow selected and the floating toolbar in FROZEN state.",
+      src: "/screenshots/gallery-markup.png",
+      alt: "Numbered badges and an arrow over a frozen engineering drawing, the arrow still selected and editable.",
     },
   },
   {
-    title: "Properties panel",
+    title: "Editable geometry",
     caption:
-      "Floating properties card showing transform, stroke, arrowheads and opacity for a selected shape.",
+      "A rectangle reselected long after it was drawn, showing eight resize handles and a rotation handle.",
     screenshot: {
-      alt: "Floating properties card showing transform, stroke, arrowheads and opacity for a selected shape.",
+      src: "/screenshots/gallery-handles.png",
+      alt: "A rectangle reselected long after it was drawn, showing eight resize handles and a rotation handle.",
     },
   },
   {
-    title: "Layers panel",
+    title: "Command palette",
     caption:
-      "Layers panel with a nested group, a hidden marker and a locked background capture.",
+      "Ctrl+Shift+P opens a searchable list of every command with the key that runs it.",
     screenshot: {
-      alt: "Layers panel with a nested group, a hidden marker and a locked background capture.",
+      src: "/screenshots/gallery-palette.png",
+      alt: "Ctrl+Shift+P opens a searchable list of every command with the key that runs it.",
     },
   },
   {
     title: "QA inspection",
     caption:
-      "Inspection screenshot with number markers, blur over a serial number and a green OK stamp.",
+      "Numbered findings on a drawing with a green OK and a red NOK stamp at a matched size.",
     screenshot: {
-      alt: "Inspection screenshot with number markers, blur over a serial number and a green OK stamp.",
+      src: "/screenshots/gallery-qa.png",
+      alt: "Numbered findings on a drawing with a green OK and a red NOK stamp at a matched size.",
     },
   },
   {
-    title: "Angle measurement",
-    caption: "Two edges with a 3-point angle measurement showing a live 47.5° readout.",
-    screenshot: {
-      alt: "Two edges with a 3-point angle measurement showing a live 47.5° readout.",
-    },
-  },
-  {
-    title: "Export dialog",
+    title: "Angle and dimension",
     caption:
-      "Export dialog with region, format, destination options and a live preview thumbnail.",
+      "A 35.2° angle measured across two bolt holes and a 58 mm dimension, both drawn straight onto the screen.",
     screenshot: {
-      alt: "Export dialog with region, format, destination options and a live preview thumbnail.",
+      src: "/screenshots/gallery-angle.png",
+      alt: "A 35.2° angle measured across two bolt holes and a 58 mm dimension, both drawn straight onto the screen.",
+    },
+  },
+  {
+    title: "Export menu",
+    caption:
+      "Export offers PNG with the screenshot, transparent PNG, JPG, clipboard, print, region and screen recording.",
+    screenshot: {
+      src: "/screenshots/gallery-export.png",
+      alt: "Export offers PNG with the screenshot, transparent PNG, JPG, clipboard, print, region and screen recording.",
     },
   },
 ];
 
+/**
+ * Transcribed from the app's own command table (Core/CommandRegistry.cs) and,
+ * for Freeze, its registered global hotkeys (Services/SettingsService.cs).
+ * Freeze is the only entry here that fires while ScreenMark has no focus,
+ * which is why it alone carries modifiers — the in-overlay tools are all a
+ * single letter.
+ */
 export const shortcuts: Shortcut[] = [
   { label: "Selection tool", keys: ["V"] },
   { label: "Arrow", keys: ["A"] },
   { label: "Rectangle", keys: ["R"] },
   { label: "Text", keys: ["T"] },
   { label: "Number markers", keys: ["N"] },
+  { label: "Dimension", keys: ["D"] },
+  { label: "Angle measure", keys: ["G"] },
   { label: "Blur", keys: ["B"] },
-  { label: "Freeze screen", keys: ["F"] },
-  { label: "Group", keys: ["Ctrl", "G"] },
+  { label: "Export region", keys: ["Q"] },
+  { label: "Freeze screen", keys: ["Ctrl", "Alt", "F"] },
   { label: "Undo", keys: ["Ctrl", "Z"] },
-  { label: "Copy to clipboard", keys: ["Ctrl", "C"] },
-  { label: "Repeat last export", keys: ["Ctrl", "E"] },
-  { label: "Save project", keys: ["Ctrl", "S"] },
+  { label: "Repeat last command", keys: ["Space"] },
 ];
 
 export const faqs: Faq[] = [
@@ -328,7 +352,7 @@ export const faqs: Faq[] = [
   {
     question: "Can I re-open and keep editing an annotation later?",
     answer:
-      "Yes. Save your work as a .smp.json project to keep every object editable, or export a PNG/JPG for sharing. Autosave also keeps a rolling snapshot so you can recover after a crash.",
+      "Yes. Save your work as a .smpj project — readable JSON — to keep every object editable, or export a PNG/JPG for sharing. Autosave also keeps a rolling snapshot so you can recover after a crash.",
   },
   {
     question: "Which Windows versions are supported?",
@@ -346,7 +370,8 @@ export const heroChips: string[] = [
 ];
 
 export const heroScreenshot = {
-  alt: "Main application window — frozen CAD viewport with a selected editable arrow (8 handles + rotation), floating properties card, and grouped number markers ①②③.",
+  src: "/screenshots/hero.png",
+  alt: "ScreenMark's tool panel beside a frozen engineering drawing, marked up with numbered badges ①②③ and a red arrow that is selected and still editable.",
 };
 
 export const footerColumns: FooterColumn[] = [
