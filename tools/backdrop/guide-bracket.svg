@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
+<title>BRK-4417-02 Guide Bracket</title>
+<defs>
+  <style>
+    text{font-family:"Arial Narrow","Liberation Sans Narrow",Arial,sans-serif;fill:#1A1A1A}
+    .wide{fill:none;stroke:#1A1A1A;stroke-width:2;stroke-linecap:butt}
+    .narrow{fill:none;stroke:#1A1A1A;stroke-width:1;stroke-linecap:butt}
+    .ctr{fill:none;stroke:#1A1A1A;stroke-width:1;stroke-dasharray:24 4 4 4}
+    .dim{fill:none;stroke:#1A1A1A;stroke-width:1;marker-start:url(#ar);marker-end:url(#ar)}
+    .lead{fill:none;stroke:#1A1A1A;stroke-width:1;marker-start:url(#ar)}
+    .t{font-size:15px}
+    .ts{font-size:13px}
+    .lbl{font-size:11px;fill:#5A5A5A;letter-spacing:.5px}
+    .big{font-size:19px;font-weight:bold}
+    .vw{font-size:17px;letter-spacing:1px}
+    .gd{font-size:15px}
+  </style>
+  <marker id="ar" viewBox="0 0 18 5" refX="18" refY="2.5" markerWidth="18" markerHeight="5"
+          markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+    <path d="M0 0 L18 2.5 L0 5 Z" fill="#1A1A1A"/>
+  </marker>
+  <pattern id="hatch" patternUnits="userSpaceOnUse" width="13" height="13" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="13" stroke="#1A1A1A" stroke-width="1"/>
+  </pattern>
+</defs>
+
+<rect width="1920" height="1080" fill="#4A4F55"/>
+<rect x="239" y="30" width="1442" height="1020" fill="#FFFFFF"/>
+<rect x="261" y="52" width="1398" height="976" class="wide"/>
+<path class="wide" d="M960 30 V52 M960 1028 V1050 M239 540 H261 M1659 540 H1681"/>
+
+<!-- ============================== FRONT VIEW ============================== -->
+<g>
+  <rect x="460" y="200" width="480" height="360" rx="24" ry="24" class="wide"/>
+  <circle cx="700" cy="380" r="105" class="wide"/>
+  <circle cx="700" cy="380" r="81"  class="wide"/>
+  <circle cx="700" cy="380" r="75"  class="wide"/>
+  <circle cx="520" cy="260" r="27" class="wide"/><circle cx="520" cy="260" r="16.5" class="wide"/>
+  <circle cx="880" cy="260" r="27" class="wide"/><circle cx="880" cy="260" r="16.5" class="wide"/>
+  <circle cx="520" cy="500" r="27" class="wide"/><circle cx="520" cy="500" r="16.5" class="wide"/>
+  <circle cx="880" cy="500" r="27" class="wide"/><circle cx="880" cy="500" r="16.5" class="wide"/>
+
+  <!-- Main axes. Hole centre lines double as the extension lines for the pitch
+       dimensions, which is why two of them run well clear of the outline. -->
+  <path class="ctr" d="M424 380 H976 M700 164 V596"/>
+  <path class="ctr" d="M392 260 H557 M520 223 V297
+                       M843 260 H917 M880 223 V297
+                       M392 500 H557 M520 463 V632
+                       M843 500 H917 M880 463 V632"/>
+</g>
+
+<!-- Offset cutting plane A-A. Narrow long-dashed dotted, wide at the ends and at
+     each change of direction. The steps sit at x = ±45 mm, in solid material
+     clear of both the ⌀70 counterbore and the fixing-hole counterbores. -->
+<path class="ctr" d="M415 260 H565 V380 H835 V260 H985"/>
+<path class="wide" d="M415 260 H445  M535 260 H565 V290  M565 350 V380 H595
+                      M805 380 H835 V350  M835 290 V260 H865  M955 260 H985"/>
+<path class="wide" d="M415 260 V296" marker-end="url(#ar)"/>
+<path class="wide" d="M985 260 V296" marker-end="url(#ar)"/>
+<text class="vw" x="415" y="320" text-anchor="middle">A</text>
+<text class="vw" x="985" y="320" text-anchor="middle">A</text>
+
+<!-- ============================== SECTION A-A ============================== -->
+<g>
+  <path fill="url(#hatch)" fill-rule="evenodd" stroke="none"
+        d="M460 760 H940 V820 H460 Z
+           M503.5 760 H536.5 V796 H547 V820 H493 V796 H503.5 Z
+           M625 760 H775 V796 L781 802 H805 V820 H595 V802 H619 L625 796 Z
+           M863.5 760 H896.5 V796 H907 V820 H853 V796 H863.5 Z"/>
+
+  <path class="wide" d="M460 760 H503.5 M536.5 760 H625 M775 760 H863.5 M896.5 760 H940"/>
+  <path class="wide" d="M460 820 H493 M547 820 H595 M805 820 H853 M907 820 H940"/>
+  <path class="wide" d="M460 760 V820 M940 760 V820"/>
+  <path class="wide" d="M503.5 760 V796 M536.5 760 V796 M493 796 H503.5 M536.5 796 H547 M493 796 V820 M547 796 V820"/>
+  <path class="wide" d="M863.5 760 V796 M896.5 760 V796 M853 796 H863.5 M896.5 796 H907 M853 796 V820 M907 796 V820"/>
+  <path class="wide" d="M625 760 V796 M775 760 V796 M619 802 L625 796 M775 796 L781 802
+                        M595 802 H619 M781 802 H805 M595 802 V820 M805 802 V820"/>
+  <path class="ctr" d="M520 740 V840 M700 728 V852 M880 740 V840"/>
+</g>
+<text class="vw" x="700" y="906" text-anchor="middle">SECTION A–A</text>
+
+<!-- ============================== DIMENSIONS ============================== -->
+<g>
+  <path class="dim" d="M520 620 H880"/>
+  <text class="t" x="700" y="612" text-anchor="middle">120</text>
+
+  <path class="narrow" d="M460 566 V682 M940 566 V682"/>
+  <path class="dim" d="M460 670 H940"/>
+  <text class="t" x="700" y="662" text-anchor="middle">160</text>
+
+  <path class="dim" d="M400 260 V500"/>
+  <text class="t" x="392" y="380" text-anchor="middle" transform="rotate(-90 392 380)">80</text>
+
+  <path class="narrow" d="M454 200 H342 M454 560 H342"/>
+  <path class="dim" d="M350 200 V560"/>
+  <text class="t" x="342" y="380" text-anchor="middle" transform="rotate(-90 342 380)">120</text>
+
+  <path class="narrow" d="M946 760 H1008 M946 820 H1008"/>
+  <path class="dim" d="M1000 760 V820"/>
+  <text class="t" x="992" y="790" text-anchor="middle" transform="rotate(-90 992 790)">20</text>
+</g>
+
+<!-- ============================== CALLOUTS ============================== -->
+<g>
+  <path class="lead" d="M892 248 L975 205 H1024"/>
+  <text class="t" x="1030" y="200">4× Ø11 THRU</text>
+  <text class="t" x="1030" y="224">Ø18 C'BORE 8 DEEP</text>
+
+  <path class="lead" d="M791 327 L975 334 H1024"/>
+  <text class="t" x="1030" y="340">Ø70 C'BORE 6 DEEP</text>
+
+  <path class="lead" d="M768 412 L975 400 H1024"/>
+  <text class="t" x="1030" y="394">Ø50 H7  +0,025 / 0</text>
+
+  <path class="lead" d="M467 207 L400 150 H336"/>
+  <text class="t" x="330" y="145" text-anchor="end">R8</text>
+
+  <path class="lead" d="M622 799 L556 868 H486"/>
+  <text class="t" x="480" y="863" text-anchor="end">2 × 45°</text>
+</g>
+
+<!-- ===================== GEOMETRICAL TOLERANCING ===================== -->
+<g>
+  <path d="M480 760 L471 747 H489 Z" fill="#1A1A1A"/>
+  <path class="narrow" d="M480 747 V730"/>
+  <rect x="464" y="700" width="32" height="30" class="narrow"/>
+  <text class="gd" x="480" y="721" text-anchor="middle">A</text>
+</g>
+<g>
+  <path class="lead" d="M820 760 L880 706 H940"/>
+  <rect x="946" y="690" width="150" height="32" class="narrow"/>
+  <path class="narrow" d="M984 690 V722 M1032 690 V722"/>
+  <path class="narrow" d="M952 714 L960 698 H978 L970 714 Z"/>
+  <text class="gd" x="1008" y="712" text-anchor="middle">0,05</text>
+  <text class="gd" x="1064" y="712" text-anchor="middle">A</text>
+</g>
+<g>
+  <rect x="1030" y="236" width="196" height="32" class="narrow"/>
+  <path class="narrow" d="M1068 236 V268 M1162 236 V268 M1194 236 V268"/>
+  <circle cx="1049" cy="252" r="9" class="narrow"/>
+  <path class="narrow" d="M1049 240 V264 M1037 252 H1061"/>
+  <text class="gd" x="1112" y="258" text-anchor="middle">Ø0,2</text>
+  <circle cx="1148" cy="252" r="8" class="narrow"/>
+  <text class="lbl" x="1148" y="256" text-anchor="middle">M</text>
+  <text class="gd" x="1178" y="258" text-anchor="middle">A</text>
+  <text class="gd" x="1210" y="258" text-anchor="middle">B</text>
+</g>
+<g>
+  <rect x="1030" y="414" width="176" height="32" class="narrow"/>
+  <path class="narrow" d="M1068 414 V446 M1150 414 V446"/>
+  <path class="narrow" d="M1049 420 V440 M1039 440 H1059"/>
+  <text class="gd" x="1109" y="436" text-anchor="middle">Ø0,05</text>
+  <text class="gd" x="1178" y="436" text-anchor="middle">A</text>
+  <path class="narrow" d="M1118 446 V460"/>
+  <rect x="1102" y="460" width="32" height="30" class="narrow"/>
+  <text class="gd" x="1118" y="481" text-anchor="middle">B</text>
+</g>
+
+<!-- ============================== NOTES ============================== -->
+<g>
+  <text class="t" x="1180" y="556" style="letter-spacing:1px">NOTES</text>
+  <text class="ts" x="1180" y="582">1.  General tolerances to ISO 2768-mK.</text>
+  <text class="ts" x="1180" y="606">2.  Break sharp edges 0,5 × 45°, deburr and remove all swarf.</text>
+  <text class="ts" x="1180" y="630">3.  Surface texture Ra 1,6 machined all over.</text>
+  <text class="ts" x="1180" y="654">4.  Bore Ø50 H7 to be finish machined after heat treatment.</text>
+  <text class="ts" x="1180" y="678">5.  Do not scale from this drawing.</text>
+</g>
+
+<!-- surface texture symbol, placed beside the title block -->
+<g>
+  <path class="narrow" d="M994 902 L1004 918 L1026 880 H1082"/>
+  <text class="t" x="1030" y="874">Ra 1,6</text>
+</g>
+
+<!-- ============================== REVISION TABLE ============================== -->
+<g>
+  <rect x="1219" y="80" width="440" height="96" class="wide"/>
+  <path class="narrow" d="M1219 112 H1659 M1219 144 H1659 M1269 80 V176 M1519 80 V176"/>
+  <text class="ts" x="1244" y="101" text-anchor="middle">REV</text>
+  <text class="ts" x="1394" y="101" text-anchor="middle">DESCRIPTION</text>
+  <text class="ts" x="1589" y="101" text-anchor="middle">DATE</text>
+  <text class="ts" x="1244" y="133" text-anchor="middle">B</text>
+  <text class="ts" x="1281" y="133">Bore tolerance H7</text>
+  <text class="ts" x="1589" y="133" text-anchor="middle">2026-03-11</text>
+  <text class="ts" x="1244" y="165" text-anchor="middle">C</text>
+  <text class="ts" x="1281" y="165">Added flatness callout</text>
+  <text class="ts" x="1589" y="165" text-anchor="middle">2026-07-02</text>
+</g>
+
+<!-- ============================== TITLE BLOCK ============================== -->
+<g>
+  <rect x="1099" y="858" width="560" height="170" class="wide"/>
+  <path class="narrow" d="M1099 892 H1659 M1099 926 H1659 M1099 960 H1659 M1099 994 H1659
+                          M1379 858 V926 M1285 926 V960 M1472 926 V960
+                          M1239 960 V994 M1379 960 V994 M1519 960 V994"/>
+  <text class="big" x="1109" y="883">GUIDE BRACKET</text>
+  <text class="lbl" x="1389" y="872">PART NO.</text>
+  <text class="t"   x="1389" y="887">BRK-4417-02</text>
+  <text class="lbl" x="1109" y="906">MATERIAL</text>
+  <text class="t"   x="1109" y="921">EN AW-6082 T6</text>
+  <text class="lbl" x="1389" y="906">SERIAL</text>
+  <text class="t"   x="1389" y="921">SN-2026-004417</text>
+  <text class="lbl" x="1109" y="940">DRAWN</text>
+  <text class="t"   x="1109" y="955">M. Halus</text>
+  <text class="lbl" x="1295" y="940">CHECKED</text>
+  <text class="t"   x="1295" y="955">J. Novak</text>
+  <text class="lbl" x="1482" y="940">DATE</text>
+  <text class="t"   x="1482" y="955">2026-07-02</text>
+  <text class="lbl" x="1109" y="974">SCALE</text>
+  <text class="t"   x="1109" y="989">1:2</text>
+  <text class="lbl" x="1249" y="974">SHEET</text>
+  <text class="t"   x="1249" y="989">1 / 1</text>
+  <text class="lbl" x="1389" y="974">SIZE</text>
+  <text class="t"   x="1389" y="989">A3</text>
+  <text class="lbl" x="1529" y="974">REV</text>
+  <text class="t"   x="1529" y="989">C</text>
+  <path class="wide" d="M1130 997 L1130 1025 L1176 1018 L1176 1004 Z"/>
+  <circle cx="1200" cy="1011" r="13" class="wide"/>
+  <circle cx="1200" cy="1011" r="7" class="wide"/>
+  <text class="lbl" x="1232" y="1016">FIRST ANGLE PROJECTION</text>
+</g>
+
+<text class="ts" x="275" y="1014">ISO 2768-mK · Dimensions in millimetres · First angle projection · Ra 1,6 machined all over</text>
+</svg>
