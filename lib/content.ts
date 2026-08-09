@@ -192,10 +192,30 @@ export const gridFeatures: GridFeature[] = [
   },
 ];
 
+/**
+ * Pointofix leads the competitor columns because it is the only one of the four
+ * that does the same thing ScreenMark does — a draw-anywhere overlay rather than
+ * a capture-then-edit tool. The others are the fallbacks people reach for when
+ * they don't know a tool like this exists.
+ *
+ * Its column is transcribed from the vendor's own feature and download pages
+ * (pointofix.de/bedienung.php, /download.php, /hilfe.php), not from memory:
+ * v1.8.0, released 2018-05-11. The help is explicit that undo reverses "the last
+ * drawing action", that a text block stops being movable once committed, and
+ * that the selection tool moves a rectangular *pixel region* — it is a paint-
+ * over annotator, so nothing survives as an object. Layers, grouping, angle and
+ * dimension measurement and scale calibration appear nowhere in its docs.
+ *
+ * The magnifier row is left in deliberately even though ScreenMark loses it. A
+ * table the incumbent loses 8–0 reads as a strawman, and this one is real:
+ * Pointofix ships a 200/400% loupe and a 10× wheel zoom, which ScreenMark's own
+ * README still lists under planned work.
+ */
 export const compareRows: CompareRow[] = [
   {
     label: "Annotations stay fully editable",
     screenMarkPro: true,
+    pointofix: false,
     snippingTool: false,
     greenshot: false,
     shareX: false,
@@ -203,6 +223,7 @@ export const compareRows: CompareRow[] = [
   {
     label: "Vector objects (move / resize / rotate)",
     screenMarkPro: true,
+    pointofix: false,
     snippingTool: false,
     greenshot: "limited",
     shareX: "limited",
@@ -210,6 +231,7 @@ export const compareRows: CompareRow[] = [
   {
     label: "Layers, groups, lock & reorder",
     screenMarkPro: true,
+    pointofix: false,
     snippingTool: false,
     greenshot: false,
     shareX: false,
@@ -217,6 +239,31 @@ export const compareRows: CompareRow[] = [
   {
     label: "CAD arc & angle measurement",
     screenMarkPro: true,
+    pointofix: false,
+    snippingTool: false,
+    greenshot: false,
+    shareX: false,
+  },
+  {
+    label: "Real-world scale (px → mm)",
+    screenMarkPro: true,
+    pointofix: false,
+    snippingTool: false,
+    greenshot: false,
+    shareX: false,
+  },
+  {
+    label: "Editable project format (JSON)",
+    screenMarkPro: true,
+    pointofix: false,
+    snippingTool: false,
+    greenshot: false,
+    shareX: false,
+  },
+  {
+    label: "Screen magnifier & zoom",
+    screenMarkPro: "planned",
+    pointofix: true,
     snippingTool: false,
     greenshot: false,
     shareX: false,
@@ -224,6 +271,7 @@ export const compareRows: CompareRow[] = [
   {
     label: "Portable — no installation",
     screenMarkPro: true,
+    pointofix: true,
     snippingTool: false,
     greenshot: "installer",
     shareX: "installer",
@@ -231,16 +279,10 @@ export const compareRows: CompareRow[] = [
   {
     label: "Fully offline · no telemetry",
     screenMarkPro: true,
+    pointofix: true,
     snippingTool: true,
     greenshot: true,
     shareX: "opt-out",
-  },
-  {
-    label: "Editable project format (JSON)",
-    screenMarkPro: true,
-    snippingTool: false,
-    greenshot: false,
-    shareX: false,
   },
 ];
 

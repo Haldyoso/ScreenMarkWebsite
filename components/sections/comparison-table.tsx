@@ -34,7 +34,11 @@ function Cell({ value }: { value: CompareCell }) {
 }
 
 const columns = [
-  { key: "snippingTool", label: "Snipping Tool" },
+  // Pointofix leads the competitors: it is the only one of the four that also
+  // draws straight onto the live screen, so it is the comparison that actually
+  // decides anything. The capture-then-edit tools follow it.
+  { key: "pointofix", label: "Pointofix" },
+  { key: "snippingTool", label: "Snipping Tool" },
   { key: "greenshot", label: "Greenshot" },
   { key: "shareX", label: "ShareX" },
 ] as const;
@@ -46,6 +50,7 @@ export function ComparisonTable() {
         <SectionHeading
           overline="How it compares"
           title="Illustrator-grade editing at Snipping-Tool speed"
+          subtitle="Pointofix is the closest thing to ScreenMark — the same draw-anywhere overlay, free, and it has been doing it for years. The difference is what happens after you let go of the mouse."
           className="mb-12"
         />
 
@@ -53,13 +58,15 @@ export function ComparisonTable() {
           {/* Focusable so the scrollable table is reachable by keyboard (WCAG 2.2). */}
           <div
             role="region"
-            aria-label="Feature comparison against other Windows capture tools"
+            aria-label="Feature comparison against Pointofix and other Windows annotation and capture tools"
             tabIndex={0}
             className="overflow-x-auto rounded-lg border border-border"
           >
-            <table className="w-full min-w-[640px] border-collapse text-sm">
+            {/* Widened for the fifth data column; the wrapper scrolls it. */}
+            <table className="w-full min-w-[780px] border-collapse text-sm">
               <caption className="sr-only">
-                How ScreenMark compares with Snipping Tool, Greenshot and ShareX
+                How ScreenMark compares with Pointofix, Snipping Tool, Greenshot
+                and ShareX
               </caption>
               <thead>
                 <tr className="bg-surface">

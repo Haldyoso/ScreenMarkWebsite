@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     "editable vector annotation",
     "CAD screenshot tool",
     "QA inspection markup",
+    "Pointofix alternative",
     "Snipping Tool alternative",
     "Greenshot alternative",
     "ShareX alternative",

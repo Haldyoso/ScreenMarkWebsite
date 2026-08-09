@@ -48,6 +48,8 @@ export type CompareCell = boolean | string;
 export interface CompareRow {
   label: string;
   screenMarkPro: CompareCell;
+  /** The head-to-head competitor: the other draw-anywhere overlay. */
+  pointofix: CompareCell;
   snippingTool: CompareCell;
   greenshot: CompareCell;
   shareX: CompareCell;
