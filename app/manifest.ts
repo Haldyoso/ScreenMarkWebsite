@@ -1,20 +1,34 @@
 import type { MetadataRoute } from "next";
 
+import { getCopy } from "@/lib/content";
+import { defaultLang } from "@/lib/i18n";
 import { basePath, site } from "@/lib/site";
 
 /** No Node server on GitHub Pages — this has to be baked at build time. */
 export const dynamic = "force-static";
 
+/**
+ * One manifest, in the default locale. A web manifest has no locale
+ * negotiation — the spec gives it a single `lang` — and Next's metadata route
+ * emits exactly one file, so a per-language variant would need three
+ * <link rel="manifest"> tags pointing at three hand-written routes for an
+ * install prompt almost nobody on a marketing site will use. Not worth it;
+ * `lang` and `dir` at least tell the browser what it is looking at.
+ */
 export default function manifest(): MetadataRoute.Manifest {
+  const copy = getCopy(defaultLang);
+
   return {
-    name: `${site.name} — ${site.tagline}`,
+    name: `${site.name} — ${copy.meta.tagline}`,
     short_name: site.name,
-    description: site.description,
+    description: copy.meta.description,
+    lang: defaultLang,
+    dir: "ltr",
     /**
-     * These two are plain strings inside a JSON body, so Next's basePath
-     * rewriting never sees them — unlike the <link rel="manifest"> href, which
-     * it does rewrite. Prefixed by hand or the installed app opens the domain
-     * root and 404s.
+     * These are plain strings inside a JSON body, so Next's basePath rewriting
+     * never sees them — unlike the <link rel="manifest"> href, which it does
+     * rewrite. Prefixed by hand or the installed app opens the domain root and
+     * 404s.
      */
     start_url: `${basePath}/`,
     display: "standalone",

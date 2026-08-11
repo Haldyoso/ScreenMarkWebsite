@@ -1,0 +1,103 @@
+import type { Metadata } from "next";
+
+import { getCopy } from "@/lib/content";
+import { absoluteUrl, changelogPath, homePath, langs, type Lang } from "@/lib/i18n";
+import { site } from "@/lib/site";
+
+/**
+ * Per-locale <head> metadata.
+ *
+ * The hreflang set is the part worth getting right: three pages carrying the
+ * same offer in three languages look like duplicates to a crawler unless each
+ * one names all three plus an x-default. Every locale emits the full map, which
+ * is what the spec asks for — the annotations have to be reciprocal.
+ */
+
+const OG_LOCALES: Record<Lang, string> = {
+  en: "en_US",
+  sk: "sk_SK",
+  de: "de_DE",
+};
+
+/** One card per locale; see app/opengraph-image*.png for why they are routes. */
+const OG_IMAGES: Record<Lang, string> = {
+  en: "/opengraph-image.png",
+  sk: "/opengraph-image-sk.png",
+  de: "/opengraph-image-de.png",
+};
+
+function languageAlternates(pathFor: (lang: Lang) => string) {
+  const languages: Record<string, string> = {};
+  for (const lang of langs) {
+    languages[lang] = absoluteUrl(site.url, pathFor(lang));
+  }
+  languages["x-default"] = absoluteUrl(site.url, pathFor("en"));
+  return languages;
+}
+
+export function homeMetadata(lang: Lang): Metadata {
+  const copy = getCopy(lang);
+  const title = `${site.name} — ${copy.meta.tagline}`;
+  const url = absoluteUrl(site.url, homePath(lang));
+  const image = {
+    url: OG_IMAGES[lang],
+    width: 1200,
+    height: 630,
+    alt: title,
+  };
+
+  return {
+    metadataBase: new URL(site.url),
+    title: {
+      default: title,
+      template: `%s · ${site.name}`,
+    },
+    description: copy.meta.description,
+    applicationName: site.name,
+    alternates: {
+      canonical: url,
+      languages: languageAlternates(homePath),
+    },
+    openGraph: {
+      type: "website",
+      url,
+      siteName: site.name,
+      title,
+      description: copy.meta.description,
+      locale: OG_LOCALES[lang],
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: copy.meta.description,
+      images: [image],
+    },
+    robots: { index: true, follow: true },
+  };
+}
+
+export function changelogMetadata(lang: Lang): Metadata {
+  const copy = getCopy(lang);
+  const url = absoluteUrl(site.url, changelogPath(lang));
+
+  return {
+    metadataBase: new URL(site.url),
+    title: copy.changelog.title,
+    description: copy.changelog.description,
+    alternates: {
+      canonical: url,
+      languages: languageAlternates(changelogPath),
+    },
+    openGraph: {
+      type: "article",
+      url,
+      siteName: site.name,
+      title: `${copy.changelog.title} · ${site.name}`,
+      description: copy.changelog.description,
+      locale: OG_LOCALES[lang],
+      images: [{ url: OG_IMAGES[lang], width: 1200, height: 630 }],
+    },
+    robots: { index: true, follow: true },
+  };
+}

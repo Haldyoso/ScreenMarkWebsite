@@ -15,7 +15,8 @@ const buttonVariants = cva(
           "border border-border bg-surface text-fg hover:border-border-strong hover:bg-surface-elevated",
         elevated:
           "border border-border bg-surface-elevated text-fg hover:bg-surface-hover",
-        ghost: "text-fg-muted hover:bg-white/6 hover:text-fg",
+        // fg/6, not white/6 — the hover tint has to darken on a light page.
+        ghost: "text-fg-muted hover:bg-fg/6 hover:text-fg",
       },
       size: {
         sm: "h-10 px-4 text-[15px]",

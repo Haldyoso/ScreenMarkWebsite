@@ -6,30 +6,38 @@ import { Button } from "@/components/ui/button";
 import { GitHubIcon } from "@/components/ui/github-icon";
 import { Screenshot } from "@/components/ui/screenshot";
 import { WindowFrame } from "@/components/ui/window-frame";
-import { heroChips, heroScreenshot } from "@/lib/content";
 import { site } from "@/lib/site";
+import type { Copy, Screenshot as ScreenshotData } from "@/types";
 
-export function Hero() {
+interface HeroProps {
+  copy: Copy;
+  screenshot: ScreenshotData;
+  chips: string[];
+}
+
+export function Hero({ copy, screenshot, chips }: HeroProps) {
+  const { hero, meta } = copy;
+
   return (
     <section className="mx-auto max-w-[1200px] px-4 pt-[150px] pb-20 text-center md:px-6">
       <Reveal>
         <Badge variant="status">
           <span className="size-[7px] rounded-full bg-success shadow-[0_0_8px_var(--color-success)]" />
-          Portable · Windows 10 &amp; 11 · No installation
+          {hero.badge}
         </Badge>
       </Reveal>
 
       <Reveal index={1}>
         <h1 className="mx-auto mt-7 max-w-[900px] text-[clamp(40px,7vw,64px)] leading-[1.04] font-bold tracking-[-1.5px]">
-          Draw directly on your screen.
+          {hero.titleLead}
           <br />
-          <span className="text-gradient-accent">Edit everything later.</span>
+          <span className="text-gradient-accent">{hero.titleAccent}</span>
         </h1>
       </Reveal>
 
       <Reveal index={2}>
         <p className="mx-auto mt-6 max-w-[680px] text-[clamp(17px,2.2vw,20px)] leading-[1.55] text-fg-muted">
-          {site.description}
+          {meta.description}
         </p>
       </Reveal>
 
@@ -38,13 +46,13 @@ export function Hero() {
           <Button asChild className="shadow-glow">
             <a href="#download">
               <Download aria-hidden="true" className="size-[18px]" />
-              Download — Portable ZIP
+              {hero.ctaPrimary}
             </a>
           </Button>
           <Button asChild variant="secondary">
             <a href={site.repo} target="_blank" rel="noopener">
               <GitHubIcon className="size-[18px]" />
-              View on GitHub
+              {hero.ctaSecondary}
             </a>
           </Button>
         </div>
@@ -52,7 +60,7 @@ export function Hero() {
 
       <Reveal index={4}>
         <ul className="mt-7 flex flex-wrap justify-center gap-2.5">
-          {heroChips.map((chip) => (
+          {chips.map((chip) => (
             <li key={chip}>
               <Badge variant="chip">{chip}</Badge>
             </li>
@@ -66,12 +74,9 @@ export function Hero() {
             aria-hidden="true"
             className="absolute -inset-px rounded-xl bg-linear-[120deg] from-accent/50 to-accent-soft/35 opacity-50 blur-[22px]"
           />
-          <WindowFrame
-            title="ScreenMark — Freeze mode · Monitor 1"
-            className="relative shadow-e3"
-          >
+          <WindowFrame title={hero.frameTitle} className="relative shadow-e3">
             <Screenshot
-              screenshot={heroScreenshot}
+              screenshot={screenshot}
               ratio="aspect-[16/9]"
               sizes="(max-width: 1200px) 100vw, 1152px"
               priority

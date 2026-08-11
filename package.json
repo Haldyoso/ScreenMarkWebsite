@@ -7,7 +7,9 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync:changelog": "node tools/sync-changelog.mjs",
+    "optimize:screenshots": "node tools/optimize-screenshots.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.16",
@@ -17,6 +19,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.24.0",
+    "marked": "^16.4.2",
     "next": "15.5.20",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -30,6 +33,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.20",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

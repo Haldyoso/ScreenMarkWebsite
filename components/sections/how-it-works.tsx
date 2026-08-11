@@ -1,19 +1,17 @@
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { steps } from "@/lib/content";
+import type { HeadingCopy, Step } from "@/types";
 
-export function HowItWorks() {
+interface HowItWorksProps {
+  heading: HeadingCopy;
+  steps: Step[];
+}
+
+export function HowItWorks({ heading, steps }: HowItWorksProps) {
   return (
-    <section
-      id="how"
-      className="scroll-mt-16 border-y border-divider bg-code-bg"
-    >
+    <section id="how" className="scroll-mt-16 border-y border-divider bg-code-bg">
       <div className="mx-auto max-w-[1200px] px-4 py-24 md:px-6">
-        <SectionHeading
-          overline="Three steps"
-          title="From “I need to mark this” to a shared image in seconds"
-          className="mb-14"
-        />
+        <SectionHeading {...heading} className="mb-14" />
 
         <ol className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
           {steps.map((step, index) => (

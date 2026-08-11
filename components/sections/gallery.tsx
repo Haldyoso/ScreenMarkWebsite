@@ -8,14 +8,20 @@ import { useRef, useState } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { Screenshot } from "@/components/ui/screenshot";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { gallery } from "@/lib/content";
+import type { Copy, GalleryItem, HeadingCopy } from "@/types";
 
 // Kept out of the initial bundle; nothing renders until a card is clicked.
 const Lightbox = dynamic(() =>
   import("@/components/ui/lightbox").then((mod) => mod.Lightbox),
 );
 
-export function Gallery() {
+interface GalleryProps {
+  heading: HeadingCopy;
+  items: GalleryItem[];
+  ui: Copy["ui"];
+}
+
+export function Gallery({ heading, items, ui }: GalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
   const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
   // Held separately from lightboxIndex, which moves as the user arrows through
@@ -36,17 +42,13 @@ export function Gallery() {
 
   return (
     <section
-      aria-label="Screenshot gallery"
+      aria-label={ui.galleryLabel}
       className="mx-auto max-w-[1200px] px-4 py-24 md:px-6"
     >
-      <SectionHeading
-        overline="In the workspace"
-        title="See it on real screens"
-        className="mb-12"
-      />
+      <SectionHeading {...heading} className="mb-12" />
 
       <ul className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-        {gallery.map((item, index) => (
+        {items.map((item, index) => (
           <Reveal as="li" key={item.title} index={index % 3} className="h-full">
             <button
               ref={(node) => {
@@ -54,7 +56,7 @@ export function Gallery() {
               }}
               type="button"
               onClick={() => open(index)}
-              aria-label={`Enlarge: ${item.caption}`}
+              aria-label={`${ui.enlarge}: ${item.caption}`}
               className="h-full w-full overflow-hidden rounded-lg border border-border bg-card text-left transition-[border-color,transform] duration-[120ms] ease-standard hover:-translate-y-0.5 hover:border-accent/50"
             >
               {/* The button's aria-label already carries this caption. */}
@@ -80,10 +82,11 @@ export function Gallery() {
       <AnimatePresence>
         {isOpen && (
           <Lightbox
-            items={gallery}
+            items={items}
             index={lightboxIndex}
             onClose={close}
             onNavigate={setLightboxIndex}
+            ui={ui}
           />
         )}
       </AnimatePresence>
