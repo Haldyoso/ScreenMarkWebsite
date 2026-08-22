@@ -209,8 +209,11 @@ export interface Copy {
     subtitle: string;
     button: string;
     opmButton: string;
+    publicTrialButton: string;
     /** `{version}` and `{date}` describe the time-limited trial build. */
     opmValidity: string;
+    /** `{version}` and `{date}` describe the public time-limited trial build. */
+    publicTrialValidity: string;
     olderVersions: string;
     versionLabel: string;
     checksumLabel: string;

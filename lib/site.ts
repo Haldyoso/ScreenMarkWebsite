@@ -24,6 +24,8 @@ const releaseAssetPath =
   "/downloads/ScreenMark-v0.9.9.86-win-x64-portable.zip";
 const opmAssetPath =
   "/downloads/ScreenMark-v0.9.9.84-OPM-do-2026-10-21.exe";
+const publicTrialAssetPath =
+  "/downloads/ScreenMark-v0.9.9.88-public-trial-do-2026-09-21.exe";
 
 export const site = {
   name: "ScreenMark",
@@ -43,6 +45,9 @@ export const site = {
     opmVersion: "0.9.9.84",
     opmExpires: "2026-10-21",
     opmDownloadUrl: `${basePath}${opmAssetPath}`,
+    publicTrialVersion: "0.9.9.88",
+    publicTrialExpires: "2026-09-21",
+    publicTrialDownloadUrl: `${basePath}${publicTrialAssetPath}`,
   },
 } as const;
 

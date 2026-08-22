@@ -18,6 +18,9 @@ export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
     opmVersion,
     opmExpires,
     opmDownloadUrl,
+    publicTrialVersion,
+    publicTrialExpires,
+    publicTrialDownloadUrl,
   } = site.release;
   const cta = copy.downloadCta;
   const opmDate = new Intl.DateTimeFormat(lang, {
@@ -27,6 +30,13 @@ export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
   const opmValidity = cta.opmValidity
     .replace("{version}", opmVersion)
     .replace("{date}", opmDate);
+  const publicTrialDate = new Intl.DateTimeFormat(lang, {
+    dateStyle: "medium",
+    timeZone: "UTC",
+  }).format(new Date(`${publicTrialExpires}T00:00:00Z`));
+  const publicTrialValidity = cta.publicTrialValidity
+    .replace("{version}", publicTrialVersion)
+    .replace("{date}", publicTrialDate);
 
   return (
     <section
@@ -67,13 +77,22 @@ export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
                 </a>
               </Button>
               <Button asChild size="lg" variant="elevated">
+                <a href={publicTrialDownloadUrl} download>
+                  <Download aria-hidden="true" className="size-5" />
+                  {cta.publicTrialButton}
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="elevated">
                 <Link href={changelogPath(lang)}>
                   {cta.olderVersions}
                 </Link>
               </Button>
             </div>
 
-            <p className="mt-4 text-sm text-fg-muted">{opmValidity}</p>
+            <p className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-fg-muted">
+              <span>{opmValidity}</span>
+              <span>{publicTrialValidity}</span>
+            </p>
 
             <p className="mt-7 flex flex-wrap justify-center gap-5 text-[13px] text-fg-subtle">
               <span>

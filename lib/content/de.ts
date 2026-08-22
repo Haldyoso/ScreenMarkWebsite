@@ -348,7 +348,10 @@ export const de: Copy = {
       "Portables ZIP — entpacken und starten. Ohne Installation, ohne Adminrechte, ohne Internet.",
     button: "ZIP herunterladen",
     opmButton: "OPM-Testversion herunterladen",
+    publicTrialButton: "Öffentliche Testversion herunterladen",
     opmValidity: "OPM-Testversion v{version}, gültig bis {date}",
+    publicTrialValidity:
+      "Öffentliche Testversion v{version}, gültig bis {date}",
     olderVersions: "Versionsverlauf",
     versionLabel: "Version",
     checksumLabel: "SHA-256",

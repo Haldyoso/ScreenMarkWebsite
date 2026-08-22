@@ -347,7 +347,10 @@ export const sk: Copy = {
       "Prenosný ZIP — rozbaľte a spustite. Bez inštalácie, bez admin práv, bez internetu.",
     button: "Stiahnuť ZIP",
     opmButton: "Stiahnuť skúšobnú OPM verziu",
+    publicTrialButton: "Stiahnuť verejnú skúšobnú verziu",
     opmValidity: "Skúšobná OPM verzia v{version}, platná do {date}",
+    publicTrialValidity:
+      "Verejná skúšobná verzia v{version}, platná do {date}",
     olderVersions: "História vydaní",
     versionLabel: "Verzia",
     checksumLabel: "SHA-256",
