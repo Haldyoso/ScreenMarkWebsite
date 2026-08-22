@@ -2,12 +2,19 @@ import { Check, Minus } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { compareRows } from "@/lib/content";
+import { compareColumns } from "@/lib/content/shared";
 import { cn } from "@/lib/utils";
-import type { CompareCell } from "@/types";
+import type { CompareCell, CompareRow, Copy } from "@/types";
+
+interface CellProps {
+  value: CompareCell;
+  qualifiers: Copy["compare"]["qualifiers"];
+  yes: string;
+  no: string;
+}
 
 /** Status is never conveyed by color alone — every mark carries a text label. */
-function Cell({ value }: { value: CompareCell }) {
+function Cell({ value, qualifiers, yes, no }: CellProps) {
   if (value === true) {
     return (
       <>
@@ -16,7 +23,7 @@ function Cell({ value }: { value: CompareCell }) {
           strokeWidth={3}
           className="mx-auto size-[18px] text-success"
         />
-        <span className="sr-only">Yes</span>
+        <span className="sr-only">{yes}</span>
       </>
     );
   }
@@ -25,56 +32,45 @@ function Cell({ value }: { value: CompareCell }) {
     return (
       <>
         <Minus aria-hidden="true" className="mx-auto size-[18px] text-fg-subtle" />
-        <span className="sr-only">No</span>
+        <span className="sr-only">{no}</span>
       </>
     );
   }
 
-  return <span className="text-[13px] text-fg-muted">{value}</span>;
+  return <span className="text-[13px] text-fg-muted">{qualifiers[value.note]}</span>;
 }
 
-const columns = [
-  // Pointofix leads the competitors: it is the only one of the four that also
-  // draws straight onto the live screen, so it is the comparison that actually
-  // decides anything. The capture-then-edit tools follow it.
-  { key: "pointofix", label: "Pointofix" },
-  { key: "snippingTool", label: "Snipping Tool" },
-  { key: "greenshot", label: "Greenshot" },
-  { key: "shareX", label: "ShareX" },
-] as const;
+interface ComparisonTableProps {
+  copy: Copy;
+  rows: CompareRow[];
+}
 
-export function ComparisonTable() {
+export function ComparisonTable({ copy, rows }: ComparisonTableProps) {
+  const { compare, ui } = copy;
+
   return (
     <section id="compare" className="scroll-mt-16 border-t border-divider bg-code-bg">
       <div className="mx-auto max-w-[1200px] px-4 py-24 md:px-6">
-        <SectionHeading
-          overline="How it compares"
-          title="Illustrator-grade editing at Snipping-Tool speed"
-          subtitle="Pointofix is the closest thing to ScreenMark — the same draw-anywhere overlay, free, and it has been doing it for years. The difference is what happens after you let go of the mouse."
-          className="mb-12"
-        />
+        <SectionHeading {...compare.heading} className="mb-12" />
 
         <Reveal>
           {/* Focusable so the scrollable table is reachable by keyboard (WCAG 2.2). */}
           <div
             role="region"
-            aria-label="Feature comparison against Pointofix and other Windows annotation and capture tools"
+            aria-label={compare.regionLabel}
             tabIndex={0}
             className="overflow-x-auto rounded-lg border border-border"
           >
             {/* Widened for the fifth data column; the wrapper scrolls it. */}
             <table className="w-full min-w-[780px] border-collapse text-sm">
-              <caption className="sr-only">
-                How ScreenMark compares with Pointofix, Snipping Tool, Greenshot
-                and ShareX
-              </caption>
+              <caption className="sr-only">{compare.caption}</caption>
               <thead>
                 <tr className="bg-surface">
                   <th
                     scope="col"
                     className="border-b border-border px-[18px] py-4 text-left font-semibold text-fg-muted"
                   >
-                    Capability
+                    {compare.capability}
                   </th>
                   <th
                     scope="col"
@@ -82,7 +78,7 @@ export function ComparisonTable() {
                   >
                     ScreenMark
                   </th>
-                  {columns.map((column) => (
+                  {compareColumns.map((column) => (
                     <th
                       key={column.key}
                       scope="col"
@@ -94,7 +90,7 @@ export function ComparisonTable() {
                 </tr>
               </thead>
               <tbody>
-                {compareRows.map((row) => (
+                {rows.map((row) => (
                   <tr key={row.label}>
                     <th
                       scope="row"
@@ -107,14 +103,24 @@ export function ComparisonTable() {
                         "border-b border-divider bg-accent/6 px-3.5 py-3.5 text-center",
                       )}
                     >
-                      <Cell value={row.screenMarkPro} />
+                      <Cell
+                        value={row.screenMarkPro}
+                        qualifiers={compare.qualifiers}
+                        yes={ui.yes}
+                        no={ui.no}
+                      />
                     </td>
-                    {columns.map((column) => (
+                    {compareColumns.map((column) => (
                       <td
                         key={column.key}
                         className="border-b border-divider px-3.5 py-3.5 text-center"
                       >
-                        <Cell value={row[column.key]} />
+                        <Cell
+                          value={row[column.key]}
+                          qualifiers={compare.qualifiers}
+                          yes={ui.yes}
+                          no={ui.no}
+                        />
                       </td>
                     ))}
                   </tr>

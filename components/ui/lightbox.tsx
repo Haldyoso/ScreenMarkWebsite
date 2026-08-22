@@ -7,16 +7,17 @@ import { useCallback, useEffect, useRef } from "react";
 import { Screenshot } from "@/components/ui/screenshot";
 import { WindowFrame } from "@/components/ui/window-frame";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
-import type { GalleryItem } from "@/types";
+import type { Copy, GalleryItem } from "@/types";
 
 interface LightboxProps {
   items: GalleryItem[];
   index: number;
   onClose: () => void;
   onNavigate: (index: number) => void;
+  ui: Copy["ui"];
 }
 
-export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
+export function Lightbox({ items, index, onClose, onNavigate, ui }: LightboxProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const reduceMotion = useReducedMotion();
@@ -81,7 +82,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        aria-label={`Screenshot viewer, ${position}`}
+        aria-label={`${ui.screenshotViewer}, ${position}`}
         onClick={onClose}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -94,14 +95,14 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
          * announces each one to screen readers as it becomes current.
          */}
         <p aria-live="polite" className="sr-only">
-          {item.title}, image {position}. {item.screenshot.alt}
+          {item.title}, {ui.imageOfTotal} {position}. {item.screenshot.alt}
         </p>
 
         <button
           ref={closeButtonRef}
           type="button"
           onClick={onClose}
-          aria-label="Close"
+          aria-label={ui.close}
           className="absolute top-5 right-5 flex size-11 items-center justify-center rounded-md border border-border bg-surface text-fg hover:bg-surface-elevated"
         >
           <X aria-hidden="true" className="size-[22px]" />
@@ -113,7 +114,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
             event.stopPropagation();
             step(-1);
           }}
-          aria-label="Previous screenshot"
+          aria-label={ui.previousScreenshot}
           className="absolute left-5 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-fg hover:bg-surface-elevated"
         >
           <ChevronLeft aria-hidden="true" className="size-6" />
@@ -125,7 +126,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
             event.stopPropagation();
             step(1);
           }}
-          aria-label="Next screenshot"
+          aria-label={ui.nextScreenshot}
           className="absolute right-5 top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-fg hover:bg-surface-elevated"
         >
           <ChevronRight aria-hidden="true" className="size-6" />

@@ -2,6 +2,10 @@
  * Single source of truth for anything that changes per release or per
  * deployment. The download href and repo URL are placeholders from the
  * prototype — point them at the real release asset before launch.
+ *
+ * Nothing here is translated. Everything the visitor reads lives in
+ * lib/content/<lang>.ts; what is left is URLs, version numbers and the site
+ * name, which are the same in every language.
  */
 
 /**
@@ -18,9 +22,6 @@ export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/ScreenMarkWebsite
 
 export const site = {
   name: "ScreenMark",
-  tagline: "Draw directly on your screen. Edit everything later.",
-  description:
-    "The portable screen-annotation tool for engineers. Every arrow, callout and measurement stays a fully editable vector object — move it, restyle it, regroup it, re-export it. No installation, no login, no internet.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
     "https://haldyoso.github.io/ScreenMarkWebsite",
@@ -33,10 +34,13 @@ export const site = {
     opmDownloadUrl: `${basePath}/downloads/ScreenMark-v0.9.9.84-OPM-do-2026-10-21.exe`,
     olderVersionsUrl: "https://github.com",
   },
-  nav: [
-    { label: "Features", href: "#features" },
-    { label: "How it works", href: "#how" },
-    { label: "Compare", href: "#compare" },
-    { label: "FAQ", href: "#faq" },
-  ],
 } as const;
+
+/**
+ * True once `release.downloadUrl` points at a real asset. Guards everything
+ * that would otherwise state something unverifiable: the JSON-LD downloadUrl
+ * (a link to nowhere, fed to Google) and the SHA-256 line (still the
+ * prototype's placeholder digest, and a checksum nobody can verify is worse
+ * than no checksum at all).
+ */
+export const hasRealRelease = site.release.downloadUrl.startsWith("http");

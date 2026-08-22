@@ -8,20 +8,45 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Logo } from "@/components/layout/logo";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { GitHubIcon } from "@/components/ui/github-icon";
 import { Button } from "@/components/ui/button";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { homePath, type Lang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
+import type { Copy, NavItem } from "@/types";
 
-export function Navbar() {
+interface NavbarProps {
+  lang: Lang;
+  copy: Copy;
+  nav: NavItem[];
+  /** Where each locale's equivalent of the current page lives. */
+  langPaths: Record<Lang, string>;
+  /**
+   * Section anchors only resolve on the landing page. The changelog gets the
+   * chrome without them rather than a row of links that jump nowhere.
+   */
+  showSections?: boolean;
+}
+
+export function Navbar({
+  lang,
+  copy,
+  nav,
+  langPaths,
+  showSections = true,
+}: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
+  const { ui } = copy;
 
   // The drawer's trigger is hidden at md; close the drawer if the viewport
   // grows past that while it is open, or it would be stranded off-screen.
@@ -49,71 +74,86 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
+  const downloadHref = showSections ? "#download" : `${homePath(lang)}#download`;
+
   return (
     <header className="fixed inset-x-0 top-0 z-100">
       <div
         className={cn(
           "h-16 border-b backdrop-blur-[20px] transition-[background-color,border-color] duration-[180ms] ease-standard",
           scrolled
-            ? "border-border bg-[rgb(14_15_17/0.82)]"
+            ? "border-border bg-nav-scrim"
             : "border-transparent bg-transparent",
         )}
       >
         <nav
-          aria-label="Primary"
+          aria-label={ui.primaryNav}
           className="mx-auto flex h-full max-w-[1200px] items-center gap-6 px-4 md:px-6"
         >
-          <a href="#top" className="rounded-md">
+          <Link href={homePath(lang)} className="rounded-md">
             <Logo glow />
-            <span className="sr-only">ScreenMark — back to top</span>
-          </a>
+            <span className="sr-only">{ui.backToTop}</span>
+          </Link>
 
           <div className="flex-1" />
 
           <div className="hidden items-center gap-1 min-[900px]:flex">
-            {site.nav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="rounded-md px-3 py-2 text-[15px] font-medium text-fg-muted transition-colors duration-[120ms] hover:text-fg"
-              >
-                {item.label}
-              </a>
-            ))}
+            {showSections &&
+              nav.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-md px-3 py-2 text-[15px] font-medium text-fg-muted transition-colors duration-[120ms] hover:text-fg"
+                >
+                  {item.label}
+                </a>
+              ))}
 
-            <Button asChild variant="ghost" size="icon" className="ml-1">
+            <LanguageSwitcher
+              current={lang}
+              paths={langPaths}
+              ui={ui}
+              className="ml-1"
+            />
+
+            <ThemeToggle ui={ui} />
+
+            <Button asChild variant="ghost" size="icon">
               <a
                 href={site.repo}
                 target="_blank"
                 rel="noopener"
-                aria-label="GitHub repository"
+                aria-label={ui.githubRepo}
               >
                 <GitHubIcon className="size-5" />
               </a>
             </Button>
 
             <Button asChild size="sm" className="ml-2">
-              <a href="#download">
+              <a href={downloadHref}>
                 <Download aria-hidden="true" className="size-4" />
-                Download
+                {ui.download}
               </a>
             </Button>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Menu"}
-            className="flex size-10 items-center justify-center rounded-md border border-border bg-surface text-fg min-[900px]:hidden"
-          >
-            {menuOpen ? (
-              <X aria-hidden="true" className="size-5" />
-            ) : (
-              <Menu aria-hidden="true" className="size-5" />
-            )}
-          </button>
+          <div className="flex items-center gap-1 min-[900px]:hidden">
+            <ThemeToggle ui={ui} />
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={menuOpen ? ui.closeMenu : ui.openMenu}
+              className="flex size-10 items-center justify-center rounded-md border border-border bg-surface text-fg"
+            >
+              {menuOpen ? (
+                <X aria-hidden="true" className="size-5" />
+              ) : (
+                <Menu aria-hidden="true" className="size-5" />
+              )}
+            </button>
+          </div>
         </nav>
       </div>
 
@@ -130,22 +170,29 @@ export function Navbar() {
               className="border-b border-border bg-code-bg min-[900px]:hidden"
             >
               <div className="flex flex-col gap-0.5 px-4 py-3 md:px-6">
-                {site.nav.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="rounded-md px-2 py-3.5 text-base font-medium text-fg"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {showSections &&
+                  nav.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="rounded-md px-2 py-3.5 text-base font-medium text-fg"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+
+                <div className="mt-2 flex items-center justify-between border-t border-divider px-2 pt-3">
+                  <span className="text-sm text-fg-subtle">{ui.language}</span>
+                  <LanguageSwitcher current={lang} paths={langPaths} ui={ui} />
+                </div>
+
                 <a
-                  href="#download"
+                  href={downloadHref}
                   onClick={() => setMenuOpen(false)}
-                  className="mt-2 rounded-md bg-accent px-2 py-3.5 text-center font-semibold text-white"
+                  className="mt-3 rounded-md bg-accent px-2 py-3.5 text-center font-semibold text-white"
                 >
-                  Download for Windows
+                  {ui.downloadForWindows}
                 </a>
               </div>
             </m.div>

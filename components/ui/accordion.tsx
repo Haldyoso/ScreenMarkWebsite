@@ -29,7 +29,8 @@ export function AccordionTrigger({
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
         className={cn(
-          "flex flex-1 items-center justify-between gap-4 px-[22px] py-5 text-left text-base font-semibold text-fg transition-colors duration-[120ms] hover:bg-white/3 [&[data-state=open]>svg]:rotate-180",
+          // fg/3, not white/3 — the hover tint has to darken on a light page.
+          "flex flex-1 items-center justify-between gap-4 px-[22px] py-5 text-left text-base font-semibold text-fg transition-colors duration-[120ms] hover:bg-fg/3 [&[data-state=open]>svg]:rotate-180",
           className,
         )}
         {...props}

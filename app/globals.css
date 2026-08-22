@@ -10,6 +10,10 @@
 
    Dark is the primary theme. The light token set is applied only when :root
    carries data-theme="light" — the prototype and every screenshot are dark.
+   That attribute is written by the navbar's theme toggle and replayed before
+   first paint from localStorage; with no stored choice the dark set below
+   stands, so the default the brand intended is also the default a visitor
+   gets. See lib/theme.ts.
    ========================================================================== */
 @theme {
   /* --- surfaces: Graphite, a blue-biased grey ramp (never pure grey) --- */
@@ -25,6 +29,17 @@
   --color-border-strong: #3a4152; /* secondary button hover edge */
   --color-surface-hover: #2c3242; /* elevated button hover fill */
   --color-tile: #1e222c; /* inactive icon tile in the showcase */
+
+  /*
+   * Translucent scrim behind the navbar once the page scrolls. A token rather
+   * than a literal because it is one of the few surfaces that has to invert
+   * with the theme — a dark bar over a light page reads as a foreign element.
+   */
+  --color-nav-scrim: rgb(14 15 17 / 0.82);
+
+  /* The showcase panel's hatch, two steps apart at the same lightness. */
+  --color-hatch-a: #0f1219;
+  --color-hatch-b: #12151d;
 
   /* --- text: fg = text.primary · fg-muted = text.secondary · fg-subtle = text.disabled --- */
   --color-fg: #e8eaf0;
@@ -120,6 +135,9 @@
   --color-accent-pressed: #1a50ae;
   --color-accent-subtle: #eef4fe;
   --color-accent-soft: #1a50ae;
+  --color-nav-scrim: rgb(255 255 255 / 0.82);
+  --color-hatch-a: #e9edf4;
+  --color-hatch-b: #f2f5f9;
   color-scheme: light;
 }
 
@@ -167,14 +185,55 @@
 }
 
 @layer utilities {
-  /* Diagonal hatch standing in for a screenshot that has not been captured yet. */
+  /*
+   * Theme toggle. Both icons and both labels are in the markup; CSS decides
+   * which pair is visible from the same `data-theme` attribute the pre-paint
+   * script writes. This is what lets the button be correct in server HTML for
+   * either theme, so React never has to know which one is active — see
+   * components/layout/theme-toggle.tsx.
+   */
+  .theme-when-light {
+    display: none;
+  }
+
+  :root[data-theme="light"] .theme-when-dark {
+    display: none;
+  }
+
+  :root[data-theme="light"] .theme-when-light {
+    display: block;
+  }
+
+  /* sr-only spans must not become block boxes when the rule above shows them. */
+  :root[data-theme="light"] span.theme-when-light {
+    display: inline;
+  }
+
+  /*
+   * The page's dot grid. White at 3.5% is texture on the dark canvas and
+   * invisible on the light one, so light gets an equally faint dark dot.
+   */
+  .page-dots {
+    background-image: radial-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  }
+
+  :root[data-theme="light"] .page-dots {
+    background-image: radial-gradient(rgb(11 13 20 / 0.06) 1px, transparent 1px);
+  }
+
+  /*
+   * Diagonal hatch: the showcase panel's backdrop, and the stand-in for a
+   * screenshot that has not been captured yet. Tokenized because the feature
+   * showcase renders body copy directly on top of it — left hard-coded dark, a
+   * light-theme visitor would get near-black text on a near-black panel.
+   */
   .screenshot-hatch {
     background-image: repeating-linear-gradient(
       45deg,
-      #0f1219,
-      #0f1219 14px,
-      #12151d 14px,
-      #12151d 28px
+      var(--color-hatch-a),
+      var(--color-hatch-a) 14px,
+      var(--color-hatch-b) 14px,
+      var(--color-hatch-b) 28px
     );
   }
 
@@ -186,6 +245,61 @@
     );
     background-clip: text;
     color: transparent;
+  }
+
+  /*
+   * Typography for the release notes, which arrive as HTML from marked rather
+   * than as JSX, so no utility class can be put on the individual elements.
+   * Scoped to this one class instead of installing @tailwindcss/typography for
+   * a single page.
+   */
+  .prose-changelog {
+    color: var(--color-fg-muted);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .prose-changelog > * + * {
+    margin-top: 0.9em;
+  }
+
+  .prose-changelog strong {
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+
+  .prose-changelog ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55em;
+    padding-left: 1.15em;
+    list-style: disc;
+  }
+
+  .prose-changelog li::marker {
+    color: var(--color-fg-subtle);
+  }
+
+  .prose-changelog code {
+    border-radius: var(--radius-sm);
+    background-color: var(--color-code-bg);
+    padding: 0.15em 0.4em;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-fg);
+  }
+
+  .prose-changelog a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose-changelog h3,
+  .prose-changelog h4 {
+    color: var(--color-fg);
+    font-size: 15px;
+    font-weight: 600;
   }
 }
 

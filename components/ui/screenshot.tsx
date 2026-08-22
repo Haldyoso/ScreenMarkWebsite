@@ -5,6 +5,16 @@ import { basePath } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import type { Screenshot as ScreenshotData } from "@/types";
 
+/**
+ * The captures ship as WebP. With `images.unoptimized` set there is no loader
+ * to negotiate a format, so what is committed is what every browser downloads —
+ * and at ~a third of the PNG bytes for identical linework, WebP is simply the
+ * better file. Support has been universal since 2020, and this is an app for
+ * Windows 10/11 anyway. lib/content/shared.ts stores paths without an
+ * extension so this stays the one place that knows the format.
+ */
+const FORMAT = ".webp";
+
 interface ScreenshotProps {
   screenshot: ScreenshotData;
   /** Tailwind aspect utility, e.g. "aspect-[16/9]". */
@@ -57,7 +67,7 @@ export function Screenshot({
            * Entries in lib/content.ts stay root-relative so this is the one
            * place that knows where the site is mounted.
            */
-          src={`${basePath}${src}`}
+          src={`${basePath}${src}${FORMAT}`}
           // An empty alt is the correct way to mark an image decorative.
           alt={decorative ? "" : alt}
           fill

@@ -12,28 +12,34 @@ import { useState } from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Screenshot } from "@/components/ui/screenshot";
 import { WindowFrame } from "@/components/ui/window-frame";
-import { showcase } from "@/lib/content";
+import { showcaseIcons } from "@/lib/content/shared";
 import { cn } from "@/lib/utils";
+import type { HeadingCopy, ShowcaseFeature } from "@/types";
 
-export function FeatureShowcase() {
+interface FeatureShowcaseProps {
+  heading: HeadingCopy;
+  features: ShowcaseFeature[];
+}
+
+export function FeatureShowcase({ heading, features }: FeatureShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useReducedMotion();
-  const active = showcase[activeIndex];
-  const ActiveIcon = active.icon;
+  const active = features[activeIndex];
+  /*
+   * Looked up here rather than received as a prop: icons are React components
+   * and cannot be serialized across the server/client boundary. The id in the
+   * props is enough to find them, and this module is already client-side.
+   */
+  const ActiveIcon = showcaseIcons[active.id];
 
   return (
     <section id="features" className="mx-auto max-w-[1200px] scroll-mt-20 px-4 py-16 md:px-6">
-      <SectionHeading
-        overline="Interactive editing"
-        title="A vector editor that opens as fast as a screenshot"
-        subtitle="Hover a capability to see it in the workspace."
-        className="mb-12"
-      />
+      <SectionHeading {...heading} className="mb-12" />
 
       <div className="grid items-stretch gap-8 min-[900px]:grid-cols-[0.9fr_1.1fr]">
         <ul className="flex flex-col gap-2">
-          {showcase.map((feature, index) => {
-            const Icon = feature.icon;
+          {features.map((feature, index) => {
+            const Icon = showcaseIcons[feature.id];
             const isActive = index === activeIndex;
 
             return (

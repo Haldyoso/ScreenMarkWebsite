@@ -1,11 +1,16 @@
 import { Reveal } from "@/components/motion/reveal";
 import { Card, IconTile } from "@/components/ui/card";
-import { benefits } from "@/lib/content";
+import type { Benefit } from "@/types";
 
-export function Benefits() {
+interface BenefitsProps {
+  benefits: Benefit[];
+  label: string;
+}
+
+export function Benefits({ benefits, label }: BenefitsProps) {
   return (
     <section
-      aria-label="Why ScreenMark"
+      aria-label={label}
       className="mx-auto max-w-[1200px] px-4 pt-8 pb-24 md:px-6"
     >
       <ul className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">

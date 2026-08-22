@@ -1,7 +1,8 @@
 # ScreenMark — official website
 
-Single-page marketing site for **ScreenMark**, the portable Windows screen-annotation
-app whose annotations stay fully editable. One conversion goal: download the portable ZIP.
+Marketing site for **ScreenMark**, the portable Windows screen-annotation app whose
+annotations stay fully editable. One conversion goal: download the portable ZIP.
+Published in English, Slovak and German.
 
 The handoff bundle below still says "ScreenMarkPro" throughout — that was the working name
 during design. The shipped product and this site are **ScreenMark**; the bundle is kept
@@ -13,7 +14,7 @@ Built to the spec in
 ## Stack
 
 Next.js 15 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS 4 ·
-Framer Motion · Radix primitives (shadcn-style) · lucide-react.
+Framer Motion · Radix primitives (shadcn-style) · lucide-react · marked (build-time only).
 
 ## Getting started
 
@@ -25,32 +26,99 @@ npm run lint
 npm run typecheck
 ```
 
+Two maintenance scripts, neither part of the build:
+
+```bash
+npm run sync:changelog -- ../ScreenMark   # refresh content/CHANGELOG.md from the app repo
+npm run optimize:screenshots              # convert any new PNG in public/screenshots to WebP
+```
+
 ## Layout
 
 ```
-app/          route, layout, metadata, JSON-LD, sitemap/robots/manifest, OG image
+app/
+  (en)/  page + changelog + root layout   -> /          /changelog
+  (sk)/  page + changelog + root layout   -> /sk        /sk/changelog
+  (de)/  page + changelog + root layout   -> /de        /de/changelog
+  manifest.ts, robots.ts, sitemap.ts, opengraph-image*.png/, globals.css
 components/
-  layout/     Navbar (sticky + mobile drawer), Footer, Logo
+  layout/     DocumentShell, Landing, ChangelogPage, Navbar, Footer, Logo,
+              LanguageSwitcher, ThemeToggle, PageBackdrop, SkipLink
   sections/   Hero, Benefits, FeatureShowcase, HowItWorks, FeatureGrid,
               ComparisonTable, Gallery, Shortcuts, Faq, DownloadCta
   motion/     Reveal (IntersectionObserver fade-up)
   ui/         Button, Badge, Card, Kbd, Accordion, WindowFrame, Screenshot, Lightbox
+  og-card.tsx Social card, rendered by the three opengraph routes
 hooks/        useMediaQuery, useLockBodyScroll
-lib/          content.ts (all copy + data arrays), site.ts (release info), utils.ts
-types/        shared content types
+lib/
+  content/    shared.ts (facts) + en/sk/de.ts (words) + index.ts (joins them)
+  i18n.ts     locales and their paths
+  metadata.ts per-locale <head>, canonical and hreflang
+  structured-data.ts  SoftwareApplication + FAQPage JSON-LD
+  changelog.ts        parses content/CHANGELOG.md at build time
+  site.ts     release info and basePath · theme.ts · utils.ts
+types/        shared content types, including the Copy interface
+content/      CHANGELOG.md, vendored from the app repo
 ```
 
 Everything is a Server Component except the interactive islands: `Navbar`,
-`FeatureShowcase`, `Gallery`, `Lightbox` (dynamically imported) and the FAQ `Accordion`.
+`ThemeToggle`, `FeatureShowcase`, `Gallery`, `Lightbox` (dynamically imported) and the
+FAQ `Accordion`.
+
+## Languages
+
+English is the default and lives at the site root; Slovak and German hang off `/sk` and
+`/de`. `output: "export"` rules out middleware, so a language-negotiating `/` could only
+be a client-side redirect — an extra round trip on the most common entry point. Serving
+the default language directly avoids that and avoids an `/en` duplicate of `/`.
+
+Each locale is its own **route group with its own root layout**, which is the only way
+`<html lang>` can be a server-rendered attribute per language. Moving between groups
+forces a full page load; for a language switch that is the correct behaviour, not a cost.
+
+### Adding or changing copy
+
+Copy lives in `lib/content/{en,sk,de}.ts`, all three typed as `Copy` from
+[`types/index.ts`](types/index.ts). **Change English first** — the shared interface then
+makes the other two fail `npm run typecheck` until they catch up, so a missing German
+string is a build error rather than an English sentence that survives into production.
+
+What deliberately does **not** live in the locale files: icons, screenshot file names,
+keyboard keys and the comparison matrix's yes/no values. Those are facts about the
+product, not language, and live once in
+[`lib/content/shared.ts`](lib/content/shared.ts). Triplicating them would let a wrong
+`false` in the comparison table survive in one language after being fixed in another.
+
+Each locale emits `<link rel="alternate" hreflang>` for all three plus `x-default`, and
+the sitemap repeats the full alternate set on every URL — an alternate group is only
+trusted when every member points back at every other.
 
 ## Design tokens
 
 All colors, radii, shadows, easings and fonts are `@theme` tokens in
-[`app/globals.css`](app/globals.css) — no hard-coded hex outside that file. Dark is the
-primary theme; the light token set is defined and applies when `<html data-theme="light">`.
+[`app/globals.css`](app/globals.css) — no hard-coded hex outside that file.
 
 The one mapping worth memorizing: the spec's `text.primary` / `text.secondary` /
 `text.disabled` are the utilities `text-fg` / `text-fg-muted` / `text-fg-subtle`.
+
+### Themes
+
+Dark is the brand default and the theme every screenshot was captured in. The light token
+set applies when `:root` carries `data-theme="light"`, which the navbar toggle writes and
+an inline script in `DocumentShell` replays from `localStorage` before first paint.
+
+**With nothing stored, no attribute is set and dark stands.** `prefers-color-scheme` is
+deliberately not consulted: honouring it would flip a large share of visitors to a light
+page whose screenshots are all dark, which is a design decision rather than a fix.
+
+The toggle holds no React state. Both icons and both labels ship in the markup and CSS
+picks the pair matching `data-theme` (`.theme-when-dark` / `.theme-when-light`), so the
+server HTML is correct for either theme and there is nothing to reconcile at hydration.
+
+Anything that inverts with the theme needs a token, not a literal — `--color-nav-scrim`
+and `--color-hatch-a/b` exist because a hard-coded dark navbar scrim and a hard-coded
+dark hatch both broke the light theme, the second by putting near-black body copy on a
+near-black panel.
 
 ## Screenshots
 
@@ -58,25 +126,62 @@ The one mapping worth memorizing: the spec's `text.primary` / `text.secondary` /
 drawing — not mock-ups. Each is cropped from a full 1920×1080 capture of the app running
 over the drawing held open behind it, so what the site shows is what the product draws.
 
-Every entry in [`lib/content.ts`](lib/content.ts) pairs the file with its `alt`, and the
-`alt` describes **that specific image**, not the feature in the abstract. If you re-shoot a
-capture and the contents change — a different angle reading, a different stamp — change the
-`alt` in the same commit or it quietly starts lying to screen readers.
+Every entry in the locale files pairs the file with its `alt`, and the `alt` describes
+**that specific image**, not the feature in the abstract. If you re-shoot a capture and
+the contents change — a different angle reading, a different stamp — change the `alt` in
+**all three locales** in the same commit or it quietly starts lying to screen readers.
 
 ```ts
-screenshot: {
-  src: "/screenshots/measurement.png",   // root-relative; basePath is added at render
-  alt: "An angle measured across two bolt holes reading 35.2° …",
-}
+// lib/content/shared.ts — the file, without an extension
+"cad-measurement": "/screenshots/measurement",
+
+// lib/content/en.ts — what that specific image shows
+alt: "An angle measured across two bolt holes reading 35.2° …",
 ```
 
-Two things to keep in mind when replacing one:
+Three things to keep in mind when replacing one:
 
+- **Format.** The captures ship as **WebP**, ~a third of the PNG bytes for identical
+  linework. Drop the PNG in and run `npm run optimize:screenshots`, which converts and
+  deletes the original. Paths in `shared.ts` carry no extension —
+  [`components/ui/screenshot.tsx`](components/ui/screenshot.tsx) appends it, so switching
+  format later is one constant.
 - **Size.** Image optimization is off (see Deployment), so the browser downloads exactly
   what you commit. The hero renders ~1200 px wide at 16:9; showcase and gallery slots are
   16:10. Match those ratios or `object-cover` will crop the sides off.
-- **`basePath` is applied in [`components/ui/screenshot.tsx`](components/ui/screenshot.tsx),
-  not in the data.** See Deployment for why it has to be.
+- **`basePath` is applied in `screenshot.tsx`, not in the data.** See Deployment for why
+  it has to be.
+
+## Changelog page
+
+`/changelog` (and its two translations) renders `content/CHANGELOG.md`, a **vendored copy**
+of the application repository's own file. Vendored because the two live in separate
+repositories and the deploy workflow checks out only this one — a build-time path into
+`../ScreenMark` works locally and fails in CI. Refresh it with `npm run sync:changelog`.
+
+Only the most recent `RELEASE_LIMIT` (20) entries render. The app's changelog is a
+development log — 106 entries by 0.9.9.61 — and all of them produced a 557 kB page.
+
+The entries are reproduced verbatim, so they are in Slovak on all three pages; the
+framing copy says so rather than pretending otherwise. `marked` runs at build time on a
+file in this repository, never ships to the browser, and its output is as trusted as the
+JSX around it.
+
+## Comparison table
+
+Every competitor cell is transcribed from vendor documentation, with the sources and
+dates recorded in the comment above `compareValues` in
+[`lib/content/shared.ts`](lib/content/shared.ts). **Check the source before changing a
+value**, and update that comment in the same commit.
+
+A 2026-08-11 pass against the vendors' own pages corrected three claims that were wrong
+in ScreenMark's favour: Greenshot and ShareX both ship portable ZIP builds (they were
+marked installer-only), Greenshot's `.greenshot` format does keep elements editable for
+later (it was marked a flat No), and ShareX's offline row carried an "opt-out" note that
+nothing in its documentation supports.
+
+The magnifier row, which ScreenMark loses to Pointofix, stays in on purpose. A table the
+incumbent loses 10–0 reads as a strawman.
 
 ## Deployment
 
@@ -87,7 +192,7 @@ lint → typecheck → `next build` → publish `out/` to GitHub Pages. Live at
 Pages is a static file host with no Node process, which forces four things:
 
 - `output: "export"` in [`next.config.ts`](next.config.ts). Every metadata route
-  (`manifest`, `robots`, `sitemap`, the OG image) needs `export const dynamic =
+  (`manifest`, `robots`, `sitemap`, the OG images) needs `export const dynamic =
   "force-static"` or the build fails on it — one at a time, so expect to hit them in turn.
 - **`basePath`** — project sites are served from `/<repo>`, not the root. It lives in
   [`lib/site.ts`](lib/site.ts) so the config and the app share one value. Next rewrites
@@ -105,10 +210,12 @@ Pages is a static file host with no Node process, which forces four things:
   silently dropped: Pages sends a fixed header set and cannot add to it. Restore it if
   this ever moves to a host that runs Node.
 
-The OG card is a route handler at `app/opengraph-image.png/` rather than Next's
+The OG cards are route handlers at `app/opengraph-image*.png/` rather than Next's
 `app/opengraph-image.tsx` convention, because that convention exports an *extensionless*
 file — and Pages types files purely by extension, so scrapers would get
-`application/octet-stream` and drop the card.
+`application/octet-stream` and drop the card. **One route per locale**: a static export
+cannot vary a single route by query string, so the three differ only in the `Lang` they
+hand to `OgCard`.
 
 `robots.txt` is emitted at `/ScreenMarkWebsite/robots.txt`, which crawlers ignore; only a
 root-domain one counts. It costs nothing and starts working the day this gets a real
@@ -118,22 +225,31 @@ domain.
 
 - `lib/site.ts` — `repo` and `release.olderVersionsUrl` still point at bare
   `https://github.com`, and `release.downloadUrl` is `#`, so **the download button goes
-  nowhere**. `sha256` is a placeholder too. The app repo has no published release yet.
+  nowhere**. The app repo has no published release yet.
 - `lib/site.ts` — `release.version` says `1.0.0` and `release.size` `~8.4 MB`; the app repo
-  is on `0.9.9.58` and its portable ZIP is ~66 MB.
+  is on `0.9.9.61` and its portable ZIP is ~66 MB.
+- `release.sha256` is still the prototype's placeholder. `hasRealRelease` in `lib/site.ts`
+  now hides it — the download panel prints "SHA-256 published with the release" instead of
+  a digest nobody can verify — but it still has to be filled in.
 - **No `LICENSE` file in the app repo, though the footer and the JSON-LD both claim MIT.**
   That is a licence claim about someone else's software, so it needs deciding rather than
-  copying — the marketing plan in that repo assumes a paid commercial licence.
-- Replace the remaining `#` hrefs in the footer (Documentation, Changelog, License).
+  copying — the marketing plan in that repo assumes a paid commercial licence. If it does
+  go paid, the JSON-LD `offers.price: "0"` is wrong too.
+- Replace the remaining `#` hrefs in the footer (Documentation, License, Report an issue).
+  Changelog now resolves.
 
 ## Accessibility & motion
 
-One `h1`, ordered headings, semantic landmarks. The lightbox traps focus, restores it to
-the card that opened it, and supports Esc and ←/→ (wrapping). Comparison-table status is
-never color-only — every ✓/— carries a visually hidden "Yes"/"No". All motion honors
-`prefers-reduced-motion`.
+One `h1`, ordered headings, semantic landmarks. Each locale's `<html lang>` is
+server-rendered, and the language switcher's links carry `hreflang` and `lang` so a screen
+reader pronounces "Slovenčina" in Slovak rather than with the page's voice.
+
+The lightbox traps focus, restores it to the card that opened it, and supports Esc and
+←/→ (wrapping). Comparison-table status is never color-only — every ✓/— carries a visually
+hidden "Yes"/"No" in the page's own language, and qualifying notes are translated strings
+rather than English fragments. All motion honors `prefers-reduced-motion`.
 
 Scroll reveals are IntersectionObserver-driven, with the hidden state scoped to
-`html[data-js="on"]` (set by an inline script before first paint). A Framer Motion
-`initial` would instead ship `opacity: 0` in the server HTML, blanking the page for no-JS
-clients and holding LCP until hydration.
+`html[data-js="on"]` (set by the same inline script that applies the theme, before first
+paint). A Framer Motion `initial` would instead ship `opacity: 0` in the server HTML,
+blanking the page for no-JS clients and holding LCP until hydration.

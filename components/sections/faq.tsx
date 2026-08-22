@@ -6,15 +6,24 @@ import {
 } from "@/components/ui/accordion";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { faqs } from "@/lib/content";
+import type { Faq as FaqItem, HeadingCopy } from "@/types";
 
-export function Faq() {
+interface FaqProps {
+  heading: HeadingCopy;
+  faqs: FaqItem[];
+}
+
+export function Faq({ heading, faqs }: FaqProps) {
   return (
     <section id="faq" className="mx-auto max-w-[820px] scroll-mt-16 px-4 py-24 md:px-6">
-      <SectionHeading overline="Questions" title="Frequently asked" className="mb-12" />
+      <SectionHeading {...heading} className="mb-12" />
 
       <Reveal>
-        {/* Answers are server-rendered inside the panels, so they stay indexable. */}
+        {/*
+         * Answers are server-rendered inside the panels, so they stay indexable
+         * — and match the FAQPage JSON-LD emitted alongside this page word for
+         * word, which is what Google requires of rich-result markup.
+         */}
         <Accordion
           type="single"
           collapsible

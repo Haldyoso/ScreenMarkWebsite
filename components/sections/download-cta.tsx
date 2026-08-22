@@ -4,9 +4,10 @@ import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { WindowsIcon } from "@/components/ui/github-icon";
-import { site } from "@/lib/site";
+import { hasRealRelease, site } from "@/lib/site";
+import type { Copy } from "@/types";
 
-export function DownloadCta() {
+export function DownloadCta({ copy }: { copy: Copy }) {
   const {
     version,
     size,
@@ -15,6 +16,7 @@ export function DownloadCta() {
     opmDownloadUrl,
     olderVersionsUrl,
   } = site.release;
+  const cta = copy.downloadCta;
 
   return (
     <section
@@ -31,21 +33,21 @@ export function DownloadCta() {
           <div className="relative">
             <Badge variant="plain" className="mb-6">
               <WindowsIcon className="size-[15px] text-accent" />
-              Windows 10 &amp; 11 · 64-bit
+              {cta.platform}
             </Badge>
 
             <h2 className="mx-auto max-w-[640px] text-[clamp(28px,4.5vw,38px)] font-bold tracking-[-0.5px]">
-              Download ScreenMark
+              {cta.title}
             </h2>
             <p className="mx-auto mt-4 max-w-[560px] text-lg leading-[1.55] text-fg-muted">
-              Portable ZIP — unzip and run. No installation, no admin rights, no internet.
+              {cta.subtitle}
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3.5">
               <Button asChild size="lg" className="shadow-[0_8px_24px_rgb(45_125_246/0.35)]">
                 <a href={downloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
-                  Download ZIP (v{version})
+                  {cta.button} (v{version})
                 </a>
               </Button>
               <Button asChild size="lg" variant="elevated">
@@ -56,17 +58,27 @@ export function DownloadCta() {
               </Button>
               <Button asChild size="lg" variant="elevated">
                 <a href={olderVersionsUrl} target="_blank" rel="noopener">
-                  Older versions
+                  {cta.olderVersions}
                 </a>
               </Button>
             </div>
 
             <p className="mt-7 flex flex-wrap justify-center gap-5 text-[13px] text-fg-subtle">
-              <span>Version {version}</span>
+              <span>
+                {cta.versionLabel} {version}
+              </span>
               <span aria-hidden="true">·</span>
               <span>{size}</span>
               <span aria-hidden="true">·</span>
-              <span className="font-mono">SHA-256: {sha256}</span>
+              {/*
+               * The digest in lib/site.ts is still the prototype's placeholder
+               * ("a3f9…e21c"). Printing it would be a security claim nobody can
+               * check against a file that does not exist yet, so it is held back
+               * behind the same guard the JSON-LD downloadUrl uses.
+               */}
+              <span className="font-mono">
+                {hasRealRelease ? `SHA-256: ${sha256}` : cta.checksumPending}
+              </span>
             </p>
           </div>
         </div>
