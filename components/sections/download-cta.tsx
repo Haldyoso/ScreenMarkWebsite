@@ -7,7 +7,14 @@ import { WindowsIcon } from "@/components/ui/github-icon";
 import { site } from "@/lib/site";
 
 export function DownloadCta() {
-  const { version, size, sha256, downloadUrl, olderVersionsUrl } = site.release;
+  const {
+    version,
+    size,
+    sha256,
+    downloadUrl,
+    opmDownloadUrl,
+    olderVersionsUrl,
+  } = site.release;
 
   return (
     <section
@@ -39,6 +46,12 @@ export function DownloadCta() {
                 <a href={downloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
                   Download ZIP (v{version})
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="elevated">
+                <a href={opmDownloadUrl} download>
+                  <Download aria-hidden="true" className="size-5" />
+                  Download OPM
                 </a>
               </Button>
               <Button asChild size="lg" variant="elevated">

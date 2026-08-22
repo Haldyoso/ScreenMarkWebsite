@@ -30,6 +30,7 @@ export const site = {
     size: "~8.4 MB",
     sha256: "a3f9…e21c",
     downloadUrl: "#",
+    opmDownloadUrl: `${basePath}/downloads/ScreenMark-v0.9.9.84-OPM-do-2026-10-21.exe`,
     olderVersionsUrl: "https://github.com",
   },
   nav: [
