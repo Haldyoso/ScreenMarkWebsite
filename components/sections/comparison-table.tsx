@@ -1,4 +1,4 @@
-import { Check, Minus } from "lucide-react";
+import { ArrowLeftRight, Check, Minus } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -54,6 +54,10 @@ export function ComparisonTable({ copy, rows }: ComparisonTableProps) {
         <SectionHeading {...compare.heading} className="mb-12" />
 
         <Reveal>
+          <p className="mb-3 flex items-center gap-2 text-sm text-fg-muted min-[840px]:hidden">
+            <ArrowLeftRight aria-hidden="true" className="size-4 shrink-0 text-accent" />
+            {compare.scrollHint}
+          </p>
           {/* Focusable so the scrollable table is reachable by keyboard (WCAG 2.2). */}
           <div
             role="region"

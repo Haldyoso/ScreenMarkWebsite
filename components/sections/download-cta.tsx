@@ -1,22 +1,32 @@
 import { Download } from "lucide-react";
+import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { WindowsIcon } from "@/components/ui/github-icon";
+import { changelogPath, type Lang } from "@/lib/i18n";
 import { hasRealRelease, site } from "@/lib/site";
 import type { Copy } from "@/types";
 
-export function DownloadCta({ copy }: { copy: Copy }) {
+export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
   const {
     version,
     size,
     sha256,
     downloadUrl,
+    opmVersion,
+    opmExpires,
     opmDownloadUrl,
-    olderVersionsUrl,
   } = site.release;
   const cta = copy.downloadCta;
+  const opmDate = new Intl.DateTimeFormat(lang, {
+    dateStyle: "medium",
+    timeZone: "UTC",
+  }).format(new Date(`${opmExpires}T00:00:00Z`));
+  const opmValidity = cta.opmValidity
+    .replace("{version}", opmVersion)
+    .replace("{date}", opmDate);
 
   return (
     <section
@@ -44,7 +54,7 @@ export function DownloadCta({ copy }: { copy: Copy }) {
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3.5">
-              <Button asChild size="lg" className="shadow-[0_8px_24px_rgb(45_125_246/0.35)]">
+              <Button asChild size="lg" className="shadow-[0_8px_24px_rgb(36_111_229/0.35)]">
                 <a href={downloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
                   {cta.button} (v{version})
@@ -53,15 +63,17 @@ export function DownloadCta({ copy }: { copy: Copy }) {
               <Button asChild size="lg" variant="elevated">
                 <a href={opmDownloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
-                  Download OPM
+                  {cta.opmButton}
                 </a>
               </Button>
               <Button asChild size="lg" variant="elevated">
-                <a href={olderVersionsUrl} target="_blank" rel="noopener">
+                <Link href={changelogPath(lang)}>
                   {cta.olderVersions}
-                </a>
+                </Link>
               </Button>
             </div>
+
+            <p className="mt-4 text-sm text-fg-muted">{opmValidity}</p>
 
             <p className="mt-7 flex flex-wrap justify-center gap-5 text-[13px] text-fg-subtle">
               <span>
@@ -70,14 +82,10 @@ export function DownloadCta({ copy }: { copy: Copy }) {
               <span aria-hidden="true">·</span>
               <span>{size}</span>
               <span aria-hidden="true">·</span>
-              {/*
-               * The digest in lib/site.ts is still the prototype's placeholder
-               * ("a3f9…e21c"). Printing it would be a security claim nobody can
-               * check against a file that does not exist yet, so it is held back
-               * behind the same guard the JSON-LD downloadUrl uses.
-               */}
-              <span className="font-mono">
-                {hasRealRelease ? `SHA-256: ${sha256}` : cta.checksumPending}
+              <span className="max-w-full break-all font-mono">
+                {hasRealRelease
+                  ? `${cta.checksumLabel}: ${sha256}`
+                  : cta.checksumPending}
               </span>
             </p>
           </div>

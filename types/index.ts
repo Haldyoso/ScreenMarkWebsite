@@ -135,6 +135,7 @@ export interface Copy {
   ui: {
     skipToContent: string;
     backToTop: string;
+    home: string;
     githubRepo: string;
     openMenu: string;
     closeMenu: string;
@@ -161,6 +162,7 @@ export interface Copy {
     badge: string;
     titleLead: string;
     titleAccent: string;
+    description: string;
     ctaPrimary: string;
     ctaSecondary: string;
     chips: string[];
@@ -183,6 +185,7 @@ export interface Copy {
   compare: {
     heading: HeadingCopy;
     regionLabel: string;
+    scrollHint: string;
     caption: string;
     capability: string;
     rows: Record<CompareRowId, string>;
@@ -205,8 +208,12 @@ export interface Copy {
     title: string;
     subtitle: string;
     button: string;
+    opmButton: string;
+    /** `{version}` and `{date}` describe the time-limited trial build. */
+    opmValidity: string;
     olderVersions: string;
     versionLabel: string;
+    checksumLabel: string;
     /** Shown in place of the checksum until a real release exists. */
     checksumPending: string;
   };
@@ -226,6 +233,8 @@ export interface Copy {
     /** Shown when the vendored changelog file is empty or missing. */
     empty: string;
     sourceNote: string;
+    /** `{current}` and `{notes}` explain any build/release-note version gap. */
+    currentBuild: string;
     /**
      * Shown when the file holds more releases than the page renders.
      * `{shown}` and `{total}` are substituted at render time.

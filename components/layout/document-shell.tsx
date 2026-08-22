@@ -36,7 +36,12 @@ interface DocumentShellProps {
 export function DocumentShell({ lang, children }: DocumentShellProps) {
   return (
     // The boot script mutates data-js and data-theme before React hydrates.
-    <html lang={lang} data-js="off" suppressHydrationWarning>
+    <html
+      lang={lang}
+      data-js="off"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body>
         {/*
          * First node in <body> rather than inside a <head> element. App Router

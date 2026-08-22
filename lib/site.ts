@@ -1,7 +1,7 @@
 /**
  * Single source of truth for anything that changes per release or per
- * deployment. The download href and repo URL are placeholders from the
- * prototype — point them at the real release asset before launch.
+ * deployment. Release values below are taken from the clean ScreenMark app
+ * repository and its reproducible portable build.
  *
  * Nothing here is translated. Everything the visitor reads lives in
  * lib/content/<lang>.ts; what is left is URLs, version numbers and the site
@@ -20,27 +20,34 @@
  */
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/ScreenMarkWebsite";
 
+const releaseAssetPath =
+  "/downloads/ScreenMark-v0.9.9.86-win-x64-portable.zip";
+const opmAssetPath =
+  "/downloads/ScreenMark-v0.9.9.84-OPM-do-2026-10-21.exe";
+
 export const site = {
   name: "ScreenMark",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
     "https://haldyoso.github.io/ScreenMarkWebsite",
-  repo: "https://github.com",
+  // The application repository is private. These public links intentionally
+  // point at the website repository so visitors never land on a GitHub 404.
+  repo: "https://github.com/Haldyoso/ScreenMarkWebsite",
+  issuesUrl: "https://github.com/Haldyoso/ScreenMarkWebsite/issues/new",
   release: {
-    version: "1.0.0",
-    size: "~8.4 MB",
-    sha256: "a3f9…e21c",
-    downloadUrl: "#",
-    opmDownloadUrl: `${basePath}/downloads/ScreenMark-v0.9.9.84-OPM-do-2026-10-21.exe`,
-    olderVersionsUrl: "https://github.com",
+    version: "0.9.9.86",
+    size: "66.9 MB",
+    sha256: "F57D97D5427DF8CBD6131E3C43B7C36E4BF2E17DCEF543A9EA9360EA71BDFCC3",
+    assetPath: releaseAssetPath,
+    downloadUrl: `${basePath}${releaseAssetPath}`,
+    opmVersion: "0.9.9.84",
+    opmExpires: "2026-10-21",
+    opmDownloadUrl: `${basePath}${opmAssetPath}`,
   },
 } as const;
 
 /**
- * True once `release.downloadUrl` points at a real asset. Guards everything
- * that would otherwise state something unverifiable: the JSON-LD downloadUrl
- * (a link to nowhere, fed to Google) and the SHA-256 line (still the
- * prototype's placeholder digest, and a checksum nobody can verify is worse
- * than no checksum at all).
+ * Kept as a guard so a future pre-release edit cannot accidentally publish a
+ * placeholder URL or checksum into the page and its structured data.
  */
-export const hasRealRelease = site.release.downloadUrl.startsWith("http");
+export const hasRealRelease = !site.release.downloadUrl.endsWith("#");

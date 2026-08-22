@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ScreenMark — označené nálezy vizuálneho auditu</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+        background: #080a10;
+        color: #eef2f8;
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 28px; }
+      main { width: 1384px; margin: 0 auto; }
+      h1 { margin: 0 0 8px; font-size: 30px; }
+      .intro { margin: 0 0 26px; color: #aab3c4; font-size: 16px; }
+      .card {
+        margin-bottom: 26px;
+        overflow: hidden;
+        border: 1px solid #30384a;
+        border-radius: 14px;
+        background: #11151e;
+        box-shadow: 0 14px 40px rgb(0 0 0 / 35%);
+      }
+      .card-title { margin: 0; padding: 14px 18px; font-size: 18px; }
+      .canvas { position: relative; margin: 0 auto; overflow: hidden; }
+      .canvas img { display: block; width: 100%; height: 100%; }
+      .download { width: 1366px; height: 768px; }
+      .mobile { width: 375px; height: 812px; }
+      .landscape { width: 812px; height: 375px; }
+      .row { display: grid; grid-template-columns: repeat(3, 375px); gap: 26px; justify-content: center; }
+      .row .card { margin-bottom: 26px; }
+      .caption { margin: 0; padding: 14px 18px 18px; color: #cbd3df; font-size: 15px; line-height: 1.45; }
+      .caption strong { color: #fff; }
+      .box {
+        position: absolute;
+        border: 4px solid #ff4d4f;
+        border-radius: 9px;
+        background: rgb(255 77 79 / 9%);
+        box-shadow: 0 0 0 2px rgb(0 0 0 / 65%), 0 0 22px rgb(255 77 79 / 30%);
+      }
+      .box.warn {
+        border-color: #ffb020;
+        background: rgb(255 176 32 / 10%);
+        box-shadow: 0 0 0 2px rgb(0 0 0 / 65%), 0 0 22px rgb(255 176 32 / 25%);
+      }
+      .pin {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        background: #c5221f;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 800;
+        box-shadow: 0 4px 16px rgb(0 0 0 / 70%);
+      }
+      .pin.warn { background: #9a5a00; }
+      .edge {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 0;
+        height: 9px;
+        background: repeating-linear-gradient(135deg, #ff4d4f 0 12px, #fff 12px 24px);
+        box-shadow: 0 -2px 14px rgb(255 77 79 / 70%);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>ScreenMark — označené nálezy</h1>
+      <p class="intro">Červená označuje blokujúci alebo vysoko závažný problém, oranžová strednú závažnosť.</p>
+
+      <figure class="card">
+        <h2 class="card-title">Download flow · desktop 1366 × 768</h2>
+        <div class="canvas download">
+          <img src="screenshots/22-sk-download-section.png" alt="Download sekcia ScreenMarku" />
+          <span class="box" style="left: 342px; top: 394px; width: 252px; height: 64px"></span>
+          <span class="pin" style="left: 326px; top: 378px">1</span>
+          <span class="box warn" style="left: 597px; top: 394px; width: 399px; height: 64px"></span>
+          <span class="pin warn" style="left: 980px; top: 378px">2</span>
+          <span class="box" style="left: 430px; top: 469px; width: 502px; height: 40px"></span>
+          <span class="pin" style="left: 414px; top: 486px">3</span>
+        </div>
+        <figcaption class="caption">
+          <strong>1</strong> Primárny download má <code>href="#"</code> a nič nestiahne.
+          <strong>2</strong> OPM smeruje na verziu 0.9.9.84 a „Staršie verzie“ iba na koreň github.com, zatiaľ čo karta tvrdí 1.0.0.
+          <strong>3</strong> Biely text na modrej má 3,91:1; drobné metadáta používajú podlimitný subtle token.
+        </figcaption>
+      </figure>
+
+      <div class="row">
+        <figure class="card">
+          <h2 class="card-title">Lightbox · mobil 375 × 812</h2>
+          <div class="canvas mobile">
+            <img src="screenshots/14-sk-mobile-lightbox.png" alt="Lightbox na mobile" />
+            <span class="box" style="left: 304px; top: 12px; width: 59px; height: 60px"></span>
+            <span class="pin" style="left: 286px; top: 59px">1</span>
+            <span class="box warn" style="left: 19px; top: 272px; width: 337px; height: 236px"></span>
+            <span class="pin warn" style="left: 14px; top: 491px">2</span>
+          </div>
+          <figcaption class="caption">
+            <strong>1</strong> Navbar leží nad modalom; klik na „Zavrieť“ otvoril menu a lightbox ostal otvorený.
+            <strong>2</strong> Zdroj 16:10 sa zobrazuje ako 16:9 s <code>object-cover</code>, takže sa oreže približne 10 % výšky.
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <h2 class="card-title">Porovnanie · mobil 375 × 812</h2>
+          <div class="canvas mobile">
+            <img src="screenshots/11-sk-mobile-375-comparison.png" alt="Porovnávacia tabuľka na mobile" />
+            <span class="box warn" style="left: 11px; top: 465px; width: 343px; height: 347px"></span>
+            <span class="pin warn" style="left: 326px; top: 448px">1</span>
+          </div>
+          <figcaption class="caption">
+            <strong>1</strong> Región má 326 px, tabuľka 780 px. Ďalších 454 px je dostupných iba horizontálnym posunom, no rozhranie nemá šípku, fade ani textový hint.
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <h2 class="card-title">Focus v FAQ · mobil 375 × 812</h2>
+          <div class="canvas mobile">
+            <img src="screenshots/21-sk-mobile-faq-open.png" alt="Otvorený FAQ akordeón na mobile" />
+            <span class="box warn" style="left: 11px; top: 161px; width: 323px; height: 99px"></span>
+            <span class="pin warn" style="left: 320px; top: 143px">1</span>
+          </div>
+          <figcaption class="caption">
+            <strong>1</strong> Vonkajší <code>overflow-hidden</code> oreže ľavú a pravú stranu focus outline; zostanú iba dve modré horizontálne čiary.
+          </figcaption>
+        </figure>
+      </div>
+
+      <figure class="card">
+        <h2 class="card-title">Mobilné menu · landscape 812 × 375</h2>
+        <div class="canvas landscape">
+          <img src="screenshots/09-mobile-landscape-812-menu.png" alt="Mobilné menu v orientácii landscape" />
+          <span class="box" style="left: 18px; top: 348px; width: 776px; height: 64px"></span>
+          <span class="pin" style="left: 760px; top: 327px">1</span>
+          <span class="edge"></span>
+        </div>
+        <figcaption class="caption">
+          <strong>1</strong> CTA začína na y=359 a končí na y=411, ale viewport má iba 375 px. Menu nemá vlastný scroll a stránka je súčasne uzamknutá cez <code>body overflow:hidden</code>.
+        </figcaption>
+      </figure>
+    </main>
+  </body>
+</html>

@@ -37,7 +37,9 @@ export function Gallery({ heading, items, ui }: GalleryProps) {
 
   const close = () => {
     setLightboxIndex(-1);
-    openerRef.current?.focus();
+    // The page stays inert through the 180 ms exit transition. Return focus
+    // after the portal unmounts and its cleanup restores the page.
+    window.setTimeout(() => openerRef.current?.focus(), 220);
   };
 
   return (
@@ -47,7 +49,7 @@ export function Gallery({ heading, items, ui }: GalleryProps) {
     >
       <SectionHeading {...heading} className="mb-12" />
 
-      <ul className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
         {items.map((item, index) => (
           <Reveal as="li" key={item.title} index={index % 3} className="h-full">
             <button

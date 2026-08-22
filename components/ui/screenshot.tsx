@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
+import { useState } from "react";
 
 import { basePath } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -23,6 +26,8 @@ interface ScreenshotProps {
   sizes?: string;
   priority?: boolean;
   className?: string;
+  /** Preserve every pixel in contexts such as the full-screen lightbox. */
+  fit?: "cover" | "contain";
   /** Shows the lucide frame glyph above the label (hero + lightbox only). */
   showGlyph?: boolean;
   /**
@@ -49,13 +54,15 @@ export function Screenshot({
   sizes = "(max-width: 900px) 100vw, 50vw",
   priority = false,
   className,
+  fit = "cover",
   showGlyph = false,
   bare = false,
   decorative = false,
 }: ScreenshotProps) {
   const { src, alt } = screenshot;
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
-  if (src) {
+  if (src && failedSrc !== src) {
     return (
       <div className={cn("relative", ratio, className)}>
         <Image
@@ -73,7 +80,8 @@ export function Screenshot({
           fill
           sizes={sizes}
           priority={priority}
-          className="object-cover"
+          onError={() => setFailedSrc(src)}
+          className={fit === "contain" ? "object-contain" : "object-cover"}
         />
       </div>
     );

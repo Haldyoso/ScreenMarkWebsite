@@ -5,12 +5,12 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-md font-semibold transition-colors duration-[120ms] ease-standard disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex max-w-full items-center justify-center gap-2.5 rounded-md text-center font-semibold transition-colors duration-[120ms] ease-standard disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         primary:
-          "bg-accent text-white shadow-glow-sm hover:bg-accent-hover active:bg-accent-pressed",
+          "bg-action text-white shadow-glow-sm hover:bg-action-hover active:bg-action-pressed",
         secondary:
           "border border-border bg-surface text-fg hover:border-border-strong hover:bg-surface-elevated",
         elevated:
@@ -19,10 +19,10 @@ const buttonVariants = cva(
         ghost: "text-fg-muted hover:bg-fg/6 hover:text-fg",
       },
       size: {
-        sm: "h-10 px-4 text-[15px]",
-        md: "h-12 px-6 text-base",
-        lg: "h-13 px-[30px] text-[17px]",
-        icon: "size-10",
+        sm: "min-h-10 px-4 py-2 text-[15px]",
+        md: "min-h-12 px-6 py-3 text-base",
+        lg: "min-h-13 px-[30px] py-3 text-[17px]",
+        icon: "size-11",
       },
     },
     defaultVariants: {

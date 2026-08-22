@@ -41,7 +41,7 @@ export function LanguageSwitcher({
             lang={lang}
             aria-current={isCurrent ? "true" : undefined}
             className={cn(
-              "rounded-md px-2 py-1.5 text-[13px] font-semibold transition-colors duration-[120ms]",
+              "flex min-h-11 min-w-11 items-center justify-center rounded-md px-2 text-[13px] font-semibold transition-colors duration-[120ms]",
               isCurrent
                 ? "bg-surface text-fg"
                 : "text-fg-subtle hover:bg-surface hover:text-fg",

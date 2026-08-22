@@ -90,9 +90,12 @@ export function Navbar({
           aria-label={ui.primaryNav}
           className="mx-auto flex h-full max-w-[1200px] items-center gap-6 px-4 md:px-6"
         >
-          <Link href={homePath(lang)} className="rounded-md">
+          <Link
+            href={homePath(lang)}
+            aria-label={showSections ? ui.backToTop : ui.home}
+            className="rounded-md"
+          >
             <Logo glow />
-            <span className="sr-only">{ui.backToTop}</span>
           </Link>
 
           <div className="flex-1" />
@@ -145,7 +148,7 @@ export function Navbar({
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               aria-label={menuOpen ? ui.closeMenu : ui.openMenu}
-              className="flex size-10 items-center justify-center rounded-md border border-border bg-surface text-fg"
+              className="flex size-11 items-center justify-center rounded-md border border-border bg-surface text-fg"
             >
               {menuOpen ? (
                 <X aria-hidden="true" className="size-5" />
@@ -167,16 +170,16 @@ export function Navbar({
               animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
-              className="border-b border-border bg-code-bg min-[900px]:hidden"
+              className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-b border-border bg-code-bg min-[900px]:hidden"
             >
-              <div className="flex flex-col gap-0.5 px-4 py-3 md:px-6">
+              <div className="flex flex-col gap-0.5 px-4 py-3 [@media(max-height:430px)]:py-2 md:px-6">
                 {showSections &&
                   nav.map((item) => (
                     <a
                       key={item.href}
                       href={item.href}
                       onClick={() => setMenuOpen(false)}
-                      className="rounded-md px-2 py-3.5 text-base font-medium text-fg"
+                      className="rounded-md px-2 py-3.5 text-base font-medium text-fg [@media(max-height:430px)]:py-2"
                     >
                       {item.label}
                     </a>
@@ -190,7 +193,7 @@ export function Navbar({
                 <a
                   href={downloadHref}
                   onClick={() => setMenuOpen(false)}
-                  className="mt-3 rounded-md bg-accent px-2 py-3.5 text-center font-semibold text-white"
+                  className="mt-3 rounded-md bg-action px-2 py-3.5 text-center font-semibold text-white hover:bg-action-hover active:bg-action-pressed"
                 >
                   {ui.downloadForWindows}
                 </a>

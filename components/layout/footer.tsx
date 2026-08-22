@@ -44,7 +44,7 @@ export function Footer({ lang, copy, columns }: FooterProps) {
                     {isRoute(link.href) ? (
                       <Link
                         href={link.href}
-                        className="text-fg-muted transition-colors duration-[120ms] hover:text-accent-hover"
+                        className="inline-flex min-h-11 items-center text-fg-muted transition-colors duration-[120ms] hover:text-accent-hover"
                       >
                         {link.label}
                       </Link>
@@ -54,7 +54,7 @@ export function Footer({ lang, copy, columns }: FooterProps) {
                         {...(link.external
                           ? { target: "_blank", rel: "noopener" }
                           : {})}
-                        className="text-fg-muted transition-colors duration-[120ms] hover:text-accent-hover"
+                        className="inline-flex min-h-11 items-center text-fg-muted transition-colors duration-[120ms] hover:text-accent-hover"
                       >
                         {link.label}
                       </a>

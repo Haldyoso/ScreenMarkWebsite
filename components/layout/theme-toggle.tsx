@@ -35,7 +35,7 @@ export function ThemeToggle({ ui, className }: { ui: Copy["ui"]; className?: str
       type="button"
       onClick={toggle}
       className={cn(
-        "flex size-9 items-center justify-center rounded-md text-fg-muted transition-colors duration-[120ms] hover:bg-surface hover:text-fg",
+        "flex size-11 items-center justify-center rounded-md text-fg-muted transition-colors duration-[120ms] hover:bg-surface hover:text-fg",
         className,
       )}
     >

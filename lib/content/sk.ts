@@ -17,7 +17,8 @@ export const sk: Copy = {
   ui: {
     skipToContent: "Preskočiť na obsah",
     backToTop: "ScreenMark — späť nahor",
-    githubRepo: "Repozitár na GitHube",
+    home: "ScreenMark — úvodná stránka",
+    githubRepo: "Repozitár webu ScreenMark na GitHube",
     openMenu: "Menu",
     closeMenu: "Zavrieť menu",
     download: "Stiahnuť",
@@ -48,8 +49,10 @@ export const sk: Copy = {
     badge: "Prenosný · Windows 10 a 11 · Bez inštalácie",
     titleLead: "Kreslite priamo po obrazovke.",
     titleAccent: "Upravujte kedykoľvek potom.",
+    description:
+      "Prenosná anotácia pre technikov. Každá šípka, bublina aj kóta zostáva editovateľná — bez inštalácie, účtu a internetu.",
     ctaPrimary: "Stiahnuť — prenosný ZIP",
-    ctaSecondary: "Pozrieť na GitHube",
+    ctaSecondary: "Pozrieť novinky",
     chips: [
       "Offline",
       "Bez telemetrie",
@@ -212,6 +215,7 @@ export const sk: Copy = {
     },
     regionLabel:
       "Porovnanie funkcií s Pointofixom a ďalšími nástrojmi na anotáciu a snímanie obrazovky vo Windows",
+    scrollHint: "Potiahnite alebo rolujte do strany a porovnajte všetky nástroje.",
     caption:
       "Ako ScreenMark obstojí voči Pointofixu, nástroju Výstrižky, Greenshotu a ShareX-u",
     capability: "Schopnosť",
@@ -342,8 +346,11 @@ export const sk: Copy = {
     subtitle:
       "Prenosný ZIP — rozbaľte a spustite. Bez inštalácie, bez admin práv, bez internetu.",
     button: "Stiahnuť ZIP",
-    olderVersions: "Staršie verzie",
+    opmButton: "Stiahnuť skúšobnú OPM verziu",
+    opmValidity: "Skúšobná OPM verzia v{version}, platná do {date}",
+    olderVersions: "História vydaní",
     versionLabel: "Verzia",
+    checksumLabel: "SHA-256",
     checksumPending: "SHA-256 sa zverejní spolu s vydaním",
   },
   footer: {
@@ -367,7 +374,7 @@ export const sk: Copy = {
       license: "Licencia (MIT)",
       issues: "Nahlásiť chybu",
     },
-    legal: "© 2026 ScreenMark. Vydané pod licenciou MIT.",
+    legal: "© 2026 ScreenMark.",
     traits: "Prenosný · Offline · Bez telemetrie",
   },
   changelog: {
@@ -378,6 +385,8 @@ export const sk: Copy = {
     empty: "Zatiaľ neboli zverejnené žiadne poznámky k vydaniu.",
     sourceNote:
       "Prevzaté doslova zo súboru CHANGELOG.md v repozitári aplikácie.",
+    currentBuild:
+      "Aktuálne sa sťahuje v{current}; podrobné poznámky nižšie zatiaľ končia verziou v{notes}.",
     truncated:
       "Zobrazených {shown} najnovších z {total} vydaní. Celá história je v repozitári.",
   },

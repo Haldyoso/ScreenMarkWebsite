@@ -5,7 +5,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 interface RevealProps {
   children: ReactNode;
   className?: string;
-  /** Position in a stagger group; each step adds 60ms. */
+  /** Position in a stagger group; each step adds 40ms. */
   index?: number;
   as?: "div" | "li";
 }
@@ -53,7 +53,7 @@ export function Reveal({ children, className, index = 0, as = "div" }: RevealPro
     <Component
       ref={ref}
       data-reveal=""
-      style={{ transitionDelay: `${index * 60}ms` }}
+      style={{ transitionDelay: `${index * 40}ms` }}
       className={className}
     >
       {children}

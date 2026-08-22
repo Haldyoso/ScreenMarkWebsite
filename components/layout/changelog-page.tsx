@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
 import { Footer } from "@/components/layout/footer";
@@ -8,6 +8,7 @@ import { SkipLink } from "@/components/layout/skip-link";
 import { getChangelog } from "@/lib/changelog";
 import { getContent } from "@/lib/content";
 import { changelogPath, homePath, langs, type Lang } from "@/lib/i18n";
+import { site } from "@/lib/site";
 import { softwareApplicationJsonLd } from "@/lib/structured-data";
 
 /**
@@ -20,13 +21,14 @@ export function ChangelogPage({ lang }: { lang: Lang }) {
   const content = getContent(lang);
   const { copy } = content;
   const { releases, total } = getChangelog();
+  const latestNotesVersion = releases[0]?.version;
 
   const langPaths = Object.fromEntries(
     langs.map((l) => [l, changelogPath(l)]),
   ) as Record<Lang, string>;
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div data-page-root className="relative min-h-screen overflow-x-hidden">
       <PageBackdrop />
 
       <SkipLink label={copy.ui.skipToContent} />
@@ -69,40 +71,54 @@ export function ChangelogPage({ lang }: { lang: Lang }) {
           )}
         </p>
 
+        {latestNotesVersion && latestNotesVersion !== site.release.version && (
+          <p className="mt-5 rounded-md border border-accent/30 bg-accent/8 px-4 py-3 text-sm leading-relaxed text-fg-muted">
+            {copy.changelog.currentBuild
+              .replace("{current}", site.release.version)
+              .replace("{notes}", latestNotesVersion)}
+          </p>
+        )}
+
         {releases.length === 0 ? (
           <p className="mt-12 rounded-lg border border-border bg-card px-6 py-10 text-center text-fg-muted">
             {copy.changelog.empty}
           </p>
         ) : (
-          <ol className="mt-12 flex flex-col gap-8">
-            {releases.map((release) => (
+          <ol className="mt-12 flex flex-col gap-4">
+            {releases.map((release, index) => (
               <li
                 key={release.version}
-                className="rounded-lg border border-border bg-card p-6 md:p-8"
+                id={`v-${release.version.replaceAll(".", "-")}`}
+                className="scroll-mt-24 rounded-lg border border-border bg-card"
               >
-                <div className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-divider pb-4">
-                  <h2 className="font-mono text-xl font-semibold text-accent">
-                    {release.version}
-                  </h2>
-                  {release.date && (
-                    <time dateTime={release.date} className="text-sm text-fg-subtle">
-                      {release.date}
-                    </time>
-                  )}
-                  {release.note && (
-                    <span className="text-sm text-fg-subtle">{release.note}</span>
-                  )}
-                </div>
-                {/*
-                 * Build-time HTML from a file in this repository — see the note
-                 * in lib/changelog.ts. `prose-changelog` carries the typography;
-                 * Tailwind's own prose plugin is not installed and one page does
-                 * not justify adding it.
-                 */}
-                <div
-                  className="prose-changelog"
-                  dangerouslySetInnerHTML={{ __html: release.html }}
-                />
+                <details open={index === 0} className="group">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-lg px-6 py-5 focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--color-accent)] md:px-8 [&::-webkit-details-marker]:hidden">
+                    <span className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                      <h2 className="font-mono text-xl font-semibold text-accent">
+                        {release.version}
+                      </h2>
+                      {release.date && (
+                        <time dateTime={release.date} className="text-sm text-fg-subtle">
+                          {release.date}
+                        </time>
+                      )}
+                      {release.note && (
+                        <span className="text-sm text-fg-subtle">{release.note}</span>
+                      )}
+                    </span>
+                    <ChevronDown
+                      aria-hidden="true"
+                      className="size-5 shrink-0 text-fg-muted transition-transform duration-200 ease-standard group-open:rotate-180"
+                    />
+                  </summary>
+                  <div className="px-6 pb-6 md:px-8 md:pb-8">
+                    {/* Build-time HTML from the vendored application changelog. */}
+                    <div
+                      className="prose-changelog border-t border-divider pt-5"
+                      dangerouslySetInnerHTML={{ __html: release.html }}
+                    />
+                  </div>
+                </details>
               </li>
             ))}
           </ol>

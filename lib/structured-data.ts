@@ -21,9 +21,11 @@ export function softwareApplicationJsonLd(lang: Lang) {
     softwareVersion: site.release.version,
     fileSize: site.release.size.replace("~", "").trim(),
     url: absoluteUrl(site.url, homePath(lang)),
-    // Omitted while it is still "#": a link to nowhere, handed to Google.
-    ...(hasRealRelease ? { downloadUrl: site.release.downloadUrl } : {}),
-    license: "https://opensource.org/licenses/MIT",
+    // Structured data needs an absolute URL; the visible download link keeps
+    // its basePath-prefixed local URL so it also works in development.
+    ...(hasRealRelease
+      ? { downloadUrl: absoluteUrl(site.url, site.release.assetPath) }
+      : {}),
     offers: {
       "@type": "Offer",
       price: "0",

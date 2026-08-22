@@ -3,7 +3,7 @@
  * hands the sections the same array shapes they consumed when the site was
  * English-only. Server-side and pure, so each page pays for it once at build.
  */
-import { changelogPath, type Lang } from "@/lib/i18n";
+import { changelogPath, homePath, type Lang } from "@/lib/i18n";
 import { de } from "@/lib/content/de";
 import { en } from "@/lib/content/en";
 import { sk } from "@/lib/content/sk";
@@ -131,40 +131,33 @@ export function getContent(lang: Lang): SiteContent {
   };
 }
 
-/**
- * Documentation, License and "Report an issue" still point at "#". Those are
- * pre-launch gaps in lib/site.ts (no published release, no LICENSE file in the
- * app repo) rather than translation gaps, and inventing destinations for them
- * here would bury the problem. Changelog is the one that now resolves, because
- * the page it needed exists.
- */
 function buildFooterColumns(lang: Lang, copy: Copy): FooterColumn[] {
   const l = copy.footer.links;
+  const home = homePath(lang);
 
   return [
     {
       title: copy.footer.columns.product,
       links: [
-        { label: l.features, href: "#features" },
-        { label: l.how, href: "#how" },
-        { label: l.compare, href: "#compare" },
-        { label: l.download, href: "#download" },
+        { label: l.features, href: `${home}#features` },
+        { label: l.how, href: `${home}#how` },
+        { label: l.compare, href: `${home}#compare` },
+        { label: l.download, href: `${home}#download` },
       ],
     },
     {
       title: copy.footer.columns.resources,
       links: [
-        { label: l.faq, href: "#faq" },
-        { label: l.documentation, href: "#" },
+        { label: l.faq, href: `${home}#faq` },
         { label: l.changelog, href: changelogPath(lang) },
-        { label: l.shortcuts, href: "#shortcuts" },
+        { label: l.shortcuts, href: `${home}#shortcuts` },
       ],
     },
     {
       title: copy.footer.columns.connect,
-      links: [{ label: l.github, href: site.repo, external: true },
-        { label: l.license, href: "#" },
-        { label: l.issues, href: "#" },
+      links: [
+        { label: l.github, href: site.repo, external: true },
+        { label: l.issues, href: site.issuesUrl, external: true },
       ],
     },
   ];

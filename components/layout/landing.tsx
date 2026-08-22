@@ -30,7 +30,7 @@ export function Landing({ lang }: { lang: Lang }) {
   ) as Record<Lang, string>;
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div data-page-root className="relative min-h-screen overflow-x-hidden">
       <PageBackdrop />
 
       <SkipLink label={copy.ui.skipToContent} />
@@ -38,7 +38,12 @@ export function Landing({ lang }: { lang: Lang }) {
 
       {/* tabIndex -1 so the skip link actually moves focus here, not just scroll. */}
       <main id="top" tabIndex={-1} className="relative z-1 focus:outline-none">
-        <Hero copy={copy} screenshot={content.hero.screenshot} chips={content.hero.chips} />
+        <Hero
+          copy={copy}
+          lang={lang}
+          screenshot={content.hero.screenshot}
+          chips={content.hero.chips}
+        />
         <Benefits benefits={content.benefits} label={copy.ui.benefitsLabel} />
         <FeatureShowcase heading={copy.showcase.heading} features={content.showcase} />
         <HowItWorks heading={copy.howItWorks.heading} steps={content.steps} />
@@ -47,7 +52,7 @@ export function Landing({ lang }: { lang: Lang }) {
         <Gallery heading={copy.gallery.heading} items={content.gallery} ui={copy.ui} />
         <Shortcuts heading={copy.shortcuts.heading} shortcuts={content.shortcuts} />
         <Faq heading={copy.faq.heading} faqs={content.faqs} />
-        <DownloadCta copy={copy} />
+        <DownloadCta copy={copy} lang={lang} />
       </main>
 
       <Footer lang={lang} copy={copy} columns={content.footerColumns} />

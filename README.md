@@ -40,7 +40,7 @@ app/
   (en)/  page + changelog + root layout   -> /          /changelog
   (sk)/  page + changelog + root layout   -> /sk        /sk/changelog
   (de)/  page + changelog + root layout   -> /de        /de/changelog
-  manifest.ts, robots.ts, sitemap.ts, opengraph-image*.png/, globals.css
+  manifest.ts, robots.ts, sitemap.ts, globals.css
 components/
   layout/     DocumentShell, Landing, ChangelogPage, Navbar, Footer, Logo,
               LanguageSwitcher, ThemeToggle, PageBackdrop, SkipLink
@@ -48,7 +48,6 @@ components/
               ComparisonTable, Gallery, Shortcuts, Faq, DownloadCta
   motion/     Reveal (IntersectionObserver fade-up)
   ui/         Button, Badge, Card, Kbd, Accordion, WindowFrame, Screenshot, Lightbox
-  og-card.tsx Social card, rendered by the three opengraph routes
 hooks/        useMediaQuery, useLockBodyScroll
 lib/
   content/    shared.ts (facts) + en/sk/de.ts (words) + index.ts (joins them)
@@ -210,33 +209,27 @@ Pages is a static file host with no Node process, which forces four things:
   silently dropped: Pages sends a fixed header set and cannot add to it. Restore it if
   this ever moves to a host that runs Node.
 
-The OG cards are route handlers at `app/opengraph-image*.png/` rather than Next's
-`app/opengraph-image.tsx` convention, because that convention exports an *extensionless*
-file — and Pages types files purely by extension, so scrapers would get
-`application/octet-stream` and drop the card. **One route per locale**: a static export
-cannot vary a single route by query string, so the three differ only in the `Lang` they
-hand to `OgCard`.
+The three localized OG cards are generated into `public/` by
+`tools/generate-og-images.mjs` before every production build. The generator uses bundled
+Noto Sans fonts and Sharp, so output is deterministic and Pages serves real `.png` files
+with the correct content type instead of the extensionless file produced by Next's image
+convention.
 
 `robots.txt` is emitted at `/ScreenMarkWebsite/robots.txt`, which crawlers ignore; only a
 root-domain one counts. It costs nothing and starts working the day this gets a real
 domain.
 
-## Before launch
+## Release and launch notes
 
-- `lib/site.ts` — `repo` and `release.olderVersionsUrl` still point at bare
-  `https://github.com`, and `release.downloadUrl` is `#`, so **the download button goes
-  nowhere**. The app repo has no published release yet.
-- `lib/site.ts` — `release.version` says `1.0.0` and `release.size` `~8.4 MB`; the app repo
-  is on `0.9.9.61` and its portable ZIP is ~66 MB.
-- `release.sha256` is still the prototype's placeholder. `hasRealRelease` in `lib/site.ts`
-  now hides it — the download panel prints "SHA-256 published with the release" instead of
-  a digest nobody can verify — but it still has to be filled in.
-- **No `LICENSE` file in the app repo, though the footer and the JSON-LD both claim MIT.**
-  That is a licence claim about someone else's software, so it needs deciding rather than
-  copying — the marketing plan in that repo assumes a paid commercial licence. If it does
-  go paid, the JSON-LD `offers.price: "0"` is wrong too.
-- Replace the remaining `#` hrefs in the footer (Documentation, License, Report an issue).
-  Changelog now resolves.
+- The primary download is the verified portable `0.9.9.86` ZIP. Its version, byte size and
+  SHA-256 live together in `lib/site.ts`; the same data feeds the CTA and JSON-LD.
+- The separate OPM executable is explicitly presented as a time-limited trial, including
+  its own version and expiry date. It is not shown as a second stable release.
+- The application repository is private, so public GitHub and issue links target this
+  website repository. Footer entries without a public destination are omitted.
+- The app repository still has no `LICENSE` file and its commercial model is undecided.
+  The site therefore makes no MIT claim and renders no licence link until that decision is
+  backed by a published document. Revisit the JSON-LD offer if access stops being free.
 
 ## Accessibility & motion
 

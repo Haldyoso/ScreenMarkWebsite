@@ -17,7 +17,8 @@ export const de: Copy = {
   ui: {
     skipToContent: "Zum Inhalt springen",
     backToTop: "ScreenMark — zurück nach oben",
-    githubRepo: "GitHub-Repository",
+    home: "ScreenMark — Startseite",
+    githubRepo: "Repository der ScreenMark-Website auf GitHub",
     openMenu: "Menü",
     closeMenu: "Menü schließen",
     download: "Herunterladen",
@@ -48,8 +49,10 @@ export const de: Copy = {
     badge: "Portabel · Windows 10 & 11 · Ohne Installation",
     titleLead: "Direkt auf den Bildschirm zeichnen.",
     titleAccent: "Alles später bearbeiten.",
+    description:
+      "Portable Anmerkungen für Ingenieure. Pfeile, Sprechblasen und Maße bleiben bearbeitbar — ohne Installation, Konto oder Internet.",
     ctaPrimary: "Herunterladen — portables ZIP",
-    ctaSecondary: "Auf GitHub ansehen",
+    ctaSecondary: "Neuigkeiten ansehen",
     chips: [
       "Offline",
       "Keine Telemetrie",
@@ -213,6 +216,7 @@ export const de: Copy = {
     },
     regionLabel:
       "Funktionsvergleich mit Pointofix und weiteren Windows-Werkzeugen zum Anmerken und Aufnehmen",
+    scrollHint: "Wischen oder horizontal scrollen, um alle Werkzeuge zu vergleichen.",
     caption:
       "Wie ScreenMark im Vergleich zu Pointofix, Snipping Tool, Greenshot und ShareX abschneidet",
     capability: "Funktion",
@@ -343,8 +347,11 @@ export const de: Copy = {
     subtitle:
       "Portables ZIP — entpacken und starten. Ohne Installation, ohne Adminrechte, ohne Internet.",
     button: "ZIP herunterladen",
-    olderVersions: "Ältere Versionen",
+    opmButton: "OPM-Testversion herunterladen",
+    opmValidity: "OPM-Testversion v{version}, gültig bis {date}",
+    olderVersions: "Versionsverlauf",
     versionLabel: "Version",
+    checksumLabel: "SHA-256",
     checksumPending: "SHA-256 wird mit dem Release veröffentlicht",
   },
   footer: {
@@ -368,7 +375,7 @@ export const de: Copy = {
       license: "Lizenz (MIT)",
       issues: "Fehler melden",
     },
-    legal: "© 2026 ScreenMark. Veröffentlicht unter der MIT-Lizenz.",
+    legal: "© 2026 ScreenMark.",
     traits: "Portabel · Offline · Keine Telemetrie",
   },
   changelog: {
@@ -381,6 +388,8 @@ export const de: Copy = {
     empty: "Es wurden noch keine Versionshinweise veröffentlicht.",
     sourceNote:
       "Wörtlich aus der Datei CHANGELOG.md des Anwendungs-Repositorys übernommen, die auf Slowakisch verfasst ist.",
+    currentBuild:
+      "Der aktuelle Download ist v{current}; die ausführlichen Hinweise unten reichen derzeit bis v{notes}.",
     truncated:
       "Angezeigt werden die {shown} neuesten von {total} Versionen. Die vollständige Historie liegt im Repository.",
   },

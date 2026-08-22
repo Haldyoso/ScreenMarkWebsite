@@ -16,7 +16,8 @@ export const en: Copy = {
   ui: {
     skipToContent: "Skip to content",
     backToTop: "ScreenMark — back to top",
-    githubRepo: "GitHub repository",
+    home: "ScreenMark — home page",
+    githubRepo: "ScreenMark website repository on GitHub",
     openMenu: "Menu",
     closeMenu: "Close menu",
     download: "Download",
@@ -47,8 +48,10 @@ export const en: Copy = {
     badge: "Portable · Windows 10 & 11 · No installation",
     titleLead: "Draw directly on your screen.",
     titleAccent: "Edit everything later.",
+    description:
+      "Portable screen annotation for engineers. Every arrow, callout and measurement stays editable — with no installation, account or internet.",
     ctaPrimary: "Download — Portable ZIP",
-    ctaSecondary: "View on GitHub",
+    ctaSecondary: "See what’s new",
     chips: [
       "Offline",
       "No telemetry",
@@ -211,6 +214,7 @@ export const en: Copy = {
     },
     regionLabel:
       "Feature comparison against Pointofix and other Windows annotation and capture tools",
+    scrollHint: "Swipe or scroll horizontally to compare every tool.",
     caption:
       "How ScreenMark compares with Pointofix, Snipping Tool, Greenshot and ShareX",
     capability: "Capability",
@@ -341,8 +345,11 @@ export const en: Copy = {
     subtitle:
       "Portable ZIP — unzip and run. No installation, no admin rights, no internet.",
     button: "Download ZIP",
-    olderVersions: "Older versions",
+    opmButton: "Download OPM trial",
+    opmValidity: "OPM trial v{version}, valid through {date}",
+    olderVersions: "Release history",
     versionLabel: "Version",
+    checksumLabel: "SHA-256",
     checksumPending: "SHA-256 published with the release",
   },
   footer: {
@@ -366,7 +373,7 @@ export const en: Copy = {
       license: "License (MIT)",
       issues: "Report an issue",
     },
-    legal: "© 2026 ScreenMark. Released under the MIT License.",
+    legal: "© 2026 ScreenMark.",
     traits: "Portable · Offline · No telemetry",
   },
   changelog: {
@@ -380,6 +387,8 @@ export const en: Copy = {
       "No release notes have been published yet.",
     sourceNote:
       "Taken verbatim from the application repository's CHANGELOG.md, which is written in Slovak.",
+    currentBuild:
+      "The current download is v{current}; detailed release notes below currently end at v{notes}.",
     truncated:
       "Showing the {shown} most recent of {total} releases. The full history is in the repository.",
   },
