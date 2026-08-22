@@ -50,6 +50,12 @@ export function Hero({ copy, screenshot, chips }: HeroProps) {
             </a>
           </Button>
           <Button asChild variant="secondary">
+            <a href={site.release.opmDownloadUrl} download>
+              <Download aria-hidden="true" className="size-[18px]" />
+              Download OPM
+            </a>
+          </Button>
+          <Button asChild variant="secondary">
             <a href={site.repo} target="_blank" rel="noopener">
               <GitHubIcon className="size-[18px]" />
               {hero.ctaSecondary}
