@@ -221,10 +221,9 @@ domain.
 
 ## Release and launch notes
 
-- The primary download is the verified portable `0.9.9.86` ZIP. Its version, byte size and
-  SHA-256 live together in `lib/site.ts`; the same data feeds the CTA and JSON-LD.
-- The separate OPM executable is explicitly presented as a time-limited trial, including
-  its own version and expiry date. It is not shown as a second stable release.
+- The only public download is the time-limited `0.9.9.89` trial executable. Its version,
+  expiry date, byte size and SHA-256 live together in `lib/site.ts`; the same data feeds
+  the CTA and JSON-LD.
 - The application repository is private, so public GitHub and issue links target this
   website repository. Footer entries without a public destination are omitted.
 - The app repository still has no `LICENSE` file and its commercial model is undecided.

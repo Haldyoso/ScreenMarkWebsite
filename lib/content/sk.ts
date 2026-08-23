@@ -345,9 +345,7 @@ export const sk: Copy = {
     title: "Stiahnuť ScreenMark",
     subtitle:
       "Prenosné EXE — stiahnite a spustite. Bez inštalácie, bez admin práv, bez internetu.",
-    opmButton: "Stiahnuť skúšobnú OPM verziu",
     publicTrialButton: "Stiahnuť verejnú skúšobnú verziu",
-    opmValidity: "Skúšobná OPM verzia v{version}, platná do {date}",
     publicTrialValidity:
       "Verejná skúšobná verzia v{version}, platná do {date}",
     olderVersions: "História vydaní",

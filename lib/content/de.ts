@@ -346,9 +346,7 @@ export const de: Copy = {
     title: "ScreenMark herunterladen",
     subtitle:
       "Portable EXE — herunterladen und starten. Ohne Installation, ohne Adminrechte, ohne Internet.",
-    opmButton: "OPM-Testversion herunterladen",
     publicTrialButton: "Öffentliche Testversion herunterladen",
-    opmValidity: "OPM-Testversion v{version}, gültig bis {date}",
     publicTrialValidity:
       "Öffentliche Testversion v{version}, gültig bis {date}",
     olderVersions: "Versionsverlauf",

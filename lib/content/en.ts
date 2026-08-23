@@ -344,9 +344,7 @@ export const en: Copy = {
     title: "Download ScreenMark",
     subtitle:
       "Portable EXE — download and run. No installation, no admin rights, no internet.",
-    opmButton: "Download OPM trial",
     publicTrialButton: "Download public trial",
-    opmValidity: "OPM trial v{version}, valid through {date}",
     publicTrialValidity: "Public trial v{version}, valid through {date}",
     olderVersions: "Release history",
     versionLabel: "Version",
