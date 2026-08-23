@@ -345,6 +345,7 @@ export const en: Copy = {
     subtitle:
       "Portable EXE — download and run. No installation, no admin rights, no internet.",
     publicTrialButton: "Download public trial",
+    publicTrialZipButton: "Download public trial ZIP",
     publicTrialValidity: "Public trial v{version}, valid through {date}",
     olderVersions: "Release history",
     versionLabel: "Version",

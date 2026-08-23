@@ -347,6 +347,7 @@ export const de: Copy = {
     subtitle:
       "Portable EXE — herunterladen und starten. Ohne Installation, ohne Adminrechte, ohne Internet.",
     publicTrialButton: "Öffentliche Testversion herunterladen",
+    publicTrialZipButton: "Öffentliche Testversion als ZIP",
     publicTrialValidity:
       "Öffentliche Testversion v{version}, gültig bis {date}",
     olderVersions: "Versionsverlauf",

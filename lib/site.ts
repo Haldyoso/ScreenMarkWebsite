@@ -22,6 +22,8 @@ export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/ScreenMarkWebsite
 
 const publicTrialAssetPath =
   "/downloads/ScreenMark-v0.9.9.90-public-trial-do-2026-09-22.exe";
+const publicTrialZipAssetPath =
+  "/downloads/ScreenMark-v0.9.9.90-public-trial-do-2026-09-22.zip";
 
 export const site = {
   name: "ScreenMark",
@@ -41,6 +43,7 @@ export const site = {
     publicTrialVersion: "0.9.9.90",
     publicTrialExpires: "2026-09-22",
     publicTrialDownloadUrl: `${basePath}${publicTrialAssetPath}`,
+    publicTrialZipDownloadUrl: `${basePath}${publicTrialZipAssetPath}`,
   },
 } as const;
 

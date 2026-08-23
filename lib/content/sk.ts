@@ -346,6 +346,7 @@ export const sk: Copy = {
     subtitle:
       "Prenosné EXE — stiahnite a spustite. Bez inštalácie, bez admin práv, bez internetu.",
     publicTrialButton: "Stiahnuť verejnú skúšobnú verziu",
+    publicTrialZipButton: "Stiahnuť public trial ZIP",
     publicTrialValidity:
       "Verejná skúšobná verzia v{version}, platná do {date}",
     olderVersions: "História vydaní",
