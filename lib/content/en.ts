@@ -50,7 +50,7 @@ export const en: Copy = {
     titleAccent: "Edit everything later.",
     description:
       "Portable screen annotation for engineers. Every arrow, callout and measurement stays editable — with no installation, account or internet.",
-    ctaPrimary: "Download — Portable ZIP",
+    ctaPrimary: "Download public trial",
     ctaSecondary: "See what’s new",
     chips: [
       "Offline",
@@ -343,8 +343,7 @@ export const en: Copy = {
     platform: "Windows 10 & 11 · 64-bit",
     title: "Download ScreenMark",
     subtitle:
-      "Portable ZIP — unzip and run. No installation, no admin rights, no internet.",
-    button: "Download ZIP",
+      "Portable EXE — download and run. No installation, no admin rights, no internet.",
     opmButton: "Download OPM trial",
     publicTrialButton: "Download public trial",
     opmValidity: "OPM trial v{version}, valid through {date}",

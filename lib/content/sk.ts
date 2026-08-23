@@ -51,7 +51,7 @@ export const sk: Copy = {
     titleAccent: "Upravujte kedykoľvek potom.",
     description:
       "Prenosná anotácia pre technikov. Každá šípka, bublina aj kóta zostáva editovateľná — bez inštalácie, účtu a internetu.",
-    ctaPrimary: "Stiahnuť — prenosný ZIP",
+    ctaPrimary: "Stiahnuť verejnú skúšobnú verziu",
     ctaSecondary: "Pozrieť novinky",
     chips: [
       "Offline",
@@ -344,8 +344,7 @@ export const sk: Copy = {
     platform: "Windows 10 a 11 · 64-bit",
     title: "Stiahnuť ScreenMark",
     subtitle:
-      "Prenosný ZIP — rozbaľte a spustite. Bez inštalácie, bez admin práv, bez internetu.",
-    button: "Stiahnuť ZIP",
+      "Prenosné EXE — stiahnite a spustite. Bez inštalácie, bez admin práv, bez internetu.",
     opmButton: "Stiahnuť skúšobnú OPM verziu",
     publicTrialButton: "Stiahnuť verejnú skúšobnú verziu",
     opmValidity: "Skúšobná OPM verzia v{version}, platná do {date}",

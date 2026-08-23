@@ -14,7 +14,6 @@ export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
     version,
     size,
     sha256,
-    downloadUrl,
     opmVersion,
     opmExpires,
     opmDownloadUrl,
@@ -65,21 +64,15 @@ export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
 
             <div className="mt-8 flex flex-wrap justify-center gap-3.5">
               <Button asChild size="lg" className="shadow-[0_8px_24px_rgb(36_111_229/0.35)]">
-                <a href={downloadUrl} download>
+                <a href={publicTrialDownloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
-                  {cta.button} (v{version})
+                  {cta.publicTrialButton} (v{publicTrialVersion})
                 </a>
               </Button>
               <Button asChild size="lg" variant="elevated">
                 <a href={opmDownloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
                   {cta.opmButton}
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="elevated">
-                <a href={publicTrialDownloadUrl} download>
-                  <Download aria-hidden="true" className="size-5" />
-                  {cta.publicTrialButton}
                 </a>
               </Button>
               <Button asChild size="lg" variant="elevated">

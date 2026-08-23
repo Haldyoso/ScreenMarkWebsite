@@ -51,7 +51,7 @@ export const de: Copy = {
     titleAccent: "Alles später bearbeiten.",
     description:
       "Portable Anmerkungen für Ingenieure. Pfeile, Sprechblasen und Maße bleiben bearbeitbar — ohne Installation, Konto oder Internet.",
-    ctaPrimary: "Herunterladen — portables ZIP",
+    ctaPrimary: "Öffentliche Testversion herunterladen",
     ctaSecondary: "Neuigkeiten ansehen",
     chips: [
       "Offline",
@@ -345,8 +345,7 @@ export const de: Copy = {
     platform: "Windows 10 & 11 · 64-Bit",
     title: "ScreenMark herunterladen",
     subtitle:
-      "Portables ZIP — entpacken und starten. Ohne Installation, ohne Adminrechte, ohne Internet.",
-    button: "ZIP herunterladen",
+      "Portable EXE — herunterladen und starten. Ohne Installation, ohne Adminrechte, ohne Internet.",
     opmButton: "OPM-Testversion herunterladen",
     publicTrialButton: "Öffentliche Testversion herunterladen",
     opmValidity: "OPM-Testversion v{version}, gültig bis {date}",

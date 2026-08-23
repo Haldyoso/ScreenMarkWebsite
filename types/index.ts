@@ -207,7 +207,6 @@ export interface Copy {
     platform: string;
     title: string;
     subtitle: string;
-    button: string;
     opmButton: string;
     publicTrialButton: string;
     /** `{version}` and `{date}` describe the time-limited trial build. */

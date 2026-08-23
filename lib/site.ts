@@ -20,8 +20,6 @@
  */
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/ScreenMarkWebsite";
 
-const releaseAssetPath =
-  "/downloads/ScreenMark-v0.9.9.86-win-x64-portable.zip";
 const opmAssetPath =
   "/downloads/ScreenMark-v0.9.9.89-OPM-do-2026-10-22.exe";
 const publicTrialAssetPath =
@@ -37,11 +35,11 @@ export const site = {
   repo: "https://github.com/Haldyoso/ScreenMarkWebsite",
   issuesUrl: "https://github.com/Haldyoso/ScreenMarkWebsite/issues/new",
   release: {
-    version: "0.9.9.86",
-    size: "66.9 MB",
-    sha256: "F57D97D5427DF8CBD6131E3C43B7C36E4BF2E17DCEF543A9EA9360EA71BDFCC3",
-    assetPath: releaseAssetPath,
-    downloadUrl: `${basePath}${releaseAssetPath}`,
+    version: "0.9.9.89",
+    size: "72.7 MB",
+    sha256: "0A366D65233AC26FA6C84550E21552C54989778E191FF59F4B565BE21772ECEA",
+    assetPath: publicTrialAssetPath,
+    downloadUrl: `${basePath}${publicTrialAssetPath}`,
     opmVersion: "0.9.9.89",
     opmExpires: "2026-10-22",
     opmDownloadUrl: `${basePath}${opmAssetPath}`,
