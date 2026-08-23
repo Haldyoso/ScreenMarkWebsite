@@ -23,9 +23,9 @@ export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/ScreenMarkWebsite
 const releaseAssetPath =
   "/downloads/ScreenMark-v0.9.9.86-win-x64-portable.zip";
 const opmAssetPath =
-  "/downloads/ScreenMark-v0.9.9.84-OPM-do-2026-10-21.exe";
+  "/downloads/ScreenMark-v0.9.9.89-OPM-do-2026-10-22.exe";
 const publicTrialAssetPath =
-  "/downloads/ScreenMark-v0.9.9.88-public-trial-do-2026-09-21.exe";
+  "/downloads/ScreenMark-v0.9.9.89-public-trial-do-2026-09-22.exe";
 
 export const site = {
   name: "ScreenMark",
@@ -42,11 +42,11 @@ export const site = {
     sha256: "F57D97D5427DF8CBD6131E3C43B7C36E4BF2E17DCEF543A9EA9360EA71BDFCC3",
     assetPath: releaseAssetPath,
     downloadUrl: `${basePath}${releaseAssetPath}`,
-    opmVersion: "0.9.9.84",
-    opmExpires: "2026-10-21",
+    opmVersion: "0.9.9.89",
+    opmExpires: "2026-10-22",
     opmDownloadUrl: `${basePath}${opmAssetPath}`,
-    publicTrialVersion: "0.9.9.88",
-    publicTrialExpires: "2026-09-21",
+    publicTrialVersion: "0.9.9.89",
+    publicTrialExpires: "2026-09-22",
     publicTrialDownloadUrl: `${basePath}${publicTrialAssetPath}`,
   },
 } as const;
