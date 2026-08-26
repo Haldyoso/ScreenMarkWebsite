@@ -21,9 +21,9 @@
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/ScreenMarkWebsite";
 
 const publicTrialAssetPath =
-  "/downloads/ScreenMark-v0.9.9.92-public-trial-do-2026-09-25.exe";
+  "/downloads/ScreenMark-v0.9.9.93-public-trial-do-2026-09-25.exe";
 const publicTrialZipAssetPath =
-  "/downloads/ScreenMark-v0.9.9.92-public-trial-do-2026-09-25.zip";
+  "/downloads/ScreenMark-v0.9.9.93-public-trial-do-2026-09-25.zip";
 
 export const site = {
   name: "ScreenMark",
@@ -35,12 +35,12 @@ export const site = {
   repo: "https://github.com/Haldyoso/ScreenMarkWebsite",
   issuesUrl: "https://github.com/Haldyoso/ScreenMarkWebsite/issues/new",
   release: {
-    version: "0.9.9.92",
+    version: "0.9.9.93",
     size: "72.7 MB",
-    sha256: "05DFCACB8ED51B8A45139986E6F14ECF6B89B432F335B518E8D89D8797B3C662",
+    sha256: "58C11FFBFC5A65E62BB68A1114BF6D025D5AFD4D7AD23BEA8EB11E7DF41C2980",
     assetPath: publicTrialAssetPath,
     downloadUrl: `${basePath}${publicTrialAssetPath}`,
-    publicTrialVersion: "0.9.9.92",
+    publicTrialVersion: "0.9.9.93",
     publicTrialExpires: "2026-09-25",
     publicTrialDownloadUrl: `${basePath}${publicTrialAssetPath}`,
     publicTrialZipDownloadUrl: `${basePath}${publicTrialZipAssetPath}`,
