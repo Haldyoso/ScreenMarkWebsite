@@ -221,7 +221,7 @@ domain.
 
 ## Release and launch notes
 
-- The only public downloads are the time-limited `0.9.9.93` trial EXE and ZIP. Their version,
+- The only public downloads are the time-limited `0.9.9.94` trial EXE and ZIP. Their version,
   expiry date, byte size and EXE SHA-256 live together in `lib/site.ts`; the same data feeds
   the CTA and JSON-LD.
 - The application repository is private, so public GitHub and issue links target this
