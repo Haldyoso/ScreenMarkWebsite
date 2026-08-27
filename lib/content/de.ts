@@ -312,7 +312,7 @@ export const de: Copy = {
       install: {
         question: "Muss ich etwas installieren?",
         answer:
-          "Nein. ScreenMark ist eine portable Anwendung — Ordner entpacken und die EXE starten. Es braucht kein Installationsprogramm, keine Administratorrechte und keine Eingriffe in die Registry, funktioniert also auch auf gesperrten Firmenrechnern und vom USB-Stick.",
+          "Nein. ScreenMark ist eine portable Anwendung — EXE herunterladen und starten. Es braucht kein Installationsprogramm, keine Administratorrechte und keine Eingriffe in die Registry, funktioniert also auch auf gesperrten Firmenrechnern und vom USB-Stick.",
       },
       editable: {
         question: "Was heißt „alles bleibt bearbeitbar“ genau?",
@@ -347,7 +347,6 @@ export const de: Copy = {
     subtitle:
       "Portable EXE — herunterladen und starten. Ohne Installation, ohne Adminrechte, ohne Internet.",
     publicTrialButton: "Öffentliche Testversion herunterladen",
-    publicTrialZipButton: "Öffentliche Testversion als ZIP",
     publicTrialValidity:
       "Öffentliche Testversion v{version}, gültig bis {date}",
     olderVersions: "Versionsverlauf",

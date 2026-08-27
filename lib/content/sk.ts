@@ -311,7 +311,7 @@ export const sk: Copy = {
       install: {
         question: "Musím niečo inštalovať?",
         answer:
-          "Nie. ScreenMark je prenosná aplikácia — rozbaľte priečinok a spustite súbor .exe. Nepotrebuje inštalátor, práva správcu ani zásahy do registrov, takže funguje aj na zamknutých firemných počítačoch a z USB kľúča.",
+          "Nie. ScreenMark je prenosná aplikácia — stiahnite a spustite súbor .exe. Nepotrebuje inštalátor, práva správcu ani zásahy do registrov, takže funguje aj na zamknutých firemných počítačoch a z USB kľúča.",
       },
       editable: {
         question: "Čo presne znamená „všetko zostáva editovateľné“?",
@@ -346,7 +346,6 @@ export const sk: Copy = {
     subtitle:
       "Prenosné EXE — stiahnite a spustite. Bez inštalácie, bez admin práv, bez internetu.",
     publicTrialButton: "Stiahnuť verejnú skúšobnú verziu",
-    publicTrialZipButton: "Stiahnuť public trial ZIP",
     publicTrialValidity:
       "Verejná skúšobná verzia v{version}, platná do {date}",
     olderVersions: "História vydaní",

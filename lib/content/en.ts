@@ -310,7 +310,7 @@ export const en: Copy = {
       install: {
         question: "Do I need to install anything?",
         answer:
-          "No. ScreenMark is a portable application — unzip the folder and run the executable. It needs no installer, no administrator rights and no registry changes, so it works fine on locked-down corporate machines and from a USB stick.",
+          "No. ScreenMark is a portable application — download and run the executable. It needs no installer, no administrator rights and no registry changes, so it works fine on locked-down corporate machines and from a USB stick.",
       },
       editable: {
         question: "What does “everything stays editable” actually mean?",
@@ -345,7 +345,6 @@ export const en: Copy = {
     subtitle:
       "Portable EXE — download and run. No installation, no admin rights, no internet.",
     publicTrialButton: "Download public trial",
-    publicTrialZipButton: "Download public trial ZIP",
     publicTrialValidity: "Public trial v{version}, valid through {date}",
     olderVersions: "Release history",
     versionLabel: "Version",

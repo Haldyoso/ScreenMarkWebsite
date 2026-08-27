@@ -1,7 +1,7 @@
 # ScreenMark — official website
 
 Marketing site for **ScreenMark**, the portable Windows screen-annotation app whose
-annotations stay fully editable. One conversion goal: download the portable ZIP.
+annotations stay fully editable. One conversion goal: download the public trial EXE.
 Published in English, Slovak and German.
 
 The handoff bundle below still says "ScreenMarkPro" throughout — that was the working name
@@ -221,8 +221,8 @@ domain.
 
 ## Release and launch notes
 
-- The only public downloads are the time-limited `0.9.9.95` trial EXE and ZIP. Their version,
-  expiry date, byte size and EXE SHA-256 live together in `lib/site.ts`; the same data feeds
+- The only public download is the time-limited `0.9.9.96` trial EXE. Its version,
+  expiry date, byte size and SHA-256 live together in `lib/site.ts`; the same data feeds
   the CTA and JSON-LD.
 - The application repository is private, so public GitHub and issue links target this
   website repository. Footer entries without a public destination are omitted.

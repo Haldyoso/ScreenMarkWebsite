@@ -17,7 +17,6 @@ export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
     publicTrialVersion,
     publicTrialExpires,
     publicTrialDownloadUrl,
-    publicTrialZipDownloadUrl,
   } = site.release;
   const cta = copy.downloadCta;
   const publicTrialDate = new Intl.DateTimeFormat(lang, {
@@ -58,12 +57,6 @@ export function DownloadCta({ copy, lang }: { copy: Copy; lang: Lang }) {
                 <a href={publicTrialDownloadUrl} download>
                   <Download aria-hidden="true" className="size-5" />
                   {cta.publicTrialButton} (v{publicTrialVersion})
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="elevated">
-                <a href={publicTrialZipDownloadUrl} download>
-                  <Download aria-hidden="true" className="size-5" />
-                  {cta.publicTrialZipButton}
                 </a>
               </Button>
               <Button asChild size="lg" variant="elevated">
