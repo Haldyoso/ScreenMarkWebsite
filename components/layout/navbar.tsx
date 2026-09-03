@@ -133,10 +133,10 @@ export function Navbar({
             </Button>
 
             <Button asChild size="sm" className="ml-2">
-              <a href={downloadHref}>
+              <Link href={downloadHref}>
                 <Download aria-hidden="true" className="size-4" />
                 {ui.download}
-              </a>
+              </Link>
             </Button>
           </div>
 
@@ -190,13 +190,13 @@ export function Navbar({
                   <LanguageSwitcher current={lang} paths={langPaths} ui={ui} />
                 </div>
 
-                <a
+                <Link
                   href={downloadHref}
                   onClick={() => setMenuOpen(false)}
                   className="mt-3 rounded-md bg-action px-2 py-3.5 text-center font-semibold text-white hover:bg-action-hover active:bg-action-pressed"
                 >
                   {ui.downloadForWindows}
-                </a>
+                </Link>
               </div>
             </m.div>
           )}

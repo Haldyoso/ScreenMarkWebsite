@@ -24,6 +24,9 @@ npm run dev        # http://localhost:3000
 npm run build
 npm run lint
 npm run typecheck
+npm run verify:release
+npm run check:links
+npm test
 ```
 
 Two maintenance scripts, neither part of the build:
@@ -63,6 +66,10 @@ content/      CHANGELOG.md, vendored from the app repo
 Everything is a Server Component except the interactive islands: `Navbar`,
 `ThemeToggle`, `FeatureShowcase`, `Gallery`, `Lightbox` (dynamically imported) and the
 FAQ `Accordion`.
+
+Production launch notes and operational checklists live in [`docs/`](docs/):
+the readiness audit, licensing decisions, release procedure, custom-domain
+migration, and security/analytics guidance.
 
 ## Languages
 

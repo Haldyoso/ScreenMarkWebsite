@@ -24,7 +24,7 @@ export function SectionHeading({
         className,
       )}
     >
-      <p className="mb-3 text-xs font-semibold uppercase tracking-[1px] text-accent">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[1px] text-accent-hover">
         {overline}
       </p>
       <h2 className="text-[clamp(28px,4vw,32px)] font-semibold tracking-[-0.5px]">

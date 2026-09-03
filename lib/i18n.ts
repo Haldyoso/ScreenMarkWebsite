@@ -43,6 +43,14 @@ export function changelogPath(lang: Lang): string {
   return lang === defaultLang ? "/changelog" : `/${lang}/changelog`;
 }
 
+export function privacyPath(lang: Lang): string {
+  return lang === defaultLang ? "/privacy" : `/${lang}/privacy`;
+}
+
+export function termsPath(lang: Lang): string {
+  return lang === defaultLang ? "/terms" : `/${lang}/terms`;
+}
+
 /**
  * Absolute URL for a locale's home page, for canonical/hreflang/sitemap use.
  * `site.url` already carries the basePath on a project site, so this must not

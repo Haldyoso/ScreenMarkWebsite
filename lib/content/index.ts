@@ -3,7 +3,13 @@
  * hands the sections the same array shapes they consumed when the site was
  * English-only. Server-side and pure, so each page pays for it once at build.
  */
-import { changelogPath, homePath, type Lang } from "@/lib/i18n";
+import {
+  changelogPath,
+  homePath,
+  privacyPath,
+  termsPath,
+  type Lang,
+} from "@/lib/i18n";
 import { de } from "@/lib/content/de";
 import { en } from "@/lib/content/en";
 import { sk } from "@/lib/content/sk";
@@ -151,6 +157,8 @@ function buildFooterColumns(lang: Lang, copy: Copy): FooterColumn[] {
         { label: l.faq, href: `${home}#faq` },
         { label: l.changelog, href: changelogPath(lang) },
         { label: l.shortcuts, href: `${home}#shortcuts` },
+        { label: l.privacy, href: privacyPath(lang) },
+        { label: l.terms, href: termsPath(lang) },
       ],
     },
     {

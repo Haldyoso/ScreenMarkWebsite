@@ -38,6 +38,9 @@ jobs:
       # next.config.ts sets output:"export", so this writes out/ instead of
       # starting a server. basePath comes from lib/site.ts.
       - run: npm run build
+      - run: npm run verify:release
+      - run: npm run check:links
+      - run: npm test
 
       - uses: actions/upload-pages-artifact@v3
         with:

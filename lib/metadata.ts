@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 
 import { getCopy } from "@/lib/content";
-import { absoluteUrl, changelogPath, homePath, langs, type Lang } from "@/lib/i18n";
+import {
+  absoluteUrl,
+  changelogPath,
+  homePath,
+  langs,
+  privacyPath,
+  termsPath,
+  type Lang,
+} from "@/lib/i18n";
+import { getLegalCopy, type LegalPageKind } from "@/lib/legal";
 import { site } from "@/lib/site";
 
 /**
@@ -97,6 +106,46 @@ export function changelogMetadata(lang: Lang): Metadata {
       description: copy.changelog.description,
       locale: OG_LOCALES[lang],
       images: [{ url: OG_IMAGES[lang], width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${copy.changelog.title} · ${site.name}`,
+      description: copy.changelog.description,
+      images: [{ url: OG_IMAGES[lang], width: 1200, height: 630 }],
+    },
+    robots: { index: true, follow: true },
+  };
+}
+
+export function legalMetadata(kind: LegalPageKind, lang: Lang): Metadata {
+  const copy = getLegalCopy(kind, lang);
+  const pathFor = kind === "privacy" ? privacyPath : termsPath;
+  const url = absoluteUrl(site.url, pathFor(lang));
+  const title = `${copy.title} · ${site.name}`;
+  const image = { url: OG_IMAGES[lang], width: 1200, height: 630, alt: title };
+
+  return {
+    metadataBase: new URL(site.url),
+    title: copy.title,
+    description: copy.description,
+    alternates: {
+      canonical: url,
+      languages: languageAlternates(pathFor),
+    },
+    openGraph: {
+      type: "website",
+      url,
+      siteName: site.name,
+      title,
+      description: copy.description,
+      locale: OG_LOCALES[lang],
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: copy.description,
+      images: [image],
     },
     robots: { index: true, follow: true },
   };

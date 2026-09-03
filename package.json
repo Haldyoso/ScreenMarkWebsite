@@ -9,6 +9,12 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "test:e2e": "playwright test tests/e2e/smoke.spec.ts",
+    "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
+    "check:links": "node tools/check-links.mjs",
+    "check:links:external": "node tools/check-links.mjs --external",
+    "verify:release": "node tools/verify-release.mjs",
     "sync:changelog": "node tools/sync-changelog.mjs",
     "optimize:screenshots": "node tools/optimize-screenshots.mjs"
   },
@@ -21,21 +27,26 @@
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.24.0",
     "marked": "^16.4.2",
-    "next": "15.5.20",
+    "next": "15.5.25",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "1.62.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.5.20",
+    "eslint-config-next": "15.5.25",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "8.5.26"
   }
 }

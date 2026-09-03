@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
   // Don't advertise the framework version.
   poweredByHeader: false,
 
+  // Multiple locale route groups are independent root layouts. Next cannot
+  // compose their segment-level not-found pages into one exported 404.html,
+  // so use the framework's dedicated global 404 convention.
+  experimental: { globalNotFound: true },
+
   /**
    * The security headers this config used to send (X-Frame-Options, nosniff,
    * Referrer-Policy, Permissions-Policy) are gone on purpose: GitHub Pages

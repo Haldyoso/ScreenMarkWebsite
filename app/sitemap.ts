@@ -1,6 +1,14 @@
 import type { MetadataRoute } from "next";
 
-import { absoluteUrl, changelogPath, homePath, langs, type Lang } from "@/lib/i18n";
+import {
+  absoluteUrl,
+  changelogPath,
+  homePath,
+  langs,
+  privacyPath,
+  termsPath,
+  type Lang,
+} from "@/lib/i18n";
 import { site } from "@/lib/site";
 
 /** No Node server on GitHub Pages — this has to be baked at build time. */
@@ -19,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const lang of langs) {
       languages[lang] = absoluteUrl(site.url, pathFor(lang));
     }
+    languages["x-default"] = absoluteUrl(site.url, pathFor("en"));
     return { languages };
   };
 
@@ -38,5 +47,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     alternates: alternatesFor(changelogPath),
   }));
 
-  return [...home, ...changelog];
+  const legal = [privacyPath, termsPath].flatMap((pathFor) =>
+    langs.map((lang) => ({
+      url: absoluteUrl(site.url, pathFor(lang)),
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+      alternates: alternatesFor(pathFor),
+    })),
+  );
+
+  return [...home, ...changelog, ...legal];
 }

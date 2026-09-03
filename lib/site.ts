@@ -32,6 +32,14 @@ export const site = {
   // point at the website repository so visitors never land on a GitHub 404.
   repo: "https://github.com/Haldyoso/ScreenMarkWebsite",
   issuesUrl: "https://github.com/Haldyoso/ScreenMarkWebsite/issues/new",
+  legal: {
+    // TODO(launch): replace with the legal owner/company details before a
+    // commercial launch. Kept null so the public pages cannot invent an owner.
+    owner: null,
+    // TODO(launch): add a dedicated support/privacy email if GitHub Issues is
+    // not the desired long-term contact channel.
+    supportEmail: null,
+  },
   release: {
     version: "0.9.9.96",
     size: "72.7 MB",

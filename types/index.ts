@@ -321,4 +321,6 @@ export type FooterLinkId =
   | "shortcuts"
   | "github"
   | "license"
+  | "privacy"
+  | "terms"
   | "issues";
